@@ -1,0 +1,25 @@
+{{company.title}}
+{{company.niche}}
+{{company.link}}
+{{company.country_of_res.country}}
+{{company.status}}
+
+{{company.role}}
+{{company.owner.first_name}}
+{{company.owner.last_name}}
+{{company.owner.email}}
+{{company.owner.bio}}
+
+{{company.owner.profile_set.all.0.phone_num}}
+{{company.owner.profile_set.all.0.phone_num_show}}
+
+{% for offer in company.offers_set.all %}
+{{offer.type}}
+{{offer.coupon_price}}
+{{offer.currency}}
+{{retail_price}}
+{{offer.title}}
+{{offer.amount}}
+{% endfor %}
+
+{{ owner }}

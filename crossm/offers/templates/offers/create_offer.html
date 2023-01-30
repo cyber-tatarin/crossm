@@ -1,0 +1,12 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token%}
+{{form}}
+<button class="last-button-add" type="submit" id="upload">
+
+  <p class="button-p">Сохранить</p>
+
+</button>
+</form>
+{% if form.errors %}
+{{form.errors.error}}
+{% endif %}

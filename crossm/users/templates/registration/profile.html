@@ -1,0 +1,17 @@
+{{user.first_name}}
+{{user.last_name}}
+
+{{user.profile_set.all.0.city.city}}
+{{user.profile_set.all.0.bio}}
+
+{{user.email}}
+{{user.profile_set.all.0.phone_num}}
+
+{% for company in user.companies_set.all %}
+{{company.title}}
+{{company.niche}}
+{{company.link}}
+{{company.role}}
+{% endfor %}
+
+{{seen}}
