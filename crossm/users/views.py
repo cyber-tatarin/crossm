@@ -101,21 +101,21 @@ class ProfileView(LoginRequiredMixin, View):
         if request.user.id == s_user:
             owner = 1
 
-        user = User.objects.filter(id=s_user).prefetch_related('companies_set', 'profile_set').all()
+        #user = User.objects.filter(id=s_user).prefetch_related('companies_set', 'profile_set').all()
        # print(user[0].companies_set.all())
 
-        if not user:
-            return redirect('404')
+        #if not user:
+            #return redirect('404')
 
-        seen = LastSeen.objects.when(user=user[0])
+        # seen = LastSeen.objects.when(user=user[0])
 
-        context = {
-            'user': user[0],
-            'owner': owner,
-            'seen': seen
-        }
+        # context = {
+        #     'user': user[0],
+        #     'owner': owner,
+        #     'seen': seen
+        # }
 
-        return render(request, self.template_name, context)
+        #return render(request, self.template_name, context)
 
 
 class ProfileUpdateView(LoginRequiredMixin, View):
