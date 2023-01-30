@@ -18,7 +18,6 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -60,7 +59,6 @@ INSTALLED_APPS = [
     'companies',
     'offers',
 
-
 ]
 
 SITE_ID = 1
@@ -96,15 +94,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crossm.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-load_dotenv(r"E:\Proga\crossm\crossm\crossm\.env")
+load_dotenv(r"E:\Proga\crossm\crossm\crossm\.env")  # GITIGNORE
+
+engine = os.getenv('DB_ENGINE')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': f'django.db.backends.{engine}',
         'NAME': os.getenv('DB_NAME'),
         'HOST': os.getenv('DB_HOST'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
@@ -112,7 +111,6 @@ DATABASES = {
         'USER': os.getenv('DB_USER'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -132,7 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -143,7 +140,6 @@ TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
