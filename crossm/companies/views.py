@@ -29,7 +29,7 @@ class CreateCompanyView(LoginRequiredMixin, View):
             obj.owner = request.user
             obj.country_of_res = Countries.objects.filter(country=data['country_of_res']).first()
             obj.save()
-            return redirect('books:book-view')
+            return redirect(reverse('companies:company-page', kwargs={'pk': obj.pk}))
 
         context = {
             'form': form,

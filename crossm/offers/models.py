@@ -10,7 +10,7 @@ class Offers(models.Model):
     currency = models.CharField(max_length=6)
 
     retail_price = models.DecimalField(decimal_places=2, max_digits=6)
-    title = models.CharField(max_length=40)
+    title = models.CharField(max_length=80)
     amount = models.IntegerField()
 
 

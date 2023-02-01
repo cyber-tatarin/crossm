@@ -14,10 +14,25 @@ def country_choices():
 
 
 class CompanyCreateForm(forms.Form):
-    title = forms.CharField(max_length=60, required=True)
-    niche = forms.CharField(max_length=60, required=True, widget=forms.Select(choices=niche_choices()))
+    title = forms.CharField(max_length=60, required=True, widget=forms.TextInput(attrs={
+        'class': 'input input-620px',
+        'placeholder': 'Введите название компании'
+    }))
+    niche = forms.CharField(max_length=60, required=True, widget=forms.Select(choices=niche_choices(), attrs={
+        'class': 'js-choice',
 
-    country_of_res = forms.CharField(max_length=40, widget=forms.Select(choices=BLANK_CHOICE_DASH + country_choices()))
-    link = forms.CharField(max_length=150)
+    }))
 
-    role = forms.CharField(max_length=60, required=True)
+    country_of_res = forms.CharField(max_length=40, widget=forms.Select(choices=BLANK_CHOICE_DASH + country_choices(),
+                                                                        attrs={
+        'class': 'js-choice'
+    }))
+    link = forms.CharField(max_length=150, widget=forms.URLInput(attrs={
+        'class': 'input input-400px',
+        'placeholder': 'Введите ссылку на сайт'
+    }))
+
+    role = forms.CharField(max_length=60, required=True, widget=forms.TextInput(attrs={
+        'class': 'input input-340px',
+        'placeholder': 'Введите должность'
+    }))
