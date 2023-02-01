@@ -38,7 +38,8 @@
                     Создание предложения
                 </h2>
                 <hr class="hr-solid">
-                <form action="">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="inputs">
                         <div class="inputs-part inputs-part__double">
                             <h3 class="inputs-part__title">Услуга</h3>
@@ -69,7 +70,7 @@
                         <div class="inputs-part inputs-part__double">
                             <h3 class="inputs-part__title">Розничная цена</h3>
                             <div class="inputs-part__div">
-                                {{form.retailprice|attr:"maxlength:10"}}
+                                {{form.retail_price|attr:"maxlength:10"}}
                             </div>
                             <p class="input__comment">Здесь укажите цену услуги при розничной продаже
                         </div>
@@ -124,25 +125,9 @@
                             <p class="input__comment">Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона
                         </div>
                         <div class="inputs-part inputs-part__double">
-                            <h3 class="inputs-part__title">Ниша</h3>
+                            <h3 class="inputs-part__title">Тип предложения</h3>
                             <div class="inputs-part__div">
-                                <select class="js-choice">
-                                    <option value="" selected>Выберите нишу</option>
-                                    <option value="1">Кафе</option>
-                                    <option value="2">Финтес клуб</option>
-                                    <option value="3">Пиццерия</option>
-                                    <option value="4">Реклама</option>
-                                    <option value="5">Салон красоты</option>
-                                    <option value="6">Шаурмичная</option>
-                                    <option value="7">Бургерная</option>
-                                    <option value="8">Кальянная</option>
-                                    <option value="9">Суши-бар</option>
-                                    <option value="10">Интернет-магазин</option>
-                                    <option value="11">Рыбалка</option>
-                                    <option value="12">Пчеловодство</option>
-                                    <option value="13">Медицина</option>
-                                    <option value="14">Маркетинг</option>
-                                </select>
+                                {{form.type}}
                             </div>
                             <div class="bottom-16px"></div>
                             <p class="input__comment">Выберите нишу Вашей компании. Если в списке нет того, что Вам
@@ -158,14 +143,68 @@
                             <p class="button-p">Создать предложение</p>
                         </button>
                     </div>
-                </form></div>
+                </form>
+                {% if form.non_field_errors or form.title.errors or form.amount.errors or form.retail_price.errors or form.coupon_price.errors or form.type.errors or form.image.errors or form.currency.errors %}
+            <div class="error">
+
+                        {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                        <div class="error-item">{{error}}</div>
+                        {% endfor %}
+                        {% endif %}
+
+                        {% if form.title.errors %}
+                            {% for error in form.title.errors %}
+                        <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.amount.errors %}
+                            {% for error in form.amount.errors %}
+                         <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.coupon_price.errors %}
+                            {% for error in form.coupon_price.errors %}
+                          <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.retail_price.errors %}
+                            {% for error in form.retail_price.errors %}
+                        <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.currency.errors %}
+                            {% for error in form.currency.errors %}
+                        <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.type.errors %}
+                            {% for error in form.type.errors %}
+                        <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.image.errors %}
+                            {% for error in form.image.errors %}
+                        <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                    </div>
+                {% endif %}
+            </div>
             </div>
         </div>
         </main>
         <!-- <div class="bottom-margin"></div> -->
-        <script src="../js/file-animation.js"></script>
+        <script src="{% static 'js/file-animation.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
-        <script src="../js/main.js"></script>
+        <script src="{% static 'js/main.js' %}"></script>
     </body>
-
+{% endblock %}
 </html>

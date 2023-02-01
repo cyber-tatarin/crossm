@@ -6,7 +6,7 @@ from companies.models import Companies
 from .models import OffersImages, Offers
 from django.views.generic import DeleteView
 from users.models import User
-from django.http import Http404, JsonResponse
+from django.http import Http404, JsonResponse, HttpResponseForbidden
 from funcy import omit
 from django.dispatch import receiver
 import os
@@ -29,10 +29,11 @@ class CreateOfferView(LoginRequiredMixin, View):
         company_id = kwargs['pk']
         images = request.FILES.getlist('image')
 
+        company = Companies.objects.filter(id=company_id, owner=request.user).first()
+        if not company:
+            raise Http404
+
         if form.is_valid():
-            company = Companies.objects.filter(id=company_id, owner=request.user).first()
-            if not company:
-                redirect('login')
 
             obj = form.save(commit=False)
             obj.company = company

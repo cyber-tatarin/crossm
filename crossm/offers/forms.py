@@ -2,6 +2,19 @@ from django import forms
 from .models import Offers
 
 
+def get_currency_choices():
+    return [
+        ('BYN', 'BYN'),
+        ('RUB', 'RUB')
+    ]
+
+
+TYPE_CHOICES = [
+    ('Товар', 'Товар'),
+    ('Услуга', 'Услуга')
+]
+
+
 class CreateOfferForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.ClearableFileInput(attrs={
         'multiple': True,
@@ -23,7 +36,7 @@ class CreateOfferForm(forms.ModelForm):
                 'class': 'input input-300px',
                 'placeholder': 'Введите цену купона'
             }),
-            'currency': forms.Select(choices=[], attrs={
+            'currency': forms.Select(choices=get_currency_choices(), attrs={
                 'class': 'js-choice',
             }),
             'retail_price': forms.NumberInput(attrs={
@@ -34,8 +47,7 @@ class CreateOfferForm(forms.ModelForm):
                 'class': 'input input-620px',
                 'placeholder': 'Введите количество купонов'
             }),
-            'type': forms.TextInput(attrs={
-                'class': 'input input-620px',
-                'placeholder': 'Введите название услуги'
+            'type': forms.Select(choices=TYPE_CHOICES, attrs={
+                'class': 'js-choice',
             })
         }
