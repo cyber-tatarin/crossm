@@ -27,7 +27,7 @@ SECRET_KEY = get_random_secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'users.User'
 LOGOUT_REDIRECT_URL = '/'
@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'crossm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-load_dotenv(r"/crossm/.env")  # GITIGNORE
+load_dotenv(r"E:\Proga\crossm\crossm\crossm\.env")  # GITIGNORE
 
 engine = os.getenv('DB_ENGINE')
 

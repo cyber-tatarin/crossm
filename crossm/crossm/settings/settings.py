@@ -97,7 +97,9 @@ WSGI_APPLICATION = 'crossm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-load_dotenv(r"E:\Proga\crossm\crossm\crossm\.env")
+load_dotenv(r"C:\Users\HP\Desktop\Crossm\crossm\crossm\crossm\.env")  # GITIGNORE
+
+engine = os.getenv('DB_ENGINE')
 
 DATABASES = {
     'default': {
