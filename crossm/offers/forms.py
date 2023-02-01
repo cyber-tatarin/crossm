@@ -3,7 +3,12 @@ from .models import Offers
 
 
 class CreateOfferForm(forms.ModelForm):
-    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={
+        'multiple': True,
+        'class': 'file-input',
+        'id': 'choose-file-container',
+        'accept': 'image/*'
+    }))
 
     class Meta:
         model = Offers
@@ -14,20 +19,20 @@ class CreateOfferForm(forms.ModelForm):
                 'class': 'input input-620px',
                 'placeholder': 'Введите название услуги'
             }),
-            'coupon_price': forms.DecimalField(decimal_places=2, attrs={
+            'coupon_price': forms.NumberInput(attrs={
                 'class': 'input input-300px',
                 'placeholder': 'Введите цену купона'
             }),
             'currency': forms.Select(choices=[], attrs={
                 'class': 'js-choice',
             }),
-            'retail_price': forms.DecimalField(decimal_places=2, attrs={
+            'retail_price': forms.NumberInput(attrs={
                 'class': 'input input-620px',
                 'placeholder': 'Введите розничную цену'
             }),
-            'amount': forms.TextInput(attrs={
+            'amount': forms.NumberInput(attrs={
                 'class': 'input input-620px',
-                'placeholder': 'Введите название услуги'
+                'placeholder': 'Введите количество купонов'
             }),
             'type': forms.TextInput(attrs={
                 'class': 'input input-620px',

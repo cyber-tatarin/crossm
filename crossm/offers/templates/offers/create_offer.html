@@ -52,7 +52,7 @@
                         <div class="inputs-part inputs-part__double">
                             <h3 class="inputs-part__title">Количество купонов</h3>
                             <div class="inputs-part__div">
-                                <input class="input input-620px " type="text" maxlength="100" placeholder="Выберите количество купонов" required>
+                                {{form.amount|attr:"maxlength:6"}}
                             </div>
                             <p class="input__comment">Напишите желаемое количество купонов для реализации.
                             <br>Точное число или, например ОТ ... или ОТ ... ДО ...
@@ -80,23 +80,14 @@
                             <div class="inputs-part inputs-part__double">
                                 <h3 class="inputs-part__title">Цена купона</h3>
                                 <div class="inputs-part__div">
-                                    {{form.coupon_price}}
+                                    {{form.coupon_price|attr:"maxlength:10"}}
                                 </div>
                                 <p class="input__comment">Здесь укажите цену 1 купона
                             </div>
                             <div class="inputs-part__300px">
                             <h3 class="inputs-part__title">Валюта</h3>
                             <div class="inputs-part__div">
-                                <select class="js-choice">
-                                    <option value="" selected>Введите валюту</option>
-                                    <option value="1">Дмитрий</option>
-                                    <option value="2">Татарин</option>
-                                    <option value="3">USD</option>
-                                    <option value="4">EUR</option>
-                                    <option value="5">RUB</option>
-                                    <option value="6">CNY</option>
-                                    <option value="7">AED</option>
-                                </select>
+                                {{form.currency}}
                             </div>
                             <div class="bottom-16px"></div>
                             <p class="input__comment">Введите валюту
@@ -120,10 +111,10 @@
                         <div class="inputs-part inputs-part__double">
                             <h3 class="inputs-part__title">Фото купонов</h3>
                             <div class="inputs-part__div">
-                                <div class="file-form" method="post">
+                                <div class="file-form">
                                     <div class="choose-file-container input-620px-single">
                                         <label class="choose-file-button" id="test">
-                                            <input name="file" class="file-input" type="file" id="choose-file-container" accept="image/jpeg,image/png,image/gif" multiple>
+                                            {{form.image}}
                                             <span class="button-file">Выбрать файлы</span>
                                         </label>
                                     </div>
