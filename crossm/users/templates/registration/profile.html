@@ -38,6 +38,8 @@
                                 <span class="profile-user__city__name">
                                     {% if user.profile_set.all.0.city.city %}
                                     {{user.profile_set.all.0.city.city}}
+                                    {% else %}
+                                    -
                                     {% endif %}
                                 </span>
                             </div>
@@ -157,6 +159,8 @@
                                 <span class="profile-user__city__name">
                                     {% if user.profile_set.all.0.city.city %}
                                     {{user.profile_set.all.0.city.city}}
+                                    {% else %}
+                                    -
                                     {% endif %}
                                 </span>
                             </div>

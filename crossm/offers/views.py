@@ -117,7 +117,8 @@ class MyOffersPageView(LoginRequiredMixin, View):
     template_name = 'offers/my_offers.html'
 
     def get(self, request, **kwargs):
-        objects = Companies.objects.filter(owner=request.user).prefetch_related('offers_set').all()
+        objects = Companies.objects.filter(owner=request.user).prefetch_related('offers_set',
+                                                                                'owner__profile_set').all()
         context = {
             'objects': objects
         }

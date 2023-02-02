@@ -1,19 +1,164 @@
-{% for company in objects %}
-{{company.title}}
-{% for offer in company.offers_set.all %}
-<p id="offer-{{offer.id}}">
-{{offer.title}}
-</p>
-<button id="button-{{offer.id}}" class="btn btn-danger form-control" onclick="deleteUser({{offer.id}})">DELETE</button>
-{% endfor %}
-{% endfor %}
-<head>
-        <script src=
-"https://code.jquery.com/jquery-3.6.0.min.js">
-    </script>
-</head>
-<body>
-<script>
+<!--{% for company in objects %}-->
+<!--{{company.title}}-->
+<!--{% for offer in company.offers_set.all %}-->
+<!--<p id="offer-{{offer.id}}">-->
+<!--{{offer.title}}-->
+<!--</p>-->
+<!--<button id="button-{{offer.id}}" class="btn btn-danger form-control" onclick="deleteUser({{offer.id}})">DELETE</button>-->
+<!--{% endfor %}-->
+<!--{% endfor %}-->
+
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>Document</title>
+    </head>
+    <body>
+
+    {% include "base.html" %}
+    {% block content %}
+
+        <main class="main">
+            <div class="container-padding">
+            <div class="card-container">
+
+                <div class="all-companies">
+                    {% for company in objects %}
+                    <span id="{{company.id}}" class="company">{{company.title}}</span>
+                    {% endfor %}
+                </div>
+
+                <a href="{% url 'companies:create-company' %}" class="add-offer">Добавить предложение</a>
+                <div class="pop-up">
+                    <div class="pop-up-arrow"></div>
+                    <p class="p-pop-up">Пожалуйста, выберите компанию, от лица которой Вы хотите создать предложение</p>
+                </div>
+
+
+
+                <div class="grid">
+                <div class="grid-sizer"></div>
+                <div class="gutter-sizer"></div>
+
+                    {% for company in objects %}
+                    {% for offer in company.offers_set.all %}
+
+                <div class="company-card grid-item">
+                    <div class="company-card-top">
+                        <div class="company-card-logo"></div>
+                        <p class="company-card-name">{{company.title}}</p>
+                    </div>
+                    <hr class="card-hr-solid">
+                    <div class="company-card-main">
+                        <div class="company-content-left">
+                            <div class="">
+                                <p class="company-key">Ниша</p>
+                                <p class="company-value">{{offer.company.niche}}</p>
+                                <p class="company-key">Услуга</p>
+                                <p class="company-value no-bottom">{{offer.title}}</p>
+
+                            </div>
+                        </div>
+                        <!-- <div class="hr-solid-vertical"></div> -->
+                        <div class="company-content-right">
+                            <div class="flex-content-no-gap">
+                                <div class="">
+                                <p class="company-key">Количество купонов</p>
+                                <p class="company-value">{{offer.amount}}</p>
+                                </div>
+                                <div class="">
+                                <p class="company-key">Розничная цена</p>
+                                <p class="company-value no-bottom">{{offer.retail_price}} {{offer.currency}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="card-hr-solid">
+
+                    <div class="company-card-main company-card-main-bottom">
+                        <div class="company-content-left">
+                            <div class=>
+                                <p class="company-key">Цена купона</p>
+                                <p class="company-value no-bottom">{{offer.coupon_price}} {{offer.currency}}</p>
+
+                            </div>
+                        </div>
+                        <!-- <div class="hr-solid-vertical"></div> -->
+                        <div class="company-content-right">
+                            <div class="flex-content-no-gap">
+                                <button style="margin-top: -2px; max-width: 150px;" class="button">
+                                    <p class="button-p">Посмотреть вложения</p>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr class="card-hr-solid ">
+
+                    <div class="company-card-main">
+                        <div class="company-content-left">
+                            <div class="">
+                                <p class="contacts">Контакты</p>
+                                <div class="contacts-flex">
+                                    <p class="contacts-mail">{{offer.company.owner.email}}</p>
+                                    {% if company.owner.profile_set.all.0.phone_num_show %}
+                                    <p class="contacts-phone">{{company.owner.profile_set.all.0.phone_num}}</p>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- <div class="hr-solid-vertical"></div> -->
+                        <div class="company-content-right">
+                            <div class="flex-content-no-gap">
+                                <div class="">
+                                    <p class="contacts-name">{{offer.company.owner.first_name}} {{offer.company.owner.last_name}}</p>
+                                    <p class="contacts-proffesion">— ({{offer.company.role}})</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="hr-solid">
+                    <div class="company-card-buttons">
+                        <button class="button button-282px">
+                            <p class="button-p">Посмотреть вложения</p>
+                        </button>
+                        <button class="button button-282px">
+                            <p class="button-p">Редактировать предложение</p>
+                        </button>
+                    </div>
+                </div>
+
+                    {% endfor %}
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        </main>
+
+            {% include "footer.html" %}
+
+        <!-- <div class="bottom-margin"></div> -->
+        <script src="{% static 'js/sort-companies.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+<!--        <script src="../test.js"></script>-->
+
+    <script>
 function deleteUser(id)
 {
   var action = confirm("Are you sure you want to delete this user?");
@@ -37,4 +182,9 @@ function deleteUser(id)
   }
 }
 </script>
-</body>
+
+    </body>
+{% endblock %}
+</html>
+
+
