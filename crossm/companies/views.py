@@ -5,7 +5,7 @@ from .forms import CompanyCreateForm
 from .models import Companies, Countries
 from funcy import omit
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, JsonResponse
 
 
 class CreateCompanyView(LoginRequiredMixin, View):
@@ -61,15 +61,12 @@ class CompanyPageView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
-class DeleteCompanyView(LoginRequiredMixin, DeleteView):
-    template_name = 'companies/delete_company.html'
+class DeleteCompanyView(LoginRequiredMixin, View):
 
-    def get_queryset(self):
-        queryset = Companies.objects.filter(id=self.kwargs.get('pk'), owner=self.request.user)
-        return queryset
-
-    def get_success_url(self):
-        return reverse('view-profile', kwargs={'pk': self.request.user.id})
+    def post(self, request, **kwargs):
+        obj = get_object_or_404(Companies, id=request.POST.get('id'), owner=request.user)
+        obj.delete()
+        return JsonResponse({'success': True})
 
 
 class UpdateCompanyView(LoginRequiredMixin, View):

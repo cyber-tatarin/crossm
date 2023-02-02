@@ -1,12 +1,164 @@
-<form method="post">
-    {% csrf_token%}
-{{form}}
-<button class="last-button-add" type="submit" id="upload">
+<!--<form method="post">-->
+<!--    {% csrf_token%}-->
+<!--{{form}}-->
+<!--<button class="last-button-add" type="submit" id="upload">-->
 
-                        <p class="button-p">Сохранить</p>
+<!--                        <p class="button-p">Сохранить</p>-->
 
-                    </button>
-    </form>
-{% if form.errors  %}
-{{form.errors.error}}
-{% endif %}
+<!--                    </button>-->
+<!--    </form>-->
+<!--{% if form.errors  %}-->
+<!--{{form.errors.error}}-->
+<!--{% endif %}-->
+
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <title>Document</title>
+    </head>
+    <body>
+
+    {% include "base.html" %}
+    {% block content %}
+
+        <main>
+            <div class="container-padding">
+            <div class="container">
+                <h2 class="main-title">
+                    Редактирование компании
+                </h2>
+                <hr class="hr-solid">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="inputs">
+                        <div class="inputs-part inputs-part__double">
+                            <h3 class="inputs-part__title">Название компании</h3>
+                            <div class="inputs-part__div">
+                                {{form.title|attr:"maxlength:28"}}
+                            </div>
+                            <p class="input__comment">Напишите, как называется Ваша компания. Пользователям будет удобно,
+                            <br>если Вы укажете тип Вашего юридического лица в начале
+
+                        </div>
+                        <div class="inputs-part inputs-part__double">
+                            <h3 class="inputs-part__title">Ниша</h3>
+                            <div class="inputs-part__div">
+                                {{form.niche}}
+                            </div>
+                            <div class="bottom-16px"></div>
+                            <p class="input__comment">Выберите нишу Вашей компании. Если в списке нет того, что Вам
+                            <br>нужно, выберите наиболее подходящую
+                        </div>
+                    </div>
+                    <div class="line">
+                        <hr class="line__dashed line__dashed-620">
+                        <hr class="line__dashed line__dashed-620">
+                    </div>
+
+                    <div class="inputs">
+                        <div class="inputs-part inputs-part__double">
+                            <div class="inputs-part__double-flex">
+                            <div class="inputs-part__260px">
+                            <h3 class="inputs-part__title">Страна</h3>
+                            <div class="inputs-part__div">
+                                {{form.country_of_res}}
+                            </div>
+                            <div class="bottom-16px"></div>
+                            <p class="input__comment">Выберите страну, в которой
+                                <br>зарегистрирована Ваша компания
+                            </div>
+                            <div class="inputs-part inputs-part__right40">
+                                <h3 class="inputs-part__title">Ваша должность</h3>
+                                <div class="inputs-part__div">
+                                    {{form.role|attr:"maxlength:20"}}
+                                </div>
+                                <p class="input__comment">Укажите Вашу должность в компании.
+                                    <br>Позже это можно редактировать
+                            </div>
+                        </div>
+                        </div>
+                        <div class="inputs-part inputs-part__double">
+                            <h3 class="inputs-part__title">Ссылка на сайт</h3>
+                            <div class="inputs-part__div">
+                                {{form.link|attr:"maxlength:150"}}
+                            </div>
+                            <p class="input__comment">Оставьте здесь ссылку на сайт
+                                <br>или на социальную сеть
+                        </div>
+                    </div>
+                    <div class="line line__bottom">
+                    <div class="left-hr">
+                        <hr class="line__dashed line__dashed-260">
+                        <hr class="line__dashed line__dashed-340-2">
+                    </div>
+                        <hr class="line__dashed line__dashed-620">
+                    </div>
+                    <div class="button-submit">
+                        <button class="button" type="submit">
+                            <p class="button-p">Зарегистрироваться</p>
+                        </button>
+                    </div>
+                </form>
+
+                {% if form.non_field_errors or form.title.errors or form.niche.errors or form.country_of_res.errors or form.link.errors or form.role.errors %}
+                <div class="error">
+
+                        {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                        {{error}}
+                        {% endfor %}
+                        {% endif %}
+
+                        {% if form.title.errors %}
+                            {% for error in form.title.errors %}
+                            {{error}}
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.niche.errors %}
+                            {% for error in form.niche.errors %}
+                            {{error}}
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.country_of_res.errors %}
+                            {% for error in form.country_of_res.errors %}
+                            {{error}}
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.link.errors %}
+                            {% for error in form.link.errors %}
+                            {{error}}
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.role.errors %}
+                            {% for error in form.role.errors %}
+                            {{error}}
+                            {% endfor %}
+                            {% endif %}
+
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+        </main>
+            {% include "footer.html" %}
+        <!-- <div class="bottom-margin"></div> -->
+        <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+{% endblock %}
+</html>

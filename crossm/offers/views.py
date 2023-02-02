@@ -6,7 +6,7 @@ from companies.models import Companies
 from .models import OffersImages, Offers
 from django.views.generic import DeleteView
 from users.models import User
-from django.http import Http404, JsonResponse, HttpResponseForbidden
+from django.http import Http404, JsonResponse, HttpResponse
 from funcy import omit
 from django.dispatch import receiver
 import os
@@ -49,20 +49,13 @@ class CreateOfferView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
-class DeleteOfferView(LoginRequiredMixin, DeleteView):
-    template_name = 'offers/delete_offer.html'
-
-    def get_object(self, queryset=None):
-        obj = get_object_or_404(Offers, id=self.request.POST.get('id'))
-        if obj.company.owner == self.request.user:
-            return obj
-        raise Http404
-
-    def get_success_url(self):
-        return reverse('view-profile', kwargs={'pk': self.request.user.id})
-
-    def get_context_data(self, **kwargs):
-        data = {'deleted': True}
+class DeleteOfferView(LoginRequiredMixin, View):
+    def post(self, request, **kwargs):
+        obj = get_object_or_404(Offers, id=request.POST.get('id'))
+        if obj.company.owner != self.request.user:
+            raise Http404
+        obj.delete()
+        data = {'deleted': True, 'success': True}
         return JsonResponse(data)
 
 
@@ -104,10 +97,11 @@ class UpdateOfferView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
-def delete_image_fun(request, id):
-    post = OffersImages.objects.get(id=id)
-    post.delete()
-    return JsonResponse({'success': True, 'message': 'Delete', 'id': id})
+class OfferImageDeleteView(LoginRequiredMixin, View):
+    def get(self, request, **kwargs):
+        post = get_object_or_404(OffersImages, id=request.GET.get('id'))
+        post.delete()
+        return JsonResponse({'success': True})
 
 
 @receiver(post_delete, sender=OffersImages)
@@ -129,6 +123,7 @@ class MyOffersPageView(LoginRequiredMixin, View):
         }
         return render(request, self.template_name, context)
 
+
 """
 class CatalogPageView(View):
     template_name = 'offers/catalog.html'
@@ -137,17 +132,3 @@ class CatalogPageView(View):
 
 
 """
-
-
-
-
-
-
-
-
-
-
-
-
-
-

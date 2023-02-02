@@ -135,6 +135,9 @@
                         <hr class="line__dashed line__dashed-620">
                         <hr class="line__dashed line__dashed-620">
                     </div>
+
+                    <output></output>
+
                     <div class="button-submit">
                         <button class="button" type="submit">
                             <p class="button-p">Создать предложение</p>
@@ -198,12 +201,56 @@
 
             </div>
             </div>
-        </div>
+
         </main>
+            {% include "footer.html" %}
         <!-- <div class="bottom-margin"></div> -->
         <script src="{% static 'js/file-animation.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
         <script src="{% static 'js/main.js' %}"></script>
+
+    <script>
+
+const output = document.querySelector("output");
+const input = document.getElementById("choose-file-container");
+let imagesArray = [];
+
+function displayImages() {
+  let images = "";
+  imagesArray.forEach((image, index) => {
+       images += `<div class="image">
+                <img src="${URL.createObjectURL(image)}" alt="image">
+                <span onclick="deleteImage(${index})">&times;</span>
+              </div>`;
+  })
+  output.innerHTML = images;
+};
+
+function deleteImage(index) {
+  const dt = new DataTransfer()
+  const input = document.getElementById('choose-file-container')
+  const { files } = input
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i]
+    if (index !== i)
+      dt.items.add(file) // here you exclude the file. thus removing it.
+  }
+
+  input.files = dt.files // Assign the updates list
+  imagesArray.splice(index, 1)
+  displayImages();
+};
+
+input.addEventListener("change", () => {
+const files = input.files;
+ for (let i = 0; i < files.length; i++) {
+    imagesArray.push(files[i]);
+    }
+    displayImages();
+});
+
+</script>
     </body>
 {% endblock %}
 </html>

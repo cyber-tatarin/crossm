@@ -12,7 +12,7 @@ class Companies(models.Model):
     niche = models.CharField(max_length=60, null=False, blank=False)
 
     country_of_res = models.ForeignKey(Countries, on_delete=models.SET_NULL, null=True, blank=True)
-    link = models.TextField()
+    link = models.TextField(blank=True, null=True)
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=60, null=False, blank=False)

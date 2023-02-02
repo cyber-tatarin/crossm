@@ -27,7 +27,7 @@ class CompanyCreateForm(forms.Form):
                                                                         attrs={
         'class': 'js-choice'
     }))
-    link = forms.CharField(max_length=150, widget=forms.URLInput(attrs={
+    link = forms.CharField(max_length=150, required=False, widget=forms.URLInput(attrs={
         'class': 'input input-400px',
         'placeholder': 'Введите ссылку на сайт'
     }))
