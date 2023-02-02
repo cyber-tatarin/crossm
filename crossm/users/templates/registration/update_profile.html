@@ -1,12 +1,188 @@
-<form method="post">
-    {% csrf_token%}
-{{form}}
-<button class="last-button-add" type="submit" id="upload">
+<!--<form method="post">-->
+<!--    {% csrf_token%}-->
+<!--{{form}}-->
+<!--<button class="last-button-add" type="submit" id="upload">-->
 
-                        <p class="button-p">Зарегистрироваться</p>
+<!--                        <p class="button-p">Зарегистрироваться</p>-->
 
-                    </button>
-    </form>
-{% if form.errors  %}
-{{form.errors.error}}
-{% endif %}
+<!--                    </button>-->
+<!--    </form>-->
+<!--{% if form.errors  %}-->
+<!--{{form.errors.error}}-->
+<!--{% endif %}-->
+
+<!--<form method="post">-->
+<!--    {% csrf_token%}-->
+<!--{{form}}-->
+<!--<button class="last-button-add" type="submit" id="upload">-->
+
+<!--                        <p class="button-p">Сохранить</p>-->
+
+<!--                    </button>-->
+<!--    </form>-->
+<!--{% if errors.phone_num  %}-->
+<!--{{errors.phone_num.0}}-->
+<!--{% endif %}-->
+
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <title>Document</title>
+    </head>
+    <body>
+
+    {% include "base.html" %}
+    {% block content %}
+
+        <main>
+            <div class="container-padding">
+            <div class="container">
+                <h2 class="main-title">
+                    Заполнение информации
+                </h2>
+                <hr class="hr-solid">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="inputs">
+                        <div class="inputs-part inputs-part__double">
+                            <h3 class="inputs-part__title">Имя</h3>
+                            <div class="inputs-part__div">
+                                {{form.first_name|attr:"maxlength:16"}}
+                            </div>
+
+                            <p class="input__comment">Имя будет отображаться в профиле. Его будут видеть все пользователи
+                        </div>
+
+                        <div class="inputs-part inputs-part__double">
+                            <h3 class="inputs-part__title">Фамилия</h3>
+                            <div class="inputs-part__div">
+                                {{form.last_name|attr:"maxlength:20"}}
+                            </div>
+
+                            <p class="input__comment">Фамилия так же отображается в профиле
+                        </div>
+
+                    </div>
+                    <div class="line">
+                        <hr class="line__dashed line__dashed-620">
+                        <hr class="line__dashed line__dashed-620">
+                    </div>
+
+                    <div class="inputs">
+                        <div class="inputs-part inputs-part__double">
+                            <h3 class="inputs-part__title">Номер телефона</h3>
+                            <div class="inputs-part__div-flex">
+                                <div class="phone-input__left">
+                                    {{form.phone_num|attr:"maxlength:18"}}
+                            </div>
+                                <div class="phone-input__right">
+                                    <label class="label">
+                                        {{form.phone_num_show}}
+                                        <span class="check-style"></span>
+                                        <span class="check-text">Отображать в профиле для связи</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="input__comment">Номер телефона будет отображаться
+                            <br>в профиле и в карточке компании</p>
+                            <hr class="line__dashed line__dashed-620">
+                            <h3 class="inputs-part__title">Ваш город</h3>
+                            <div class="inputs-part__div">
+                                {{form.city}}
+                            </div>
+                            <div class="bottom-16px"></div>
+                            <p class="input__comment">Если в списке нет Вашего города,
+                            <br>выберите ближайший областной центр</p>
+                        </div>
+                        <div class="inputs-part inputs-part__double">
+                            <div class="book-attributes">
+                                <p class="inputs-part__title">Комментарий в профиль (необязательно)</p>
+                                <div class="add-book-description">
+                                    {{form.bio|attr:"maxlength:500"}}
+                                </div>
+                                <p class="input__comment">Здесь Вы можете написать предпочтительное время для связи. Можете так же указать удобный мессенджер или написать что-то полезное или смешное :)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line__bottom-12px">
+                        <hr class="line__dashed line__dashed-620">
+                        <hr class="line__dashed line__dashed-620">
+                    </div>
+
+                    <div class="button-submit">
+                        <button class="button" type="submit">
+                            <p class="button-p">Зарегистрироваться</p>
+                        </button>
+                    </div>
+                </form>
+
+                {% if form.non_field_errors or form.phone_num.errors or form.phone_num_show.errors or form.bio.errors or form.first_name.errors or form.last_name.errors or form.city.errors %}
+                <div class="error">
+
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.first_name.errors %}
+                    {% for error in form.first_name.errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.last_name.errors %}
+                    {% for error in form.last_name.errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.phone_num.errors %}
+                    {% for error in form.phone_num.errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.phone_num_show.errors %}
+                    {% for error in form.phone_num_show.errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.city.errors %}
+                    {% for error in form.city.errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.bio.errors %}
+                    {% for error in form.bio.errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+        </main>
+        <!-- <div class="bottom-margin"></div> -->
+        <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+
+{% endblock %}
+</html>
+

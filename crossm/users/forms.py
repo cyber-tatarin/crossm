@@ -82,17 +82,34 @@ class ProfileInfoForm(forms.Form):
 
     def clean_phone_num(self):
         cleaned_phone_num = self.cleaned_data['phone_num']
-        if Profile.objects.all().filter(phone_num=cleaned_phone_num):
+        if Profile.objects.filter(phone_num=cleaned_phone_num).first():
             raise forms.ValidationError(
                 "Этот номер телефона уже зарегистрирован")
         return cleaned_phone_num
 
 
 class ProfileUpdateForm(ProfileInfoForm):
-    first_name = forms.CharField(max_length=60, required=True)
-    last_name = forms.CharField(max_length=60, required=True)
+
+    def __init__(self, user_id_check, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user_id_check = user_id_check
+
+    first_name = forms.CharField(max_length=60, required=True, widget=forms.TextInput(attrs={
+        'class': 'input input-620px',
+        'placeholder': 'Введите имя'
+    }))
+    last_name = forms.CharField(max_length=60, required=True, widget=forms.TextInput(attrs={
+        'class': 'input input-620px',
+        'placeholder': 'Введите фамилию'
+    }))
 
     def clean_phone_num(self):
+        cleaned_phone_num = self.cleaned_data['phone_num']
+        obj = Profile.objects.filter(phone_num=cleaned_phone_num).first()
+        if obj:
+            if obj.user.id != self.user_id_check:
+                raise forms.ValidationError(
+                    "Этот номер телефона уже зарегистрирован на другого пользователя")
         return self.cleaned_data['phone_num']
 
 

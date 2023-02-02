@@ -128,7 +128,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         profile = get_object_or_404(Profile, user=request.user)
 
         context = {
-            'form': ProfileUpdateForm(initial={
+            'form': ProfileUpdateForm(request.user.id, initial={
                 'phone_num': profile.phone_num,
                 'phone_num_show': profile.phone_num_show,
                 'bio': profile.bio,
@@ -141,7 +141,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request):
-        form = ProfileUpdateForm(request.POST)
+        form = ProfileUpdateForm(request.user.id, request.POST)
 
         if form.is_valid():
             data = form.cleaned_data

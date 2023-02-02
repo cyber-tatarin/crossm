@@ -1,5 +1,6 @@
 from django import forms
 from .models import Offers
+from django.db.models.fields import BLANK_CHOICE_DASH
 
 
 def get_currency_choices():
@@ -16,7 +17,7 @@ TYPE_CHOICES = [
 
 
 class CreateOfferForm(forms.ModelForm):
-    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={
+    image = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={
         'multiple': True,
         'class': 'file-input',
         'id': 'choose-file-container',
@@ -36,7 +37,7 @@ class CreateOfferForm(forms.ModelForm):
                 'class': 'input input-300px',
                 'placeholder': 'Введите цену купона'
             }),
-            'currency': forms.Select(choices=get_currency_choices(), attrs={
+            'currency': forms.Select(choices=BLANK_CHOICE_DASH + get_currency_choices(), attrs={
                 'class': 'js-choice',
             }),
             'retail_price': forms.NumberInput(attrs={
@@ -47,7 +48,7 @@ class CreateOfferForm(forms.ModelForm):
                 'class': 'input input-620px',
                 'placeholder': 'Введите количество купонов'
             }),
-            'type': forms.Select(choices=TYPE_CHOICES, attrs={
+            'type': forms.Select(choices=BLANK_CHOICE_DASH + TYPE_CHOICES, attrs={
                 'class': 'js-choice',
             })
         }

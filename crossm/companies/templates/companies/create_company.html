@@ -110,48 +110,48 @@
                     </div>
                 </form>
 
-                <p>
+                {% if form.non_field_errors or form.title.errors or form.niche.errors or form.country_of_res.errors or form.link.errors or form.role.errors %}
+                <div class="error">
+
                         {% if form.non_field_errors %}
                         {% for error in form.non_field_errors %}
                         {{error}}
                         {% endfor %}
                         {% endif %}
-                </p>
-                <p>
+
                         {% if form.title.errors %}
                             {% for error in form.title.errors %}
                             {{error}}
                             {% endfor %}
                             {% endif %}
-                </p>
-                <p>
+
                         {% if form.niche.errors %}
                             {% for error in form.niche.errors %}
                             {{error}}
                             {% endfor %}
                             {% endif %}
-                </p>
-                <p>
+
                         {% if form.country_of_res.errors %}
                             {% for error in form.country_of_res.errors %}
                             {{error}}
                             {% endfor %}
                             {% endif %}
-                </p>
-                <p>
+
                         {% if form.link.errors %}
                             {% for error in form.link.errors %}
                             {{error}}
                             {% endfor %}
                             {% endif %}
-                </p>
-                <p>
+
                         {% if form.role.errors %}
                             {% for error in form.role.errors %}
                             {{error}}
                             {% endfor %}
                             {% endif %}
-                </p>
+
+                </div>
+                {% endif %}
+
             </div>
         </div>
         </main>

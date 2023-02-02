@@ -93,34 +93,43 @@
                         </button>
                     </div>
                 </form>
-                <p>
-                        {% if form.non_field_errors %}
-                        {% for error in form.non_field_errors %}
-                        {{error}}
-                        {% endfor %}
-                        {% endif %}
-                </p>
-                <p>
-                        {% if form.phone_num.errors %}
-                            {% for error in form.phone_num.errors %}
-                            {{error}}
-                            {% endfor %}
-                            {% endif %}
-                </p>
-                <p>
-                        {% if form.phone_num_show.errors %}
-                            {% for error in form.phone_num_show.errors %}
-                            {{error}}
-                            {% endfor %}
-                            {% endif %}
-                </p>
-                <p>
-                        {% if form.bio.errors %}
-                            {% for error in form.bio.errors %}
-                            {{error}}
-                            {% endfor %}
-                            {% endif %}
-                </p>
+
+                {% if form.non_field_errors or form.phone_num.errors or form.phone_num_show.errors or form.bio.errors or form.city.errors %}
+                <div class="error">
+
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.phone_num.errors %}
+                    {% for error in form.phone_num.errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.phone_num_show.errors %}
+                    {% for error in form.phone_num_show.errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.city.errors %}
+                    {% for error in form.city.errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if form.bio.errors %}
+                    {% for error in form.bio.errors %}
+                    <div class="error-item">{{error}}</div>
+                    {% endfor %}
+                    {% endif %}
+
+                </div>
+                {% endif %}
+
             </div>
         </div>
         </main>

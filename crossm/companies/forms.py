@@ -18,7 +18,7 @@ class CompanyCreateForm(forms.Form):
         'class': 'input input-620px',
         'placeholder': 'Введите название компании'
     }))
-    niche = forms.CharField(max_length=60, required=True, widget=forms.Select(choices=niche_choices(), attrs={
+    niche = forms.CharField(max_length=60, required=True, widget=forms.Select(choices=BLANK_CHOICE_DASH + niche_choices(), attrs={
         'class': 'js-choice',
 
     }))

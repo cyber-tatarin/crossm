@@ -29,7 +29,7 @@ function deleteUser(id)
         dataType: 'json',
         success: function (data) {
             if (data.deleted) {
-              $("#offer-" + id).remove();
+              document.getElementById("offer-" + id).remove();
             }
         },
         type: "POST",
