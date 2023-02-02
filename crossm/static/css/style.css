@@ -70,6 +70,7 @@ body{
     padding: 0px 48px 50px 48px;
     border-radius: 50px;
     background-color: #FCFCFC;
+    overflow: hidden scroll;
 }
 
 .container-hr {
@@ -206,7 +207,7 @@ input{
     font-size: 12px;
     line-height: 15px;
     margin: auto;
-    box-shadow: none;
+    box-shadow: none; 
     padding-left: 28px;
     margin-bottom: 16px;
 }
@@ -349,7 +350,7 @@ input{
 
 .line__dashed-620-single{
     width: calc(50% - 20px);
-    max-width: 620px;
+    max-width: 620px; 
 }
 
 .input-620px-single{
@@ -392,13 +393,13 @@ input{
 
 .hr-solid{
     border-top: 4px solid rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
+    border-radius: 2px; 
     margin-bottom: 32px;
 }
 
 .hr-solid-arrow {
     border-top: 2px solid rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
+    border-radius: 2px; 
 }
 
 
@@ -589,7 +590,7 @@ button:hover{
     transition: 0.3s ease-out;
     width: 20px;
     margin-top: -4px;
-    margin-right: 18px;
+    margin-right: 16px;
     height: 10px;
     background-repeat: no-repeat;
     background-image: url(../images/arrow.svg);
@@ -600,7 +601,7 @@ button:hover{
     width: 20px;
     height: 10px;
     margin-top: -4px;
-    margin-right: 18px;
+    margin-right: 16px;
     background-repeat: no-repeat;
     transform: rotateX(180deg);
     background-image: url(../images/arrow.svg);
@@ -691,7 +692,7 @@ button:hover{
     font-size: 12px;
     line-height: 15px;
     border: 2px solid #000000;
-
+    
 }
 
 .is-open .choices__list--dropdown{
@@ -735,7 +736,7 @@ button:hover{
     max-width: 620px;
     background-color: #FCFCFC;
     height: 52px;
-    border-radius: 18px;
+    border-radius: 18px;  
     border: 2px solid #000000;
 }
 
@@ -886,7 +887,7 @@ button:hover{
 .profile-user__city__name, .company-link, .company-value {
     font-weight: 600;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 16px;  
 }
 
 .flex-32 {
@@ -901,11 +902,11 @@ button:hover{
 }
 
 .city-info{
-   margin-bottom: 24px;
+   margin-bottom: 24px; 
 }
 
 .city-info-small{
-    margin-bottom: 12px;
+    margin-bottom: 12px; 
  }
 
  .info-flex {
@@ -913,7 +914,7 @@ button:hover{
     align-items: center;
     justify-content: space-between;
  }
-
+ 
 .profile-user__buttons {
     display: flex;
     gap: 16px;
@@ -1186,6 +1187,15 @@ button:hover{
     background-repeat: no-repeat;
 }
 
+/* .card-container{
+    gap: 20px;
+    display: grid;
+    align-items: start;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    column-count: 2;
+} */
+
 .card-container {
     max-width: 1410px;
     margin: 0 auto;
@@ -1263,12 +1273,12 @@ button:hover{
     transition: 0.3s ease-out;
     width: fit-content;
     position: relative;
-    color: #4C4C4C;
+    color: #7E7E7E;
     font-weight: 700;
     font-size: 12px;
     line-height: 13px;
     /* text-decoration-line: underline; */
-    border-bottom: 3px solid #0500FF;
+    border-bottom: 3px solid #807EFD;
     /* border-bottom-left-radius: 5px; */
     border-radius: 2px;
     padding-bottom: 1px;
@@ -1342,7 +1352,7 @@ button:hover{
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 20px;    
 }
 
 .company-card-logo {
@@ -1361,7 +1371,7 @@ button:hover{
 
 .company-card-main {
     display: flex;
-
+    
     /* align-items: center; */
     /* justify-content: space-between;
     gap: 10px; */
@@ -1427,7 +1437,7 @@ button:hover{
     line-height: 15px;
     /* margin-bottom: 20px; */
     /* position: absolute; */
-
+    
     /* transform: translate(-50%, -50%); */
 }
 
@@ -1450,7 +1460,7 @@ button:hover{
 }
 
 .error-item {
-
+    
     /* width: 100%; */
     padding: 22px 32px;
     text-align: center;
@@ -1475,7 +1485,7 @@ button:hover{
 }
 
 .div-search {
-    width: 100%;
+    width: 100%; 
     max-width: 463px;
     position: relative;
 }
@@ -1562,7 +1572,7 @@ button:hover{
     max-width: 708px;
     max-height: 450px;
     padding-right: 8px;
-    overflow: hidden scroll;
+    /* overflow: hidden scroll; */
 }
 
 .review {
@@ -1575,6 +1585,7 @@ button:hover{
     align-items: center;
     margin-bottom: 20px;
     margin-top: 40px;
+    flex-wrap: wrap;
 }
 
 .profile-user-small {

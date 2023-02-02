@@ -100,7 +100,7 @@
                                     </div>
 
                                     {% if company.link %}
-                                    <a href="{{company.link}}" class="company-link">{{company.link}}</a>
+                                    <a style="margin-bottom: 28;" href="{{company.link}}" class="company-link">{{company.link}}</a>
                                     {% else %}
                                     <a href="{% url 'companies:company-page' company.id %}" class="company-link">{% url 'companies:company-page' company.id %}</a>
                                     {% endif %}

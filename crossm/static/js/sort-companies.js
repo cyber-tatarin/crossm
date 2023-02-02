@@ -4,6 +4,8 @@ let currentCompanyTitle
 let isCompanyActive = false
 let masonry
 
+
+
 allCopmanies.forEach((e) => {
     allCompainesName.push(e.innerHTML)
 })
@@ -26,19 +28,21 @@ const allCopmaniesClick = allCopmanies.forEach((el) => {
 
         el.classList.toggle("company-active")
         currentCompanyTitle = el.innerHTML.slice(7)
+        document.querySelector('.add-offer').href = `companies/create/${el.id}`;
         isCompanyActive = true
         let allCompanyCardTitle = document.querySelectorAll('.company-card-name')
 
         allCompanyCardTitle.forEach((el) => {
             el.closest('.company-card').style.display = 'block'
+            
 
             if (el.innerHTML != currentCompanyTitle) {
                 el.closest('.company-card').style.display = 'none'
             }
         })
-
+        
     })
-
+    
 
 })
 
@@ -49,11 +53,13 @@ document.addEventListener('click', (e) => {
         itemSelector: '.grid-item',
         columnWidth: '.grid-sizer',
         percentPosition: true,
-        transitionDuration: '0.2s',
+        transitionDuration: '0.2s', 
       });
-
-
+    
+    
     if (!isCompanyActive) {
+        
+    
     const targetElement = e.target
 
         if (targetElement.classList.contains('add-offer') || targetElement.classList.contains('pop-up') || targetElement.classList.contains('pop-up-arrow') || targetElement.classList.contains('p-pop-up')) {
@@ -71,13 +77,11 @@ document.addEventListener('click', (e) => {
 })
 
 window.onload = () => {
-  // const grid = document.querySelector('.grid')
-
     masonry = new Masonry('.grid', {
     gutter: '.gutter-sizer',
     itemSelector: '.grid-item',
     columnWidth: '.grid-sizer',
     percentPosition: true,
-    transitionDuration: '0.2s',
+    transitionDuration: '0.2s', 
   });
 };
