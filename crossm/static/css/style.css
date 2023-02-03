@@ -1123,6 +1123,7 @@ button:hover{
 }
 
 .flex-column {
+    position: relative;
     display: flex;
     flex-direction: column;
     row-gap: 16px;
@@ -1774,3 +1775,10 @@ input[type=number] {
     row-gap: 8px;
 }
 
+.p-no-reviews {
+    position: absolute;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+    color: rgba(0, 0, 0, 0.15);
+}
