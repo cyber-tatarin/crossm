@@ -55,7 +55,7 @@ body{
 }
 
 .container{
-    max-width: 1410px;
+    max-width: 1380px;
     margin: 0 auto;
     padding: 40px 48px 50px 48px;
     border-radius: 50px;
@@ -65,7 +65,7 @@ body{
 
 
 .container-scroll{
-    max-width: 1410px;
+    max-width: 1380px;
     margin: 0 auto;
     padding: 0px 48px 50px 48px;
     border-radius: 50px;
@@ -227,7 +227,7 @@ input{
 }
 
 .input-367px{
-    max-width: 367px;
+    /* max-width: 367px; */
     margin-bottom: 0px;
 }
 
@@ -261,32 +261,32 @@ input{
 
 .inputs-part__left{
     width: 38.33%;
-    max-width: 460px;
+    /* max-width: 460px; */
 }
 
 .inputs-part__center{
     width: 28.33%;
-    max-width: 340px;
+    /* max-width: 340px; */
 }
 
 .inputs-part__right{
     width: 33.33%;
-    max-width: 400px;
+    /* max-width: 400px; */
 }
 
 .inputs-part__center60{
     width: 43.333%;
-    max-width: 260px;
+    /* max-width: 260px; */
 }
 
 .inputs-part__right40{
     width: 56.666%;
-    max-width: 340px;
+    /* max-width: 340px; */
 }
 
 .inputs-part__260px{
     width: 43.333%;
-    max-width: 260px;
+    /* max-width: 260px; */
 }
 
 .ip620{
@@ -359,30 +359,30 @@ input{
 
 .line__dashed-460 {
     border-top: 3px dashed rgba(0, 0, 0, 0.1);
-    max-width: 460px;
+    /* max-width: 460px; */
     flex-grow: 38.33;
 }
 
 .line__dashed-340 {
     border-top: 3px dashed rgba(0, 0, 0, 0.1);
-    max-width: 340px;
+    /* max-width: 340px; */
     flex-grow: 28.33;
 }
 
 .line__dashed-400 {
     border-top: 3px dashed rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    /* max-width: 400px; */
     flex-grow: 33.33;
 }
 
 .line__dashed-260{
     width: 43.333%;
-    max-width: 260px;
+    /* max-width: 260px; */
 }
 
 .line__dashed-340-2{
     width: 56.666%;
-    max-width: 340px;
+    /* max-width: 340px; */
 }
 
 .left-hr {
@@ -425,7 +425,7 @@ input{
 }
 
 .button-282px {
-    max-width: 282px;
+    /* max-width: 282px; */
 }
 
 .button-submit{
@@ -927,16 +927,16 @@ button:hover{
 
 .button-240px {
     width: 100%;
-    max-width: 240px;
+    /* max-width: 240px; */
 }
 
 .button-278px {
     width: 100%;
-    max-width: 278px;
+    /* max-width: 278px; */
 }
 
 .button-long {
-    max-width: 278px;
+    /* max-width: 278px; */
 }
 
 .profile-user__buttons__gap-12px {
@@ -1198,7 +1198,7 @@ button:hover{
 
 .card-container {
     width: 100%;
-    max-width: 1410px;
+    max-width: 1380px;
     margin: 0 auto;
     padding: 40px 48px 30px 48px;
     border-radius: 50px;
