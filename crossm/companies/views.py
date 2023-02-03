@@ -1,3 +1,7 @@
+import os
+
+from django.db.models.signals import pre_save, post_delete
+from django.dispatch import receiver
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views import View
 from django.views.generic import DeleteView
@@ -46,7 +50,7 @@ class CompanyPageView(LoginRequiredMixin, View):
         if not request.user.allowed:
             return redirect('set-profile-info')
 
-        company = Companies.objects.filter(id=kwargs['pk']).select_related('owner').all().\
+        company = Companies.objects.filter(id=kwargs['pk']).select_related('owner').all(). \
             prefetch_related('offers_set', 'owner__profile_set').all()
 
         if not company:
@@ -110,3 +114,47 @@ class UpdateCompanyView(LoginRequiredMixin, View):
             'form': form,
         }
         return render(request, self.template_name, context)
+
+
+class CompanyImageDeleteView(LoginRequiredMixin, View):
+    def post(self, request, **kwargs):
+        company = get_object_or_404(Companies, id=request.POST.get('id'), owner=request.user)
+        if company.owner == request.user:
+            company.photo = None
+            company.save()
+            return JsonResponse({'success': True})
+        else:
+            return Http404
+
+
+class CompanyPhotoUpload(LoginRequiredMixin, View):
+    def post(self, request, **kwargs):
+        obj = get_object_or_404(Companies, owner=request.user, id=request.POST.get('id'))
+        obj.photo = request.FILES.get('image')
+        obj.save()
+        return JsonResponse({'success': True, 'image': obj.photo.url})
+
+
+@receiver(pre_save, sender=Companies)
+def pre_save_image(sender, instance, *args, **kwargs):
+    """ instance old image file will delete from os """
+    try:
+        old_img = instance.__class__.objects.get(id=instance.id).photo.path
+        try:
+            new_img = instance.photo.path
+        except:
+            new_img = None
+        if new_img != old_img:
+            if os.path.exists(old_img):
+                os.remove(old_img)
+    except:
+        pass
+
+
+@receiver(post_delete, sender=Companies)
+def post_save_image(sender, instance, *args, **kwargs):
+    """ Clean Old Image file """
+    try:
+        instance.photo.delete(save=False)
+    except:
+        pass

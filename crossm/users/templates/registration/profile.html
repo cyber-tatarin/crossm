@@ -32,7 +32,7 @@
                             <div class="profile-user__logo">
                             {% if user.profile_set.all.0.photo %}
                             <img class="profile-user__img" id="image" src="{{user.profile_set.all.0.photo.url}}">
-                            <a onclick="deletePhoto({{request.user.id}})" class="delete-photo">Удалить фото</a>
+                            <a id="dela" onclick="deletePhoto({{request.user.id}})" class="delete-photo">Удалить фото</a>
 <!--                            <p onclick="deletePhoto({{request.user.id}})">Удалить фото</p>-->
                             {% endif %}
                                 </div>
@@ -378,6 +378,7 @@ function deletePhoto(id){
         success: function(data) {
             $("#image").remove();
             $("#header-image").remove();
+            $("#dela").remove();
         },
         type: "POST",
     });

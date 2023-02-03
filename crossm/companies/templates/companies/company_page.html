@@ -30,9 +30,11 @@
 
                             <div class="profile-user__logo">
                                 {% if company.photo %}
-                                <img class="profile-user__img" src="{{company.photo.url}}">
-                                <a href="#" class="delete-photo">Удалить фото</a>
+                                <img id="image" class="profile-user__img" src="{{company.photo.url}}">
+                                <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo">Удалить фото</a>
                                 {% else %}
+                                <img id="image" class="profile-user__img" src="" style="visibility: hidden">
+                                <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo" style="visibility: hidden">Удалить фото</a>
                                 {% endif %}
                             </div>
 
@@ -92,30 +94,33 @@
                     <div style="align-items: center;" class="profile-owner">
                         <div class="profile-user-left">
                             <div class="profile-user__logo">
-                                <img class="profile-user__img" src="../../../static/images/Dima.jpg">
-                                <a href="#" class="delete-photo">Удалить фото</a>
+                                {% if company.photo %}
+                                <img id="image" class="profile-user__img" src="{{company.photo.url}}">
+                                <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo">Удалить фото</a>
+                                {% else %}
+                                {% endif %}
                             </div>
                         </div>
                         <div class="profile-user-right">
-                            <h1 class="profile-user__name">ООО “ВАГОНСЕЛЬ”</h1>
+                            <h1 class="profile-user__name">{{company.title}}</h1>
                             <div class="owner-info-no-bottom">
                                 <div class="owner-info-item">
-                                    <span class="profile-user__city">Город:&nbsp</span>
-                                    <span class="profile-user__city__name">Минск</span>
+                                    <span class="profile-user__city">Страна:&nbsp</span>
+                                    <span class="profile-user__city__name">{{company.country_of_res.country}}</span>
                                 </div>
 
                                 <div class="owner-info-item">
                                     <span class="profile-user__city">УНП:&nbsp</span>
-                                    <span class="profile-user__city__name">Проверен</span>
+                                    <span class="profile-user__city__name">{% if company.status %} {{company.status}} {% else %} Не проверен {%endif %}</span>
                                 </div>
 
                                 <div class="owner-info-item">
                                     <span class="profile-user__city">Ниша:&nbsp</span>
-                                    <span class="profile-user__city__name">Сфера красоты</span>
+                                    <span class="profile-user__city__name">{{company.niche}}</span>
                                 </div>
 
                                 <div class="owner-info-item">
-                                    <a style="display: block;" href="#" style="margin-bottom: 28px;" class="company-link">https://www.onliner.by/</a>
+                                    <a style="display: block;" href="{{company.link}}" style="margin-bottom: 28px;" class="company-link">{{company.link}}</a>
                                 </div>
                             </div>
                         </div>
@@ -125,9 +130,11 @@
                 {% endif %}
 
                 <section style="display: flex; column-gap: 24px; margin-bottom: 24px;">
-                    
+                    {% if reviews %}
                     <div class="container-scroll">
-                        <!-- <div style="width: 100%; overflow: auto;" class="container-scroll"> -->
+                        {% else %}
+                         <div style="width: 100%; overflow: auto;" class="container-scroll">
+                             {% endif %}
                         
                         <div class="flex">
                             <div class="reviews-container">
@@ -149,127 +156,36 @@
                                 </div>
 
                                 <div class="flex-column">
-                                    <!-- <p class="p-no-reviews">Отзывов пока нет</p> -->
-                                <div class="profile-user-small">
+                                    {% if reviews %}
+                                    {% else %}
+                                     <p class="p-no-reviews">Отзывов пока нет</p>
+                                    {% endif %}
 
-                                    <div class="profile-user-left">
-                                        <div class="profile-user__logo-small"></div>
-                                    </div>
-                                <div class="profile-user-right">
-                                    <h1 class="profile-user__name-small">Станислав Брониславович</h1>
-                                    <div class="city-info-small info-flex">
-                                        <div class="">
-                                            <span class="profile-user__city-small">Город:&nbsp</span>
-                                            <span class="profile-user__city__name-small">Минск</span>
-                                        </div>
-                                        <div class="date-review">15.01.2023</div>
-                                    </div>
-                                    <div class="profile__remark-small">
-                                        Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона, укакзанный в контактах. Я люблю пельмени. Я работал с этой компанией 10 лет, все очень круто, парни молодцы!
-                                    </div>
-                                    <div class="flex">
-                                        <a href="#" class="read-reviews">Читать&nbspвсе&nbspотзывы</a>
-                                        <a href="#" class="write-reviews">Написать&nbspотзыв</a>
-                                </div>
-                                </div>
-                            </div>
+<!--                                <div class="profile-user-small">-->
+<!--                                    <div class="profile-user-left">-->
+<!--                                        <div class="profile-user__logo-small"></div>-->
+<!--                                    </div>-->
+<!--                                <div class="profile-user-right">-->
+<!--                                    <h1 class="profile-user__name-small">Станислав Брониславович</h1>-->
+<!--                                    <div class="city-info-small info-flex">-->
+<!--                                        <div class="">-->
+<!--                                            <span class="profile-user__city-small">Город:&nbsp</span>-->
+<!--                                            <span class="profile-user__city__name-small">Минск</span>-->
+<!--                                        </div>-->
+<!--                                        <div class="date-review">15.01.2023</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="profile__remark-small">-->
+<!--                                        Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона, укакзанный в контактах. Я люблю пельмени. Я работал с этой компанией 10 лет, все очень круто, парни молодцы!-->
+<!--                                    </div>-->
+<!--                                    <div class="flex">-->
+<!--                                        <a href="#" class="read-reviews">Читать&nbspвсе&nbspотзывы</a>-->
+<!--                                        <a href="#" class="write-reviews">Написать&nbspотзыв</a>-->
+<!--                                </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <div class="profile-user-small">
-
-                                <div class="profile-user-left">
-                                    <div class="profile-user__logo-small"></div>
-                                </div>
-                            <div class="profile-user-right">
-                                <h1 class="profile-user__name-small">Станислав Брониславович</h1>
-                                <div class="city-info-small info-flex">
-                                    <div class="">
-                                        <span class="profile-user__city-small">Город:&nbsp</span>
-                                        <span class="profile-user__city__name-small">Минск</span>
-                                    </div>
-                                    <div class="date-review">15.01.2023</div>
-                                </div>
-                                <div class="profile__remark-small">
-                                    Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона, укакзанный в контактах. Я люблю пельмени. Я работал с этой компанией 10 лет, все очень круто, парни молодцы!
-                                </div>
-                                <div class="flex">
-                                    <a href="#" class="read-reviews">Читать&nbspвсе&nbspотзывы</a>
-                                    <a href="#" class="write-reviews">Написать&nbspотзыв</a>
-                            </div>
-                            </div>
-                        </div>
-
-                        <div class="profile-user-small">
-
-                            <div class="profile-user-left">
-                                <div class="profile-user__logo-small"></div>
-                            </div>
-                        <div class="profile-user-right">
-                            <h1 class="profile-user__name-small">Станислав Брониславович</h1>
-                            <div class="city-info-small info-flex">
-                                <div class="">
-                                    <span class="profile-user__city-small">Город:&nbsp</span>
-                                    <span class="profile-user__city__name-small">Минск</span>
-                                </div>
-                                <div class="date-review">15.01.2023</div>
-                            </div>
-                            <div class="profile__remark-small">
-                                Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона, укакзанный в контактах. Я люблю пельмени. Я работал с этой компанией 10 лет, все очень круто, парни молодцы!
-                            </div>
-                            <div class="flex">
-                                <a href="#" class="read-reviews">Читать&nbspвсе&nbspотзывы</a>
-                                <a href="#" class="write-reviews">Написать&nbspотзыв</a>
-                        </div>
-                        </div>
-                    </div>
-
-                    <div class="profile-user-small">
-
-                        <div class="profile-user-left">
-                            <div class="profile-user__logo-small"></div>
-                        </div>
-                    <div class="profile-user-right">
-                        <h1 class="profile-user__name-small">Станислав Брониславович</h1>
-                        <div class="city-info-small info-flex">
-                            <div class="">
-                                <span class="profile-user__city-small">Город:&nbsp</span>
-                                <span class="profile-user__city__name-small">Минск</span>
-                            </div>
-                            <div class="date-review">15.01.2023</div>
-                        </div>
-                        <div class="profile__remark-small">
-                            Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона, укакзанный в контактах. Я люблю пельмени. Я работал с этой компанией 10 лет, все очень круто, парни молодцы!
-                        </div>
-                        <div class="flex">
-                            <a href="#" class="read-reviews">Читать&nbspвсе&nbspотзывы</a>
-                            <a href="#" class="write-reviews">Написать&nbspотзыв</a>
-                    </div>
-                    </div>
-                </div>
-
-                        <div class="profile-user-small">
-
-                            <div class="profile-user-left">
-                                <div class="profile-user__logo-small"></div>
-                            </div>
-                        <div class="profile-user-right">
-                            <h1 class="profile-user__name-small">Станислав Брониславович</h1>
-                            <div class="city-info-small info-flex">
-                                <div class="">
-                                    <span class="profile-user__city-small">Город:&nbsp</span>
-                                    <span class="profile-user__city__name-small">Минск</span>
-                                </div>
-                                <div class="date-review">15.01.2023</div>
-                            </div>
-                            <div class="profile__remark-small">
-                                Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона, укакзанный в контактах. Я люблю пельмени. Я работал с этой компанией 10 лет, все очень круто, парни молодцы!
-                            </div>
-                            <div class="flex">
-                                <a href="#" class="read-reviews">Читать&nbspвсе&nbspотзывы</a>
-                                <a href="#" class="write-reviews">Написать&nbspотзыв</a>
-                        </div>
-                        </div>
-                        </div>
                         <div style="padding-top: 40px;" class=""></div>
+
                                 </div>
                            
                             </div>
@@ -277,9 +193,11 @@
                       </div>
 
                     {% if owner %}
-
-                        <div class="container"> 
-                            <!-- <div style="width: 100%;" class="container">  -->
+                        {% if reviews %}
+                        <div class="container">
+                            {% else %}
+                            <div style="width: 100%;" class="container">
+                                {% endif %}
                             <h2 class="main-title">Компании</h2>
 
                             <!-- с текстом -->
@@ -331,9 +249,9 @@
                         </div>
                             {% endif %}
                         </div>
-
+                        </div>
                             {% endif %}
-
+                    </div>
                 </section>
 
                 {% if owner %}
@@ -490,6 +408,13 @@
 
         {% include "footer.html" %}
 
+<form id="files" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input name="id" type="hidden" value="{{company.id}}">
+    <input name="image" type="file" />
+    <button>Сохранить</button>
+</form>
+
         <!-- <div class="bottom-margin"></div> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="{% static 'js/sort-companies.js' %}"></script>
@@ -515,7 +440,54 @@
 
     });
   }
-}</script>
+}
+
+
+    $("form#files").submit(function(){
+
+    var formData = new FormData($(this)[0]);
+
+    $.ajax({
+        url: '{% url "companies:upload-photo" %}',
+        type: 'POST',
+        data: formData,
+        async: false,
+        success: function (data) {
+
+                    let out = data.image
+                    console.log(out)
+
+              document.querySelector(".profile-user__img").src=out;
+
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+
+    return false;
+});
+
+function deletePhoto(id){
+
+    $.ajax ({
+        url: '{% url "companies:delete-photo" %}',
+        data: {
+            'id': id,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function(data) {
+            $("#image").style = "visibility: hidden";
+            $("#dela").style = "visibility: hidden";
+        },
+        type: "POST",
+    });
+    }
+
+
+
+</script>
 
 
 
