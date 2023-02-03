@@ -73,15 +73,17 @@
 
                 <section>
 
-                    <div class="container">
-                        <h2 class="main-title profile-title">
+                    <div class="card-container">
+                        <h2 class="profile-content-title">
                             Компании
                         </h2>
-                        <div class="card-container">
+                        <div class="grid">
+                            <div class="grid-sizer"></div>
+                            <div class="gutter-sizer"></div>
 
                             {% for company in user.companies_set.all %}
 
-                        <div class="card" id="company-{{company.id}}">
+                        <div class="card grid-item" id="company-{{company.id}}">
                             <div class="card-info">
                                 <div class="card__logo"></div>
                                 <div class="card__info">
@@ -248,6 +250,8 @@
         {% include "footer.html" %}
         <!-- <div class="bottom-margin"></div> -->
 
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+    <script src="../../../static/js/masonry.js"></script>
     <script>
 function deleteUser(id)
 {
