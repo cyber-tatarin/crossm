@@ -103,8 +103,11 @@ class UpdateOfferView(LoginRequiredMixin, View):
 class OfferImageDeleteView(LoginRequiredMixin, View):
     def get(self, request, **kwargs):
         post = get_object_or_404(OffersImages, id=request.GET.get('id'))
-        post.delete()
-        return JsonResponse({'success': True})
+        if post.offer.company.owner == request.user:
+            post.delete()
+            return JsonResponse({'success': True})
+        else:
+            return Http404
 
 
 @receiver(post_delete, sender=OffersImages)

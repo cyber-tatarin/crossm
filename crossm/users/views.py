@@ -182,4 +182,13 @@ class ProfilePhotoUpload(LoginRequiredMixin, View):
         obj = get_object_or_404(Profile, user=request.user)
         obj.photo = request.FILES.get('image')
         obj.save()
+        return JsonResponse({'success': True, 'image': obj.photo.url})
+
+
+class DeletePhotoView(LoginRequiredMixin, View):
+
+    def post(self, request, **kwargs):
+        obj = get_object_or_404(Profile, user=request.POST.get('id'))
+        obj.photo = None
+        obj.save()
         return JsonResponse({'success': True})

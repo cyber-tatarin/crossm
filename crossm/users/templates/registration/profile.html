@@ -28,7 +28,13 @@
                 <div class="profile">
                     <div class="profile-user">
                         <div class="profile-user-left">
+
                             <div class="profile-user__logo"></div>
+                            {% if user.profile_set.all.0.photo %}
+                            <img id="image" src="{{user.profile_set.all.0.photo.url}}">
+                            <p onclick="deletePhoto({{request.user.id}})">Удалить фото</p>
+                            {% endif %}
+
                         </div>
                         <div class="profile-user-right">
                             <h1 class="profile-user__name">{{user.first_name}} {{user.last_name}}</h1>
@@ -283,6 +289,8 @@
     $("form#files").submit(function(){
 
     var formData = new FormData($(this)[0]);
+    const output = document.querySelector(".profile-user__logo");
+
 
     $.ajax({
         url: '{% url "upload-photo" %}',
@@ -290,7 +298,14 @@
         data: formData,
         async: false,
         success: function (data) {
-            alert(data)
+
+                    let out = data.image
+                    console.log(out)
+                   let image = `
+                <img id="image" src="${out}" alt="image">
+              `
+              output.innerHTML = image;
+              document.querySelector(".nav-menu__user__img").src=out;
         },
         cache: false,
         contentType: false,
@@ -351,6 +366,25 @@ document.querySelector('.pop-up-button-confirm').addEventListener('click', () =>
 
     document.querySelector('.pop-up-delete').classList.remove('pop-up-delete-active');            
 })
+
+
+function deletePhoto(id){
+
+    $.ajax ({
+        url: '{% url "delete-photo" %}',
+        data: {
+            'id': id,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function(data) {
+            $("#image").remove();
+            $("#header-image").remove();
+        },
+        type: "POST",
+    });
+    }
+
     </script>
     
 

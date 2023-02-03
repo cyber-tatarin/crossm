@@ -12,7 +12,7 @@
                             {% if user.is_authenticated %}
                             <div onclick="window.location.href = '{% url 'view-profile' request.user.id %}'" class="nav-menu__user">
                                 {% if profile_ph %}
-                                <img class="nav-menu__user__img" src="{{profile_ph}}">
+                                <img id="header-image" class="nav-menu__user__img" src="{{profile_ph}}">
                             {% endif %}
                             </div>
                             {% endif %}
