@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -7,28 +8,15 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <title>Document</title>
     </head>
     <body>
-        <header class="header">
-            <div class="header-container">
-                    <nav class="nav">
-                        <div class="nav-logo">
-                            <a href="#" class="nav-log__title">КроссМ</a>
-                        </div>
-                        <div class="menu">
-                            <a href="#" class="nav-menu__title">Каталог</a>
-                            <a href="#" class="nav-menu__title">Что такое КМ?</a>
-                            <a href="#" class="nav-menu__title">Мои предложения</a>
-                            <div class="nav-menu__user">
-                            <!-- <img class="nav-menu__user__img" src="../images/Dima.jpg"> -->
-                            </div>
-                        </div> 
-                    </nav>
-            </div>
-        </header>
 
+    {% include "base.html" %}
+
+{% block content %}
+    {% if owner %}
         <main class="main">
             <div class="container-padding">
             <div class="container-main">
@@ -38,45 +26,45 @@
                             <div class="profile-user__logo"></div>
                         </div>
                         <div class="profile-user-right">
-                            <h1 class="profile-user__name">ООО “ВАГОНСЕЛЬ”</h1>
+                            <h1 class="profile-user__name">{{company.title}}</h1>
                             <div class="owner-info">
                                 <div class="owner-info-item">
-                                    <span class="profile-user__city">Город:&nbsp</span>
-                                    <span class="profile-user__city__name">Минск</span>
+                                    <span class="profile-user__city">Страна:&nbsp</span>
+                                    <span class="profile-user__city__name">{{company.country_of_res.country}}</span>
                                 </div>
                             
                                 <div class="owner-info-item">
                                     <span class="profile-user__city">УНП:&nbsp</span>
-                                    <span class="profile-user__city__name">Проверен</span>
+                                    <span class="profile-user__city__name">{{company.status}}</span>
                                 </div>
                           
                                 <div class="owner-info-item">
                                     <span class="profile-user__city">Ниша:&nbsp</span>
-                                    <span class="profile-user__city__name">Сфера красоты</span>
+                                    <span class="profile-user__city__name">{{company.niche}}</span>
                                 </div>
                             
                                 <div class="owner-info-item">
-                                    <a style="display: block;" href="#" style="margin-bottom: 28px;" class="company-link">https://www.onliner.by/</a>
+                                    <a style="display: block;" href="{{company.link}}" style="margin-bottom: 28px;" class="company-link">{{company.link}}</a>
                                 </div>
                             </div>
                             <div class="profile-user__buttons">
                                 <div class="button-240px">
-                                    <button class="button" type="submit">
+                                    <button class="button">
                                         <p class="button-p">Редактировать компанию</p>
                                     </button> 
                                 </div>
                                 <div class="button-240px">
-                                    <button class="button" type="submit">
+                                    <button class="button">
                                         <p class="button-p">Удалить компанию</p>
                                     </button> 
                                 </div>
                                 <div class="button-240px">
-                                    <button class="button button-ynp" type="submit">
+                                    <button class="button button-ynp">
                                         <p class="button-p">Проверить УНП</p>
                                     </button> 
                                 </div>
                                 <div class="button-240px">
-                                    <button class="button" type="submit">
+                                    <button class="button">
                                         <p class="button-p">Добавить предложение</p>
                                     </button> 
                                 </div>
@@ -86,6 +74,9 @@
                     
                 </div>
 
+                {% else %}
+
+{% endif %}
                 <section style="display: flex; column-gap: 24px;">
                     
                     <div class="container-scroll">
@@ -236,29 +227,29 @@
                         </div>
                       </div>
 
-
+                    {% if owner %}
 
                         <div class="container"> 
                             <h2 class="main-title">Компании</h2>
 
                             <!-- с текстом -->
-                            
-                            <!-- <div style="margin-bottom: 25px;" class="profile-user-small">
+                            {% if company.owner.bio %}
+                             <div style="margin-bottom: 25px;" class="profile-user-small">
                                 <div class="profile-user-left">
                                     <div class="profile-user__logo-small"></div>
                                 </div>
                                 <div class="profile-user-right">
-                                <h1 class="profile-user__name-small">Станислав  фыва ы</h1>
+                                <h1 class="profile-user__name-small">{{company.owner.first_name}} {{company.owner.last_name}}</h1>
                                 <div class="city-info-small">
                                     <span class="profile-user__city-small">Город:&nbsp</span>
-                                    <span class="profile-user__city__name-small">Минск</span>
+                                    <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
                                 </div>
                                 <div class="profile__remark-small">
-                                    Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона, укакзанный в контактах
+                                    {{company.owner.bio}}
                                 </div>
                                 </div>
-                            </div> -->
-                            
+                            </div>
+                            {% else %}
                             <!-- без текста -->
 
                             <div style="margin-bottom: 25px; align-items: center;" class="profile-user-small">
@@ -266,40 +257,38 @@
                                     <div class="profile-user__logo-small"></div>
                                 </div>
                                 <div class="profile-user-right">
-                                <h1 class="profile-user__name-small">Станислав Брониславович</h1>
+                                <h1 class="profile-user__name-small">{{company.owner.first_name}} {{company.owner.last_name}}</h1>
                                 <div class="">
                                     <span class="profile-user__city-small">Город:&nbsp</span>
-                                    <span class="profile-user__city__name-small">Минск</span>
+                                    <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
                                 </div>
                                 </div>
                             </div>
-
+                            {% endif %}
 
                             <div class="profile-user__mail">
-                                <p class="user__mail">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@gmail.com</p>
+                                <p class="user__mail">{{company.owner.email}}</p>
                             </div>
+                            {% if company.owner.profile_set.all.0.phone_num_show %}
                             <div class="profile-user__phone">
-                                <p class="user__phone">+375 29 786 16 54</p>
+                                <p class="user__phone">{{company.owner.profile_set.all.0.phone_num}}</p>
                                 
-                                <img src="../../../static/images/edit.png" alt="фото" class="user__phone__logo"></img>
-                                
+                                <img src="{% static 'images/edit.png' %}" alt="фото" class="user__phone__logo">
                         </div>
+                            {% endif %}
 
                         </div>
 
-                        
-                  
+                    {% else %}
+
+                    {% endif %}
+
                 </section>
 
 
 
 
-
-
-
-
-
-
+                {% if owner %}
 
                 <section>
                     <div class="card-container">
@@ -307,35 +296,31 @@
                         <p class="main-title">
                             Компании
                         </p>
-                        <a href="#" class="add-offer-no-change">Добавить предложение</a>
+                        <a href="{% url 'offers:create-offer' company.id %}" class="add-offer-no-change">Добавить предложение</a>
                     </div>
-                        <div class="pop-up">
-                            <div class="pop-up-arrow"></div>
-                            <p class="p-pop-up">Пожалуйста, выберите компанию, от лица которой Вы хотите создать предложение</p>
-                        </div>
-                        
-        
-                        
+
+
                             <div class="grid">
                                 <div class="grid-sizer"></div>
                                 <div class="gutter-sizer"></div>
                                 
-                
+                {% for offer in company.offers_set.all %}
+
                                 <div class="company-card grid-item">
                                     <div class="company-card-top">
                                         <div class="company-card-logo"></div>
-                                        <p class="company-card-name">Компания 1</p>
+                                        <p class="company-card-name">{{offer.company.title}}</p>
                                     </div>
                                     <hr class="card-hr-solid">
                                     <div class="company-card-main"> 
                                         <div class="company-content-left">
-                                            <div style="margin-bottom: 12px;" class="">       
-                                                <p class="company-key">Услуга</p>
-                                                <p class="company-value no-bottom">Стрижка </p>
+                                            <div style="margin-bottom: 12px;" class="">
+                                                <p class="company-key">{{offer.type}}</p>
+                                                <p class="company-value no-bottom">{{offer.title}}</p>
                                             </div>
                                             <div class=""> 
                                                 <p class="company-key">Розничная цена</p>
-                                                <p class="company-value no-bottom">10 BYN</p>
+                                                <p class="company-value no-bottom">{{offer.retail_price}} {{offer.currency}}</p>
                                             </div>
                                         </div>
                                         <!-- <div class="hr-solid-vertical"></div> -->
@@ -343,12 +328,12 @@
                                             <div class="flex-content-no-gap">
                                                 <div class="">
                                                 <p class="company-key">Количество купонов</p>
-                                                <p class="company-value">От 100 до 250</p>
+                                                <p class="company-value">{{offer.amount}}</p>
                                                 </div>
                                                 
                                                 <div class="">
                                                 <p class="company-key">Цена купона</p>
-                                                <p class="company-value no-bottom">2 BYN</p>
+                                                <p class="company-value no-bottom">{{offer.coupon_price}} {{offer.currency}}</p>
                                                 </div>    
                                             </div>
                                         </div> 
@@ -375,99 +360,25 @@
                                     </div>
                                 </div>
 
-                                <div class="company-card grid-item">
-                                    <div class="company-card-top">
-                                        <div class="company-card-logo"></div>
-                                        <p class="company-card-name">Компания 1</p>
-                                    </div>
-                                    <hr class="card-hr-solid">
-                                    <div class="company-card-main"> 
-                                        <div class="company-content-left">
-                                            <div style="margin-bottom: 12px;" class="">       
-                                                <p class="company-key">Услуга</p>
-                                                <p class="company-value no-bottom">Стрижка </p>
-                                            </div>
-                                            <div class=""> 
-                                                <p class="company-key">Розничная цена</p>
-                                                <p class="company-value no-bottom">10 BYN</p>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="hr-solid-vertical"></div> -->
-                                        <div class="company-content-right">
-                                            <div class="flex-content-no-gap">
-                                                <div class="">
-                                                <p class="company-key">Количество купонов</p>
-                                                <p class="company-value">От 100 до 250</p>
-                                                </div>
-                                                
-                                                <div class="">
-                                                <p class="company-key">Цена купона</p>
-                                                <p class="company-value no-bottom">2 BYN</p>
-                                                </div>    
-                                            </div>
-                                        </div> 
-                                    </div>
-                
-                                    <hr class="card-hr-solid">                
-                                    <div class="company-card-main"> 
-                                        <div class="card-button-single">
-                                        <div class="flex-content">
-                                            <button style="margin-top: -2px; max-width: 100%;" class="button">
-                                                <p class="button-p">Посмотреть вложения</p>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <hr class="card-hr-solid">
-                                    
+                                {% endfor %}
+
                                 </div>
-
-                                
-                
-                                
-                
                             </div>
-
-              
-        
-                    </div>
                 </section>
-                
+
+                {% else %}
+
+                {% endif %}
+
             </div>
         </div>
         </main>
-        <footer class="footer">
-            <div class="footer-container">
-                <hr class="hr-solid mg-bottom-48px">
-                <div class="footer-content">
-                    <div class="footer-logo">
-                        <a href="#" class="nav-log__title">КроссМ</a>
-                    </div>
-                    <div class="footer-arrow">
-                        <div class="test-arrow">
-                            <hr class="hr-solid-arrow">
-                        </div>
-                        
-                    </div>
-                    <div class="footer-nav">
-                    <div class="footer-top-titles">
-                        <span class="nav-menu__title">Каталог</span>
-                        <span class="nav-menu__title">Что&nbspтакое&nbspКМ?</span>
-                        <span class="nav-menu__title">Мои&nbspпредложения</span>
-                    </div>
-                        
-                    </div>
-                </div>
-                <p class="nav-menu__title policy">Политика конфиденциальности</p>
-                <div class="footer-contacts">
-                    <p class="prava">Все права защищены @2023</p>
-                    <p class="developer">Сайт разработан командой Старрук инк :)</p>
-                </div> 
-            </div>
-        </footer>
+
+        {% include "footer.html" %}
+
         <!-- <div class="bottom-margin"></div> -->
-        <script src="../js/sort-companies.js"></script>
+        <script src="{% static 'js/sort-companies.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
     </body>
-
+{% endblock %}
 </html>

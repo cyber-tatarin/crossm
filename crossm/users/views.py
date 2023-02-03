@@ -1,3 +1,7 @@
+import os
+
+from django.db.models.signals import pre_save, post_delete
+from django.dispatch import receiver
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views import View
 from .forms import UserCreateForm, UserLoginForm, ProfileInfoForm, ProfileUpdateForm
@@ -192,3 +196,20 @@ class DeletePhotoView(LoginRequiredMixin, View):
         obj.photo = None
         obj.save()
         return JsonResponse({'success': True})
+
+
+@receiver(pre_save, sender=Profile)
+def pre_save_image(sender, instance, *args, **kwargs):
+    """ instance old image file will delete from os """
+    try:
+        old_img = instance.__class__.objects.get(id=instance.id).photo.path
+        try:
+            new_img = instance.photo.path
+        except:
+            new_img = None
+        if new_img != old_img:
+            if os.path.exists(old_img):
+                os.remove(old_img)
+    except:
+        pass
+

@@ -1,4 +1,6 @@
 from django.db import models
+from django_resized import ResizedImageField
+
 from users.models import User
 # Create your models here.
 
@@ -19,4 +21,7 @@ class Companies(models.Model):
 
     unique_code = models.CharField(max_length=30, blank=True, null=True)
     status = models.CharField(max_length=20,  null=True, blank=True)
+
+    photo = ResizedImageField(size=[500, 500], crop=['middle', 'center'], quality=99,
+                              blank=True, null=True, upload_to='images')
 
