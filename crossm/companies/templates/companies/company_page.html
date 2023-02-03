@@ -29,8 +29,11 @@
                          <div class="profile-user-left">
 
                             <div class="profile-user__logo">
-                                <img class="profile-user__img" src="../../../static/images/Dima.jpg">
+                                {% if company.photo %}
+                                <img class="profile-user__img" src="{{company.photo.url}}">
                                 <a href="#" class="delete-photo">Удалить фото</a>
+                                {% else %}
+                                {% endif %}
                             </div>
 
                         </div>
@@ -44,7 +47,7 @@
                             
                                 <div class="owner-info-item">
                                     <span class="profile-user__city">УНП:&nbsp</span>
-                                    <span class="profile-user__city__name">{{company.status}}</span>
+                                    <span class="profile-user__city__name">{% if company.status %} {{company.status}} {% else %} Не проверен {%endif %}</span>
                                 </div>
                           
                                 <div class="owner-info-item">
@@ -58,24 +61,24 @@
                             </div>
                             <div class="profile-user__buttons">
                                 <div class="button-240px">
-                                    <button class="button">
+                                    <button class="button" onclick="window.location.href = '{% url 'companies:update-company' company.id %}'">
                                         <p class="button-p">Редактировать компанию</p>
                                     </button> 
                                 </div>
                                 <div class="button-240px">
-                                    <button class="button">
+                                    <button class="button" >
                                         <p class="button-p">Удалить компанию</p>
+                                    </button> 
+                                </div>
+                                <div class="button-240px">
+                                    <button class="button" onclick="window.location.href = '{% url 'offers:create-offer' company.id %}'">
+                                        <p class="button-p">Добавить предложение</p>
                                     </button> 
                                 </div>
                                 <div class="button-240px">
                                     <button class="button button-ynp">
                                         <p class="button-p">Проверить УНП</p>
-                                    </button> 
-                                </div>
-                                <div class="button-240px">
-                                    <button class="button">
-                                        <p class="button-p">Добавить предложение</p>
-                                    </button> 
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -143,10 +146,10 @@
                                     <a href="#" class="read-reviews">Читать&nbspвсе&nbspотзывы</a>
                                     <a href="#" class="write-reviews">Написать&nbspотзыв</a>
                                 </div>
-                                
+
                                 <div class="flex-column">
                                 <div class="profile-user-small">
-                               
+
                                     <div class="profile-user-left">
                                         <div class="profile-user__logo-small"></div>
                                     </div>
@@ -170,7 +173,7 @@
                             </div>
 
                             <div class="profile-user-small">
-                               
+
                                 <div class="profile-user-left">
                                     <div class="profile-user__logo-small"></div>
                                 </div>
@@ -194,7 +197,7 @@
                         </div>
 
                         <div class="profile-user-small">
-                               
+
                             <div class="profile-user-left">
                                 <div class="profile-user__logo-small"></div>
                             </div>
@@ -218,7 +221,7 @@
                     </div>
 
                     <div class="profile-user-small">
-                               
+
                         <div class="profile-user-left">
                             <div class="profile-user__logo-small"></div>
                         </div>
@@ -242,7 +245,7 @@
                 </div>
 
                         <div class="profile-user-small">
-                               
+
                             <div class="profile-user-left">
                                 <div class="profile-user__logo-small"></div>
                             </div>
@@ -348,7 +351,7 @@
                                 
                 {% for offer in company.offers_set.all %}
 
-                                <div class="company-card grid-item">
+                                <div id="offer-{{offer.id}}" class="company-card grid-item">
                                     <div class="company-card-top">
                                         <div class="company-card-logo"></div>
                                         <p class="company-card-name">{{offer.company.title}}</p>
@@ -393,11 +396,11 @@
                                     </div>
                                     <hr style="margin-bottom: 20px;" class="card-hr-solid">
                                     <div class="company-card-buttons">
-                                        <button class="button button-282px">
-                                            <p class="button-p">Посмотреть вложения</p>
-                                        </button>
-                                        <button class="button button-282px">
+                                        <button class="button button-282px" onclick="window.location.href = '{% url 'offers:update-offer' offer.id %}'">
                                             <p class="button-p">Редактировать предложение</p>
+                                        </button>
+                                        <button class="button button-282px" onclick="deleteOffer({{offer.id}})">
+                                            <p class="button-p">Удалить предложение</p>
                                         </button>
                                     </div>
                                 </div>
@@ -427,18 +430,18 @@
                 <div class="company-card grid-item">
                                     <div class="company-card-top">
                                         <div class="company-card-logo"></div>
-                                        <p class="company-card-name">Компания 1</p>
+                                        <p class="company-card-name">{{offer.company.title}}</p>
                                     </div>
                                     <hr class="card-hr-solid">
                                     <div class="company-card-main">
                                         <div class="company-content-left">
                                             <div style="margin-bottom: 12px;" class="">
-                                                <p class="company-key">Услуга</p>
-                                                <p class="company-value no-bottom">Стрижка </p>
+                                                <p class="company-key">{{offer.type}}</p>
+                                                <p class="company-value no-bottom">{{offer.title}} </p>
                                             </div>
                                             <div class="">
                                                 <p class="company-key">Розничная цена</p>
-                                                <p class="company-value no-bottom">10 BYN</p>
+                                                <p class="company-value no-bottom">{{offer.retail_price}} {{offer.currency}}</p>
                                             </div>
                                         </div>
                                         <!-- <div class="hr-solid-vertical"></div> -->
@@ -446,12 +449,12 @@
                                             <div class="flex-content-no-gap">
                                                 <div class="">
                                                 <p class="company-key">Количество купонов</p>
-                                                <p class="company-value">От 100 до 250</p>
+                                                <p class="company-value">{{offer.amount}}</p>
                                                 </div>
 
                                                 <div class="">
                                                 <p class="company-key">Цена купона</p>
-                                                <p class="company-value no-bottom">2 BYN</p>
+                                                <p class="company-value no-bottom">{{offer.coupon_price}} {{offer.currency}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -485,9 +488,31 @@
         {% include "footer.html" %}
 
         <!-- <div class="bottom-margin"></div> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="{% static 'js/sort-companies.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+    <script>
+    function deleteOffer(id)
+{
+  var action = confirm("Are you sure you want to delete this user?");
+  if (action != false)
+  {
+    $.ajax(
+    {
+        url: '{% url "offers:delete-offer" %}',
+        data: {
+            'id': id,
+             'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function(data) {
+              $("#offer-" + id).remove();
+        },
+        type: "POST",
 
+    });
+  }
+}</script>
 
 
 

@@ -29,12 +29,13 @@
                     <div class="profile-user">
                         <div class="profile-user-left">
 
-                            <div class="profile-user__logo"></div>
+                            <div class="profile-user__logo">
                             {% if user.profile_set.all.0.photo %}
                             <img class="profile-user__img" id="image" src="{{user.profile_set.all.0.photo.url}}">
                             <a onclick="deletePhoto({{request.user.id}})" class="delete-photo">Удалить фото</a>
 <!--                            <p onclick="deletePhoto({{request.user.id}})">Удалить фото</p>-->
                             {% endif %}
+                                </div>
 
                         </div>
                         <div class="profile-user-right">
@@ -290,8 +291,6 @@
     $("form#files").submit(function(){
 
     var formData = new FormData($(this)[0]);
-    const output = document.querySelector(".profile-user__logo");
-
 
     $.ajax({
         url: '{% url "upload-photo" %}',
@@ -302,11 +301,9 @@
 
                     let out = data.image
                     console.log(out)
-                   let image = `
-                <img id="image" src="${out}" alt="image">
-              `
-              output.innerHTML = image;
+
               document.querySelector(".nav-menu__user__img").src=out;
+              document.querySelector(".profile-user__img").src=out;
         },
         cache: false,
         contentType: false,
