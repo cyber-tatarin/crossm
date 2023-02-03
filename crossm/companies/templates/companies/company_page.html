@@ -16,14 +16,21 @@
     {% include "base.html" %}
 
 {% block content %}
-    {% if owner %}
+
         <main class="main">
             <div class="container-padding">
             <div class="container-main">
+
+                    {% if owner %}
+
                 <div class="profile">
                     <div class="profile-owner">
-                        <div class="profile-user-left">
-                            <div class="profile-user__logo"></div>
+
+                         <div class="profile-user-left">
+                            <div class="profile-user__logo">
+                                <img class="profile-user__img" src="../../../static/images/Dima.jpg">
+                                <a href="#" class="delete-photo">Удалить фото</a>
+                            </div>
                         </div>
                         <div class="profile-user-right">
                             <h1 class="profile-user__name">{{company.title}}</h1>
@@ -70,13 +77,48 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                    
                 </div>
 
                 {% else %}
 
-{% endif %}
+                <div class="profile">
+                    <div style="align-items: center;" class="profile-owner">
+                        <div class="profile-user-left">
+                            <div class="profile-user__logo">
+                                <img class="profile-user__img" src="../../../static/images/Dima.jpg">
+                                <a href="#" class="delete-photo">Удалить фото</a>
+                            </div>
+                        </div>
+                        <div class="profile-user-right">
+                            <h1 class="profile-user__name">ООО “ВАГОНСЕЛЬ”</h1>
+                            <div class="owner-info-no-bottom">
+                                <div class="owner-info-item">
+                                    <span class="profile-user__city">Город:&nbsp</span>
+                                    <span class="profile-user__city__name">Минск</span>
+                                </div>
+
+                                <div class="owner-info-item">
+                                    <span class="profile-user__city">УНП:&nbsp</span>
+                                    <span class="profile-user__city__name">Проверен</span>
+                                </div>
+
+                                <div class="owner-info-item">
+                                    <span class="profile-user__city">Ниша:&nbsp</span>
+                                    <span class="profile-user__city__name">Сфера красоты</span>
+                                </div>
+
+                                <div class="owner-info-item">
+                                    <a style="display: block;" href="#" style="margin-bottom: 28px;" class="company-link">https://www.onliner.by/</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endif %}
+
                 <section style="display: flex; column-gap: 24px;">
                     
                     <div class="container-scroll">
@@ -249,7 +291,9 @@
                                 </div>
                                 </div>
                             </div>
+
                             {% else %}
+
                             <!-- без текста -->
 
                             <div style="margin-bottom: 25px; align-items: center;" class="profile-user-small">
@@ -264,6 +308,7 @@
                                 </div>
                                 </div>
                             </div>
+
                             {% endif %}
 
                             <div class="profile-user__mail">
@@ -272,21 +317,16 @@
                             {% if company.owner.profile_set.all.0.phone_num_show %}
                             <div class="profile-user__phone">
                                 <p class="user__phone">{{company.owner.profile_set.all.0.phone_num}}</p>
-                                
+                                    {% if owner %}
                                 <img src="{% static 'images/edit.png' %}" alt="фото" class="user__phone__logo">
+                                {% endif %}
                         </div>
                             {% endif %}
-
                         </div>
 
-                    {% else %}
-
-                    {% endif %}
+                            {% endif %}
 
                 </section>
-
-
-
 
                 {% if owner %}
 
@@ -368,6 +408,72 @@
 
                 {% else %}
 
+                <section>
+                    <div class="card-container">
+                        <div class="flex-32">
+                        <p class="main-title">
+                            Компании
+                        </p>
+                    </div>
+
+                            <div class="grid">
+                                <div class="grid-sizer"></div>
+                                <div class="gutter-sizer"></div>
+
+                                {% for offer in company.offers_set.all %}
+
+                <div class="company-card grid-item">
+                                    <div class="company-card-top">
+                                        <div class="company-card-logo"></div>
+                                        <p class="company-card-name">Компания 1</p>
+                                    </div>
+                                    <hr class="card-hr-solid">
+                                    <div class="company-card-main">
+                                        <div class="company-content-left">
+                                            <div style="margin-bottom: 12px;" class="">
+                                                <p class="company-key">Услуга</p>
+                                                <p class="company-value no-bottom">Стрижка </p>
+                                            </div>
+                                            <div class="">
+                                                <p class="company-key">Розничная цена</p>
+                                                <p class="company-value no-bottom">10 BYN</p>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="hr-solid-vertical"></div> -->
+                                        <div class="company-content-right">
+                                            <div class="flex-content-no-gap">
+                                                <div class="">
+                                                <p class="company-key">Количество купонов</p>
+                                                <p class="company-value">От 100 до 250</p>
+                                                </div>
+
+                                                <div class="">
+                                                <p class="company-key">Цена купона</p>
+                                                <p class="company-value no-bottom">2 BYN</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="card-hr-solid">
+                                    <div class="company-card-main">
+                                        <div class="card-button-single">
+                                        <div class="flex-content">
+                                            <button style="margin-top: -2px; max-width: 100%;" class="button">
+                                                <p class="button-p">Посмотреть вложения</p>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <hr class="card-hr-solid">
+                                </div>
+
+                    {% endfor %}
+
+                            </div>
+                    </div>
+                </section>
+
                 {% endif %}
 
             </div>
@@ -378,7 +484,12 @@
 
         <!-- <div class="bottom-margin"></div> -->
         <script src="{% static 'js/sort-companies.js' %}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+
+
+
+
     </body>
 {% endblock %}
 </html>
