@@ -13,7 +13,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <title>Document</title>
     </head>
     <body>
@@ -73,6 +72,28 @@
 
                 <section>
 
+                    <div class="pop-up-delete">
+                        <div class="pop-up-container">
+                            <div class="pop-up-body">
+                                <p class="pop-up-title">Вы уверены, что хотите удалить компанию БелсельмашстройГомелель?
+
+                                </p>
+                                <div class="pop-up-buttons">
+                                    <div class="pop-up-button pop-up-button-cancel">
+                                        <button class="button">
+                                            <p class="button-p">Отменить</p>
+                                        </button> 
+                                    </div>
+                                    <div class="pop-up-button pop-up-button-confirm">
+                                        <button class="button">
+                                            <p class="button-p">Удалить</p>
+                                        </button> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card-container">
                         <h2 class="profile-content-title">
                             Компании
@@ -126,7 +147,7 @@
                                 </button>
                             </div>
                             <div class="button-278px">
-                                <button class="button button-long" onclick="deleteUser({{company.id}})">
+                                <button id="{{company.id}}" class="button button-long button-for-pop-up">
                                     <p class="button-p">Удалить компанию</p>
                                 </button>
                             </div>
@@ -249,32 +270,61 @@
 
         {% include "footer.html" %}
         <!-- <div class="bottom-margin"></div> -->
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
-    <script src="../../../static/js/masonry.js"></script>
     <script>
-function deleteUser(id)
-{
-  var action = confirm("Are you sure you want to delete this user?");
-  if (action != false)
-  {
-    $.ajax(
-    {
+
+let cardId;
+let masonry;
+
+window.onload = () => {
+    masonry = new Masonry('.grid', {
+    gutter: '.gutter-sizer',
+    itemSelector: '.grid-item',
+    columnWidth: '.grid-sizer',
+    percentPosition: true,
+    transitionDuration: '0.2s', 
+  });
+};
+
+document.querySelectorAll('.button-for-pop-up').forEach((el) => {
+    el.addEventListener('click', () => {
+        document.querySelector('.pop-up-delete').classList.toggle('pop-up-delete-active');
+        cardId = el.id
+           
+        })
+})  
+
+document.querySelector('.pop-up-button-cancel').addEventListener('click', () => {
+    document.querySelector('.pop-up-delete').classList.remove('pop-up-delete-active');
+})  
+
+document.querySelector('.pop-up-button-confirm').addEventListener('click', () => {
+
+    $.ajax ({
         url: '{% url "companies:delete-company" %}',
         data: {
-            'id': id,
-             'csrfmiddlewaretoken': '{{ csrf_token }}'
+            'id': cardId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
         },
         dataType: 'json',
         success: function(data) {
-              $("#company-" + id).remove();
+            $("#company-" + cardId).remove();
+            masonry = new Masonry('.grid', {
+            gutter: '.gutter-sizer',
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer',
+            percentPosition: true,
+            transitionDuration: '0.2s', 
+        });
         },
         type: "POST",
-
     });
-  }
-}
-</script>
+
+    document.querySelector('.pop-up-delete').classList.remove('pop-up-delete-active');            
+})
+    </script>
+    
 
     </body>
 {% endblock %}
