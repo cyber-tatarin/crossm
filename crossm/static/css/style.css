@@ -927,7 +927,7 @@ button:hover{
 
 .button-240px {
     width: 100%;
-    /* max-width: 240px; */
+    max-width: 240px;
 }
 
 .button-278px {
@@ -936,7 +936,7 @@ button:hover{
 }
 
 .button-long {
-    /* max-width: 278px; */
+    max-width: 278px;
 }
 
 .profile-user__buttons__gap-12px {
@@ -1734,11 +1734,34 @@ input[type=number] {
 }
 
 .container-scroll::-webkit-scrollbar {
+    padding: 50px 0px;
     width: 6px;
     background-color: #FCFCFC;
 }
 
 .container-scroll::-webkit-scrollbar-thumb {
+    padding: 50px 0px;
     border-radius: 6px;
     background-color: #D9D9D9;
+}
+
+.container-scroll::-webkit-scrollbar-track {
+    margin: 40px 0px 50px;
+} 
+
+.delete-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 15;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 13px;
+    color: rgba(0, 0, 0, 0.5);
+    margin-top: 147px;
+    margin-left: 30px;
+}
+
+.delete-photo:hover {
+    color: #000000;
 }
