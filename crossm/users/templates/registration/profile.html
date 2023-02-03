@@ -31,8 +31,9 @@
 
                             <div class="profile-user__logo"></div>
                             {% if user.profile_set.all.0.photo %}
-                            <img id="image" src="{{user.profile_set.all.0.photo.url}}">
-                            <p onclick="deletePhoto({{request.user.id}})">Удалить фото</p>
+                            <img class="profile-user__img" id="image" src="{{user.profile_set.all.0.photo.url}}">
+                            <a onclick="deletePhoto({{request.user.id}})" class="delete-photo">Удалить фото</a>
+<!--                            <p onclick="deletePhoto({{request.user.id}})">Удалить фото</p>-->
                             {% endif %}
 
                         </div>
