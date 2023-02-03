@@ -6,6 +6,7 @@ from .models import Companies, Countries
 from funcy import omit
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, JsonResponse
+from users.views import get_profile_ph
 
 
 class CreateCompanyView(LoginRequiredMixin, View):
@@ -15,7 +16,8 @@ class CreateCompanyView(LoginRequiredMixin, View):
         if not request.user.allowed:
             return redirect('set-profile-info')
         context = {
-            'form': CompanyCreateForm()
+            'form': CompanyCreateForm(),
+            'profile_ph': get_profile_ph(request),
         }
         return render(request, self.template_name, context)
 
@@ -56,7 +58,8 @@ class CompanyPageView(LoginRequiredMixin, View):
 
         context = {
             'company': company[0],
-            'owner': owner
+            'owner': owner,
+            'profile_ph': get_profile_ph(request),
         }
         return render(request, self.template_name, context)
 
@@ -82,7 +85,8 @@ class UpdateCompanyView(LoginRequiredMixin, View):
             'role': obj.role,
         })
         context = {
-            'form': form
+            'form': form,
+            'profile_ph': get_profile_ph(request),
         }
         return render(request, self.template_name, context)
 

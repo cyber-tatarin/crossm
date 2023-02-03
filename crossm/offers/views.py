@@ -11,6 +11,7 @@ from funcy import omit
 from django.dispatch import receiver
 import os
 from django.db.models.signals import post_delete
+from users.views import get_profile_ph
 
 
 class CreateOfferView(LoginRequiredMixin, View):
@@ -20,7 +21,8 @@ class CreateOfferView(LoginRequiredMixin, View):
         if not request.user.allowed:
             return redirect('login')
         context = {
-            'form': CreateOfferForm()
+            'form': CreateOfferForm(),
+            'profile_ph': get_profile_ph(request),
         }
         return render(request, self.template_name, context)
 
@@ -75,7 +77,8 @@ class UpdateOfferView(LoginRequiredMixin, View):
                 'title': obj.title,
                 'amount': obj.amount
             }),
-            'images': OffersImages.objects.filter(offer=obj).all()
+            'images': OffersImages.objects.filter(offer=obj).all(),
+            'profile_ph': get_profile_ph(request),
         }
         return render(request, self.template_name, context)
 
@@ -120,9 +123,19 @@ class MyOffersPageView(LoginRequiredMixin, View):
         objects = Companies.objects.filter(owner=request.user).prefetch_related('offers_set',
                                                                                 'owner__profile_set').all()
         context = {
-            'objects': objects
+            'objects': objects,
+            'profile_ph': get_profile_ph(request),
         }
         return render(request, self.template_name, context)
+
+
+class SendImagesView(LoginRequiredMixin, View):
+    def get(self, request, **kwargs):
+        images = OffersImages.objects.filter(offer=request.GET.get('id')).all()
+        res = []
+        for image in images:
+            res.append(image.image.url)
+        return JsonResponse({'images': res})
 
 
 """

@@ -28,7 +28,7 @@ const allCopmaniesClick = allCopmanies.forEach((el) => {
 
         el.classList.toggle("company-active")
         currentCompanyTitle = el.innerHTML.slice(7)
-        document.querySelector('.add-offer').href = `companies/create/${el.id}`;
+        document.querySelector('.add-offer').href = `/offers/create/${el.id}`
         isCompanyActive = true
         let allCompanyCardTitle = document.querySelectorAll('.company-card-name')
 

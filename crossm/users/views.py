@@ -7,6 +7,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from funcy import omit
 from last_seen.models import LastSeen
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse
+
+
+def get_profile_ph(request):
+    obj = get_object_or_404(Profile, user=request.user)
+    if obj.photo:
+        return obj.photo.url
+    else:
+        return None
 
 
 class RegisterView(View):
@@ -14,7 +23,7 @@ class RegisterView(View):
 
     def get(self, request):
         context = {
-            'form': UserCreateForm()
+            'form': UserCreateForm(),
         }
         return render(request, self.template_name, context)
 
@@ -30,7 +39,7 @@ class RegisterView(View):
             return redirect('set-profile-info')
 
         context = {
-            'form': form
+            'form': form,
         }
 
         return render(request, self.template_name, context)
@@ -43,7 +52,8 @@ class SetProfileInfo(LoginRequiredMixin, View):
         if request.user.allowed:
             return redirect('login')
         context = {
-            'form': ProfileInfoForm()
+            'form': ProfileInfoForm(),
+            'profile_ph': get_profile_ph(request),
         }
         return render(request, self.template_name, context)
 
@@ -72,7 +82,7 @@ class LoginView(View):
 
     def get(self, request):
         context = {
-            'form': UserLoginForm()
+            'form': UserLoginForm(),
         }
         return render(request, self.template_name, context)
 
@@ -116,7 +126,8 @@ class ProfileView(LoginRequiredMixin, View):
         context = {
             'user': user[0],
             'owner': owner,
-            'seen': seen
+            'seen': seen,
+            'profile_ph': get_profile_ph(request),
         }
 
         return render(request, self.template_name, context)
@@ -139,7 +150,8 @@ class ProfileUpdateView(LoginRequiredMixin, View):
                 'city': profile.city.city,
                 'first_name': profile.user.first_name,
                 'last_name': profile.user.last_name
-            })
+            }),
+            'profile_ph': get_profile_ph(request),
         }
 
         return render(request, self.template_name, context)
@@ -162,3 +174,12 @@ class ProfileUpdateView(LoginRequiredMixin, View):
             'form': form,
         }
         return render(request, self.template_name, context)
+
+
+class ProfilePhotoUpload(LoginRequiredMixin, View):
+
+    def post(self, request, **kwargs):
+        obj = get_object_or_404(Profile, user=request.user)
+        obj.photo = request.FILES.get('image')
+        obj.save()
+        return JsonResponse({'success': True})

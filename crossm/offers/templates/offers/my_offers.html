@@ -26,6 +26,17 @@
     </head>
     <body>
 
+<!--<script>-->
+<!--        function buildUrl(id)-->
+<!--    {-->
+<!--    if (document.querySelector('.add-offer').href != ""){-->
+<!--    const url = '{% url "offers:create-offer" 0 %}'-->
+<!--    url.replace(0, id)-->
+<!--    document.querySelector('.add-offer').href = url;-->
+<!--    }-->
+<!--    };-->
+<!--</script>-->
+
     {% include "base.html" %}
     {% block content %}
 
@@ -39,7 +50,7 @@
                     {% endfor %}
                 </div>
 
-                <a  class="add-offer">Добавить предложение</a>
+                <a class="add-offer">Добавить предложение</a>
                 <div class="pop-up">
                     <div class="pop-up-arrow"></div>
                     <p class="p-pop-up">Пожалуйста, выберите компанию, от лица которой Вы хотите создать предложение</p>
@@ -98,7 +109,7 @@
                         <!-- <div class="hr-solid-vertical"></div> -->
                         <div class="company-content-right">
                             <div class="flex-content-no-gap">
-                                <button style="margin-top: -2px; max-width: 150px;" class="button">
+                                <button style="margin-top: -2px; max-width: 150px;" class="button" onclick="getImages({{offer.id}})">
                                     <p class="button-p">Посмотреть вложения</p>
                                 </button>
                             </div>
@@ -146,6 +157,8 @@
                     {% endfor %}
                     {% endfor %}
 
+<output></output>
+
                 </div>
             </div>
         </div>
@@ -159,6 +172,7 @@
 <!--        <script src="../test.js"></script>-->
 
     <script>
+
 function deleteUser(id)
 {
   var action = confirm("Are you sure you want to delete this user?");
@@ -181,6 +195,42 @@ function deleteUser(id)
     });
   }
 }
+
+function getImages(id)
+{
+
+    $.ajax(
+    {
+        url: '{% url "offers:get-images" %}',
+        data: {
+            'id': id,
+        },
+        dataType: 'json',
+        success: function(data) {
+                 const output = document.querySelector("output")
+                 let images = "";
+
+                 for (let i = 0; i < data.images.length; i++) {
+                 const out = data.images[i]
+                 console.log(out);
+
+                    images += `
+                    <div class="image">
+                <img src="${out}" alt="image">
+                    </div>
+              `;
+                 }
+                 console.log(images);
+                 output.innerHTML = images;
+        },
+        type: "GET",
+
+    });
+
+}
+
+
+
 </script>
 
     </body>
