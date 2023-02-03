@@ -1583,7 +1583,7 @@ button:hover{
 
 .reviews-container {
     width: 100%;
-    max-width: 708px;
+    /* max-width: 708px; */
     max-height: 450px;
     padding-right: 8px;
     /* overflow: hidden scroll; */
@@ -1765,3 +1765,12 @@ input[type=number] {
 .delete-photo:hover {
     color: #000000;
 }
+
+.owner-info-no-bottom {
+    display: flex;
+    align-items: center;
+    column-gap: 44px;
+    flex-wrap: wrap;
+    row-gap: 8px;
+}
+
