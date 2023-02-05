@@ -137,5 +137,32 @@ sortButton.addEventListener('click', (btn) => {
         
 })
 
+document.querySelector('.search-input').oninput = function () {
+    let val = this.value.trim();
+    let elasticItems = document.querySelectorAll('.company-card-name');
+    if (val != '') {
+        
+        elasticItems.forEach( (el) => {
+            if (el.innerText.search(RegExp(val,"gi")) == -1) {
+                el.closest('.company-card').style.display = 'none'
+            } else {
+                el.closest('.company-card').style.display = 'block'
+                masonry = new Masonry('.grid', {
+                    gutter: '.gutter-sizer',
+                    itemSelector: '.grid-item',
+                    columnWidth: '.grid-sizer',
+                    percentPosition: true,
+                    transitionDuration: '0.2s', 
+                  });
+            }
+        })
+    } else {
+        
+        elasticItems.forEach((el) => {
+            el.closest('.company-card').style.display = 'block'
+        })
+    }
+}
+
 
 
