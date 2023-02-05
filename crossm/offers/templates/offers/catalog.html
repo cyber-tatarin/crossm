@@ -1,7 +1,6 @@
-{% for offer in offers %}
-{{offer}}
-{% endfor %}
 <!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -9,30 +8,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <title>Document</title>
     </head>
     <body>
         <div class="Test"></div>
-        <header class="header">
-            <div class="header-container">
-                    <nav class="nav">
-                        <div class="nav-logo">
-                            <a href="#" class="nav-log__title">КроссМ</a>
-                        </div>
-                        <div class="menu">
-                            <a href="#" class="nav-menu__title active">Каталог</a>
-                            <a href="#" class="nav-menu__title">Что такое КМ?</a>
-                            <a href="#" class="nav-menu__title">Мои предложения</a>
-                            <div class="nav-menu__user">
-                            <!-- <img class="nav-menu__user__img" src="../images/Dima.jpg"> -->
-                            </div>
-                        </div> 
-                    </nav>
-            </div>
-        </header>
+
+    {% include "base.html" %}
+    {% block content %}
         
 
         <main class="main">
@@ -45,6 +30,7 @@
                         <hr class="hr-solid-arrow">
                     </div>
                 </div>
+
                 <div class="div-search">
                     <input type="text" class="search-input" placeholder="Поиск...">
                     <button class="search-button" type="submit"></button>
@@ -82,9 +68,10 @@
                     <div style="margin-bottom: 16px;" class="filters-choices">
                         <select class="js-choice">
                             <option value="" selected>Все</option>
-                            <option value="1">RUB</option>
-                            <option value="2">BYN</option>
-                            <option value="3">USD</option> 
+                            {% for currency in currencies %}
+                            <option value="">{{currency}}</option>
+                            {% endfor %}
+
                         </select>
                     </div>  
                     <hr class="line__dashed-filters">
@@ -112,16 +99,18 @@
                         </div>
                     </div>
                     <hr class="line__dashed-filters">
-                    <p class="filter-subtitle" style="margin-bottom: 9px;">Страна</p>
-                    <div style="margin-bottom: 16px;" class="filters-choices">
-                        <select class="js-choice">
-                            <option value="" selected>asdf</option>
-                            <option value="1">Беларусь</option>
-                            <option value="2">Франция</option>
-                            <option value="3">Испания</option> 
-                        </select>
-                    </div> 
-                    <hr style="margin-bottom: 20px;" class="line__dashed-filters">
+<!--                    <p class="filter-subtitle" style="margin-bottom: 9px;">Страна</p>-->
+<!--                    <div style="margin-bottom: 16px;" class="filters-choices">-->
+<!--                        <select class="js-choice">-->
+<!--                            <option value="" selected>Выьерите страну</option>-->
+
+<!--                            {% for country in countries %}-->
+<!--                            <option value="{{country.id}}">{{country.country}}</option>-->
+<!--                            {% endfor %}-->
+
+<!--                        </select>-->
+<!--                    </div> -->
+<!--                    <hr style="margin-bottom: 20px;" class="line__dashed-filters">-->
                     <div class="phone-input__right" style="margin-bottom: 16px;">
                         <label style="cursor: pointer;" class="label-filters">
                             <input id="phone" class="check-box" type="checkbox">
@@ -444,13 +433,6 @@
                     </div>
                 
 
-
-                
-
-
-
-               
-
             </div>
 
             </div>
@@ -458,39 +440,13 @@
             </div>
         </div>
         </main>
-        <footer class="footer">
-            <div class="footer-container">
-                <hr class="hr-solid mg-bottom-48px">
-                <div class="footer-content">
-                    <div class="footer-logo">
-                        <a href="#" class="nav-log__title">КроссМ</a>
-                    </div>
-                    <div class="footer-arrow">
-                        <svg width="100%" height="100%" viewBox="0 0 522 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM521.707 8.70715C522.098 8.31663 522.098 7.68346 521.707 7.29294L515.343 0.928977C514.953 0.538453 514.319 0.538453 513.929 0.928977C513.538 1.3195 513.538 1.95267 513.929 2.34319L519.586 8.00005L513.929 13.6569C513.538 14.0474 513.538 14.6806 513.929 15.0711C514.319 15.4616 514.953 15.4616 515.343 15.0711L521.707 8.70715ZM1 9L521 9.00005L521 7.00005L1 7L1 9Z" fill="#E6E6E6"/>
-                        </svg>
-                    </div>
-                    <div class="footer-nav">
-                    <div class="footer-top-titles">
-                        <span class="nav-menu__title">Каталог</span>
-                        <span class="nav-menu__title">Что такое КМ?</span>
-                        <span class="nav-menu__title">Мои предложения</span>
-                    </div>
-                        <p class="nav-menu__title">Политика конфиденциальности</p>
-                    </div>
-                </div>
-                <div class="footer-contacts">
-                    <p class="prava">Все права защищены @2023</p>
-                    <p class="developer">Сайт разработан командой Старрук инк :)</p>
-                </div> 
-            </div>
-        </footer>
+       {% include "footer.html" %}
         <!-- <div class="bottom-margin"></div> -->
         <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
         
         <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
         
-        <script src="../../../static/js/catalog.js"></script>
+        <script src="{% static 'js/catalog.js' %}"></script>
         <script>
         document.querySelectorAll('.check-pop-up').forEach((el) => {
             el.addEventListener('click', () => {
@@ -506,5 +462,5 @@
         })  
         </script>
     </body>
-
+{% endblock %}
 </html>

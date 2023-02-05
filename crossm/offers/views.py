@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CreateOfferForm
-from companies.models import Companies
+from companies.models import Companies, Countries
 from .models import OffersImages, Offers
 from django.views.generic import DeleteView
 from users.models import User
@@ -150,6 +150,8 @@ class CatalogPageView(View):
 
     def get(self, request, **kwargs):
         offers = Offers.objects.prefetch_related('company__owner__profile_set').order_by('-id').all()
+        countries = Countries.objects.all()
+        currencies = Offers.objects.values('currency').distinct()
 
         # niche = request.GET.get('niche')
         # if niche:
@@ -222,6 +224,7 @@ class CatalogPageView(View):
         context = {
             'offers': offers,
             'profile_ph': profile_ph,
+            'countries': countries,
+            'currencies': currencies
         }
         return render(request, self.template_name, context)
-
