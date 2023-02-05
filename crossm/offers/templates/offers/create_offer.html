@@ -50,16 +50,31 @@
                             <br>Максимальное количество символов —
 
                         </div>
+
                         <div class="inputs-part inputs-part__double">
                             <h3 class="inputs-part__title">Количество купонов</h3>
+                            <div class="inputs-part__double-flex">
+                                <div class="inputs-part inputs-part__double">
+
                             <div class="inputs-part__div">
-                                {{form.amount|attr:"maxlength:6"}}
+                                {{form.amount_min|attr:"maxlength:4"}}
                             </div>
+
                             <p class="input__comment">Напишите желаемое количество купонов для реализации.
-                            <br>Точное число или, например ОТ ... или ОТ ... ДО ...
+                            </p>
+                            </div>
 
+                                <div class="inputs-part__300px">
+
+                            <div class="inputs-part__div">
+                                {{form.amount_max|attr:"maxlength:4"}}
+                            </div>
+
+                            <p class="input__comment">Введите валюту
+                            </div>
+
+                            </div>
                         </div>
-
                     </div>
                     <div class="line">
                         <hr class="line__dashed line__dashed-620">
@@ -76,6 +91,7 @@
                         </div>
 
                         <div class="inputs-part inputs-part__double">
+
                             <div class="inputs-part__double-flex">
 
                             <div class="inputs-part inputs-part__double">
@@ -85,6 +101,7 @@
                                 </div>
                                 <p class="input__comment">Здесь укажите цену 1 купона
                             </div>
+
                             <div class="inputs-part__300px">
                             <h3 class="inputs-part__title">Валюта</h3>
                             <div class="inputs-part__div">
@@ -93,7 +110,9 @@
                             <div class="bottom-16px"></div>
                             <p class="input__comment">Введите валюту
                             </div>
-                        </div>
+
+                            </div>
+
                         </div>
                     </div>
 
@@ -145,7 +164,7 @@
                     </div>
                 </form>
 
-                {% if form.non_field_errors or form.title.errors or form.amount.errors or form.retail_price.errors or form.coupon_price.errors or form.type.errors or form.image.errors or form.currency.errors %}
+                {% if form.non_field_errors or form.title.errors or form.amount_min.errors or form.retail_price.errors or form.coupon_price.errors or form.type.errors or form.image.errors or form.currency.errors or form.amount_max.errors %}
             <div class="error">
 
                         {% if form.non_field_errors %}
@@ -160,8 +179,14 @@
                             {% endfor %}
                             {% endif %}
 
-                        {% if form.amount.errors %}
-                            {% for error in form.amount.errors %}
+                        {% if form.amount_min.errors %}
+                            {% for error in form.amount_min.errors %}
+                         <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.amount_max.errors %}
+                            {% for error in form.amount_max.errors %}
                          <div class="error-item">{{error}}</div>
                             {% endfor %}
                             {% endif %}
@@ -249,6 +274,8 @@ const files = input.files;
     }
     displayImages();
 });
+
+
 
 </script>
     </body>

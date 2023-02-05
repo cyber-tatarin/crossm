@@ -24,6 +24,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
+    def natural_key(self):
+        return (self.first_name, self.last_name,)
+
 
 class Profile(models.Model):
     phone_num = PhoneNumberField(null=False, blank=False, unique=True)
@@ -33,4 +36,5 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     photo = ResizedImageField(size=[500, 500], crop=['middle', 'center'], quality=99,
                               blank=True, null=True, upload_to='images')
+
     # Create your models here.

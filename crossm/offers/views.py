@@ -1,3 +1,5 @@
+from django.core.paginator import Paginator, EmptyPage
+from django.core.serializers import serialize
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,6 +14,8 @@ from django.dispatch import receiver
 import os
 from django.db.models.signals import post_delete
 from users.views import get_profile_ph
+from users.models import Profile
+import json
 
 
 class CreateOfferView(LoginRequiredMixin, View):
@@ -141,11 +145,83 @@ class SendImagesView(LoginRequiredMixin, View):
         return JsonResponse({'images': res})
 
 
-"""
 class CatalogPageView(View):
     template_name = 'offers/catalog.html'
 
     def get(self, request, **kwargs):
+        offers = Offers.objects.prefetch_related('company__owner__profile_set').order_by('-id').all()
 
+        # niche = request.GET.get('niche')
+        # if niche:
+        #     initial_offers = initial_offers.filter(company__niche=niche)
+        #
+        # amount_min = request.GET.get('amount_min')
+        # amount_max = request.GET.get('amount_max')
+        # if amount_min and amount_max:
+        #     initial_offers = initial_offers.filter(amount_min__lte=amount_max, amount_max__gte=amount_min)
+        # elif amount_min:
+        #     initial_offers = initial_offers.filter(amount_max__gte=amount_min)
+        # elif amount_max:
+        #     initial_offers = initial_offers.filter(amount_min__lte=amount_max)
+        #
+        # currency = request.GET.get('currency')
+        # if currency:
+        #     initial_offers = initial_offers.filter(currency=currency)
+        #
+        # retail_price_min = request.GET.get('retail_price_min')
+        # retail_price_max = request.GET.get('retail_price_max')
+        # if retail_price_min and retail_price_max:
+        #     initial_offers = initial_offers.filter(retail_price__gte=retail_price_min,
+        #                                            retail_price__lte=retail_price_max)
+        # elif retail_price_min:
+        #     initial_offers = initial_offers.filter(retail_price__gte=retail_price_min)
+        # elif retail_price_max:
+        #     initial_offers = initial_offers.filter(retail_price__lte=retail_price_max)
+        #
+        # coupon_price_min = request.GET.get('coupon_price_min')
+        # coupon_price_max = request.GET.get('retail_price_max')
+        # if coupon_price_min and coupon_price_max:
+        #     initial_offers = initial_offers.filter(retail_price__gte=coupon_price_min,
+        #                                            retail_price__lte=coupon_price_max)
+        # elif coupon_price_min:
+        #     initial_offers = initial_offers.filter(retail_price__gte=coupon_price_min)
+        # elif coupon_price_max:
+        #     initial_offers = initial_offers.filter(retail_price__lte=coupon_price_max)
+        #
+        # country = request.GET.get('country')
+        # if country:
+        #     initial_offers = initial_offers.filter(company__country_of_res=country)
+        #
+        # phone_num_show = request.GET.get('phone_num_show')
+        # #phone_num_show = 1
+        # if phone_num_show:
+        #     suitable_users = Profile.objects.filter(phone_num_show=True).values_list('user_id', flat=True)
+        #     initial_offers = initial_offers.filter(company__owner__id__in=suitable_users)
+        #
+        # print(initial_offers)
+        #
+        # p = Paginator(initial_offers, 2)
+        #
+        # page = request.GET.get('page')
+        #
+        # try:
+        #     res = p.page(page)
+        # except EmptyPage:
+        #     raise Http404
+        #
+        # serialized_data = serialize("json", res, use_natural_foreign_keys=True, use_natural_primary_keys=True)
+        # print(serialized_data)
+        #
+        # if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        #     return JsonResponse(serialized_data, safe=False)
+        try:
+            profile_ph = get_profile_ph(request)
+        except TypeError:
+            profile_ph = None
 
-"""
+        context = {
+            'offers': offers,
+            'profile_ph': profile_ph,
+        }
+        return render(request, self.template_name, context)
+

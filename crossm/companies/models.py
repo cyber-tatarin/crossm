@@ -25,3 +25,6 @@ class Companies(models.Model):
     photo = ResizedImageField(size=[500, 500], crop=['middle', 'center'], quality=99,
                               blank=True, null=True, upload_to='images')
 
+    def natural_key(self):
+        return (self.title, self.niche, self.role, str(self.photo.url)) + self.owner.natural_key()
+

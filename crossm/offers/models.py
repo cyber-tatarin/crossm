@@ -11,7 +11,13 @@ class Offers(models.Model):
 
     retail_price = models.DecimalField(decimal_places=2, max_digits=6)
     title = models.CharField(max_length=80)
-    amount = models.IntegerField()
+    amount_min = models.IntegerField(blank=False, null=True)
+    amount_max = models.IntegerField(blank=False, null=True)
+
+    def natural_key(self):
+        return (self.title,) + self.company.natural_key() + self.company.owner.natural_key()
+
+    natural_key.dependencies = ['companies.companies', 'users.user']
 
 
 class OffersImages(models.Model):
