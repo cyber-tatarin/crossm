@@ -9,3 +9,9 @@ const renderSelect = () =>{
 }
 
 renderSelect()
+
+window.onload = () => {
+    document.querySelector('.Test').style.opacity = '0';
+    document.querySelector('.Test').style.visibility = 'hidden'
+    document.querySelector('.Test').style.zIndex = '-10'
+}
