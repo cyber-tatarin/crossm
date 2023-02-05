@@ -12,7 +12,7 @@ from django.http import Http404, JsonResponse, HttpResponse
 from funcy import omit
 from django.dispatch import receiver
 import os
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, pre_save
 from users.views import get_profile_ph
 from users.models import Profile
 import json
@@ -79,7 +79,8 @@ class UpdateOfferView(LoginRequiredMixin, View):
                 'currency': obj.currency,
                 'retail_price': obj.retail_price,
                 'title': obj.title,
-                'amount': obj.amount
+                'amount_min': obj.amount_min,
+                'amount_max': obj.amount_max
             }),
             'images': OffersImages.objects.filter(offer=obj).all(),
             'profile_ph': get_profile_ph(request),
@@ -149,7 +150,7 @@ class CatalogPageView(View):
     template_name = 'offers/catalog.html'
 
     def get(self, request, **kwargs):
-        offers = Offers.objects.prefetch_related('company__owner__profile_set').order_by('-id').all()
+        offers = Offers.objects.prefetch_related('offersimages_set', 'company__owner__profile_set').order_by('-id').all()
         currencies = Offers.objects.values('currency').distinct()
         niches = Companies.objects.values('niche').distinct()
 
@@ -228,3 +229,28 @@ class CatalogPageView(View):
             'niches': niches
         }
         return render(request, self.template_name, context)
+
+
+@receiver(post_delete, sender=OffersImages)
+def post_save_image(sender, instance, *args, **kwargs):
+    """ Clean Old Image file """
+    try:
+        img = OffersImages.objects.filter(offer=instance.offer).first()
+        obj = Offers.objects.get(id=instance.offer.id)
+        if not img:
+            obj.has_photo = False
+            obj.save()
+    except:
+        pass
+
+
+@receiver(pre_save, sender=OffersImages)
+def pre_save_image(sender, instance, *args, **kwargs):
+    """ instance old image file will delete from os """
+    try:
+        obj = Offers.objects.get(id=instance.offer.id)
+        if not obj.has_photo:
+            obj.has_photo = True
+            obj.save()
+    except:
+        pass

@@ -53,12 +53,27 @@
                         </div>
                         <div class="inputs-part inputs-part__double">
                             <h3 class="inputs-part__title">Количество купонов</h3>
-                            <div class="inputs-part__div">
-                                {{form.amount|attr:"maxlength:6"}}
-                            </div>
-                            <p class="input__comment">Напишите желаемое количество купонов для реализации.
-                            <br>Точное число или, например ОТ ... или ОТ ... ДО ...
+                            <div class="inputs-part__double-flex">
+                                <div class="inputs-part inputs-part__double">
 
+                            <div class="inputs-part__div">
+                                {{form.amount_min|attr:"maxlength:4"}}
+                            </div>
+
+                            <p class="input__comment">Напишите желаемое количество купонов для реализации.
+                            </p>
+                            </div>
+
+                                <div class="inputs-part__300px">
+
+                            <div class="inputs-part__div">
+                                {{form.amount_max|attr:"maxlength:4"}}
+                            </div>
+
+                            <p class="input__comment">Введите валюту
+                            </div>
+
+                            </div>
                         </div>
 
                     </div>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -8,33 +9,16 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../../../static/css/style.css">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <title>Document</title>
     </head>
     <body>
         <div class="Test"></div>
-        <header class="header">
-            <div class="header-container">
-                    <nav class="nav">
-                        <div class="nav-logo">
-                            <a href="#" class="nav-log__title">КроссМ</a>
-                        </div>
-                        <div class="menu">
-                            <a href="#" class="nav-menu__title active">Каталог</a>
-                            <a href="#" class="nav-menu__title">Что такое КМ?</a>
-                            <a href="#" class="nav-menu__title">Мои предложения</a>
-                            <div class="nav-menu__user">
-                            <!-- <img class="nav-menu__user__img" src="../images/Dima.jpg"> -->
-                            </div>
-                        </div> 
-                    </nav>
-            </div>
-        </header>
-        
+
+    {% include "base.html" %}
+{% block content %}
 
         <main class="main">
-            
-            
             <div class="container-padding">
                 
                 <div class="search">
@@ -62,9 +46,9 @@
                         <div style="margin-bottom: 16px;" class="filters-choices">
                             <select class="js-choice">
                                 <option value="" selected>Все</option>
-                                <option value="1">Реклама</option>
-                                <option value="2">Маркетинг</option>
-                                <option value="3">Кафе</option> 
+                                {% for niche in niches %}
+                                <option value="1">{{niche.niche}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         
@@ -80,14 +64,15 @@
                                 <input id="coupon-count-do" class="input filters-input" type="number" maxlength="100" placeholder="100" required>
                             </div>
                         </div>
+
                         <hr class="line__dashed-filters">
                         <p class="filter-subtitle" style="margin-bottom: 9px;">Валюта</p>
                         <div style="margin-bottom: 16px;" class="filters-choices">
                             <select class="js-choice">
                                 <option value="" selected>Все</option>
-                                <option value="1">RUB</option>
-                                <option value="2">BYN</option>
-                                <option value="3">USD</option> 
+                                {% for currency in currencies %}
+                                <option value="1">{{currency.currency}}</option>
+                                {% endfor %}
                             </select>
                         </div>  
                         <hr class="line__dashed-filters">
@@ -115,16 +100,16 @@
                             </div>
                         </div>
                         <hr class="line__dashed-filters">
-                        <p class="filter-subtitle" style="margin-bottom: 9px;">Страна</p>
-                        <div style="margin-bottom: 16px;" class="filters-choices">
-                            <select class="js-choice">
-                                <option value="" selected>asdf</option>
-                                <option value="1">Беларусь</option>
-                                <option value="2">Франция</option>
-                                <option value="3">Испания</option> 
-                            </select>
-                        </div> 
-                        <hr style="margin-bottom: 20px;" class="line__dashed-filters">
+<!--                        <p class="filter-subtitle" style="margin-bottom: 9px;">Страна</p>-->
+<!--                        <div style="margin-bottom: 16px;" class="filters-choices">-->
+<!--                            <select class="js-choice">-->
+<!--                                <option value="" selected>asdf</option>-->
+<!--                                <option value="1">Беларусь</option>-->
+<!--                                <option value="2">Франция</option>-->
+<!--                                <option value="3">Испания</option> -->
+<!--                            </select>-->
+<!--                        </div> -->
+<!--                        <hr style="margin-bottom: 20px;" class="line__dashed-filters">-->
                         <div class="phone-input__right" style="margin-bottom: 16px;">
                             <label style="cursor: pointer;" class="label-filters">
                                 <input id="phone" class="check-box" type="checkbox">
@@ -150,10 +135,10 @@
     
                             </div>
                             <div style="margin-bottom: 32px;" class="flex">
-                            <p class="pop-up-images-title">Компания 1</p>
+                            <p class="pop-up-images-title"></p>
                             <div style="margin-right: 16px;" class="">
                                 <span class="profile-user__city">Услуга:&nbsp</span>
-                                <span class="profile-user__city__name pop-up-input-title">Салон красоты</span>
+                                <span class="profile-user__city__name pop-up-input-title"></span>
                             </div>
                             <div class="">
                                 <span class="profile-user__city">Цена купона:&nbsp</span>
@@ -161,12 +146,8 @@
                             </div>
                             </div>
                             <div class="images-container">
-                                <img src="../images/cat.jpg" alt="" class="pop-up-img">
-                                <img src="../images/android.jpg" alt="" class="pop-up-img">
-                                <img src="../images/cat.jpg" alt="" class="pop-up-img">
-                                <img src="../images/Dima.jpg" alt="" class="pop-up-img">
-                                <img src="../images/wolf.jpg" alt="" class="pop-up-img">
-                                <div style="margin-top: 32px" class=""></div>
+<!--                                <img src="" alt="" class="pop-up-img">-->
+<!--                                <div style="margin-top: 32px" class=""></div>-->
                             </div>
                         </div>
                     </div>
@@ -187,20 +168,21 @@
                     <div class="grid-sizer"></div>
                     <div class="gutter-sizer"></div>
 
+{% for offer in offers %}
 
                     <div class="company-card grid-item">
                         <div class="company-card-top">
                             <div class="company-card-logo"></div>
-                            <p class="company-card-name">Test1</p>
+                            <p class="company-card-name">{{offer.company.title}}</p>
                         </div>
                         <hr class="card-hr-solid">
                         <div class="company-card-main"> 
                             <div class="company-content-left">
                                 <div class="">
                                     <p class="company-key">Ниша</p>
-                                    <p class="company-value nisha">Кафе</p>
+                                    <p class="company-value nisha">{{offer.company.niche}}</p>
                                     <p class="company-key">Услуга</p>
-                                    <p class="company-value usluga no-bottom">Стрижка</p>
+                                    <p class="company-value usluga no-bottom">{{offer.title}}</p>
                                 
                                 </div>
                             </div>
@@ -209,11 +191,11 @@
                                 <div class="flex-content-no-gap">
                                     <div class="">
                                         <p class="company-key">Количество купонов</p>
-                                        <p class="company-value coupon-count">От 100 до 250</p>
+                                        <p class="company-value coupon-count">От {{offer.amount_min}} до {{offer.amount_max}}</p>
                                     </div>
                                     <div class="">
                                         <p class="company-key">Розничная цена</p>
-                                        <p class="company-value no-bottom retail-price">10 BYN</p>
+                                        <p class="company-value no-bottom retail-price">{{offer.retail_price}} {{offer.currency}}</p>
                                     </div>    
                                 </div>
                             </div> 
@@ -225,16 +207,18 @@
                             <div class="company-content-left">
                                 <div class=>
                                     <p class="company-key">Цена купона</p>
-                                    <p class="company-value no-bottom coupon-price">2 BYN</p>
+                                    <p class="company-value no-bottom coupon-price">{{offer.coupon_price}} {{offer.currency}}</p>
                                 
                                 </div>
                             </div>
                             <!-- <div class="hr-solid-vertical"></div> -->
                             <div class="company-content-right">
                                 <div class="flex-content-no-gap">
-                                    <button style="margin-top: -2px; max-width: 150px;" class="button check-pop-up">
+                                    {% if offer.has_photo %}
+                                    <button id="{{offer.id}}" style="margin-top: -2px; max-width: 150px;" class="button check-pop-up">
                                         <p class="button-p">Посмотреть вложения</p>
                                     </button>
+                                    {% endif %}
                                 </div>
                             </div>
                             
@@ -247,8 +231,10 @@
                                 <div class="">
                                     <p class="contacts">Контакты</p>
                                     <div class="contacts-flex">
-                                        <p class="contacts-mail">dekholoduniya.yaha@gmail.com</p>
-                                        <p class="contacts-phone">+375 29 888 88 88</p>
+                                        <p class="contacts-mail">{{offer.company.owner.email}}</p>
+                                        {% if offer.company.owner.profile_set.all.0.phone_num_show %}
+                                        <p class="contacts-phone">{{offer.company.owner.profile_set.all.0.phone_num}}</p>
+                                        {% endif %}
                                     </div>
                                 
                                 </div>
@@ -257,207 +243,18 @@
                             <div class="company-content-right">
                                 <div class="flex-content-no-gap">
                                     <div class="">
-                                        <p class="contacts-name">Станислав Брониславович</p>
-                                        <p class="contacts-proffesion">— (Директор по закупкам)</p>
+                                        <p class="contacts-name">{{offer.company.owner.first_name}} {{offer.company.owner.last_name}}</p>
+                                        <p class="contacts-proffesion">— ({{offer.company.role}})</p>
                                     </div>   
                                 </div>
                             </div> 
                         </div>
-                        <hr class="hr-solid">
-                        <div class="company-card-buttons">
-                            <button class="button button-282px">
-                                <p class="button-p">Посмотреть вложения</p>
-                            </button>
-                            <button class="button button-282px">
-                                <p class="button-p">Редактировать предложение</p>
-                            </button>
-                        </div>
+                        <hr style = "margin-bottom: 4px" class="hr-solid">
+
                     </div>
 
-                    
+                    {% endfor %}
 
-                    <div class="company-card grid-item">
-                        <div class="company-card-top">
-                            <div class="company-card-logo"></div>
-                            <p class="company-card-name">Test2</p>
-                        </div>
-                        <hr class="card-hr-solid">
-                        <div class="company-card-main"> 
-                            <div class="company-content-left">
-                                <div class="">
-                                    <p class="company-key">Ниша</p>
-                                    <p class="company-value nisha">Маркетинг</p>
-                                    <p class="company-key">Услуга</p>
-                                    <p class="company-value usluga no-bottom">Стрижка</p>
-                                
-                                </div>
-                            </div>
-                            <!-- <div class="hr-solid-vertical"></div> -->
-                            <div class="company-content-right">
-                                <div class="flex-content-no-gap">
-                                    <div class="">
-                                        <p class="company-key">Количество купонов</p>
-                                        <p class="company-value coupon-count">От 10 до 250</p>
-                                    </div>
-                                    <div class="">
-                                        <p class="company-key">Розничная цена</p>
-                                        <p class="company-value no-bottom retail-price">5000 RUB</p>
-                                    </div>    
-                                </div>
-                            </div> 
-                        </div>
-    
-                        <hr class="card-hr-solid">
-    
-                        <div class="company-card-main company-card-main-bottom"> 
-                            <div class="company-content-left">
-                                <div class=>
-                                    <p class="company-key">Цена купона</p>
-                                    <p class="company-value no-bottom coupon-price">300 RUB</p>
-                                
-                                </div>
-                            </div>
-                            <!-- <div class="hr-solid-vertical"></div> -->
-                            <div class="company-content-right">
-                                <div class="flex-content-no-gap">
-                                    <button style="margin-top: -2px; max-width: 150px;" class="button check-pop-up">
-                                        <p class="button-p">Посмотреть вложения</p>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                        </div>
-    
-                        <hr class="card-hr-solid ">
-    
-                        <div class="company-card-main"> 
-                            <div class="company-content-left">
-                                <div class="">
-                                    <p class="contacts">Контакты</p>
-                                    <div class="contacts-flex">
-                                        <p class="contacts-mail">dekholoduniya.yaha@gmail.com</p>
-                                        <p class="contacts-phone"></p>
-                                    </div>
-                                
-                                </div>
-                            </div>
-                            <!-- <div class="hr-solid-vertical"></div> -->
-                            <div class="company-content-right">
-                                <div class="flex-content-no-gap">
-                                    <div class="">
-                                        <p class="contacts-name">Станислав Брониславович</p>
-                                        <p class="contacts-proffesion">— (Директор по закупкам)</p>
-                                    </div>   
-                                </div>
-                            </div> 
-                        </div>
-                        <hr class="hr-solid">
-                        <div class="company-card-buttons">
-                            <button class="button button-282px">
-                                <p class="button-p">Посмотреть вложения</p>
-                            </button>
-                            <button class="button button-282px">
-                                <p class="button-p">Редактировать предложение</p>
-                            </button>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="company-card grid-item">
-                        <div class="company-card-top">
-                            <div class="company-card-logo"></div>
-                            <p class="company-card-name">Test3</p>
-                        </div>
-                        <hr class="card-hr-solid">
-                        <div class="company-card-main"> 
-                            <div class="company-content-left">
-                                <div class="">
-                                    <p class="company-key">Ниша</p>
-                                    <p class="company-value nisha">Реклама</p>
-                                    <p class="company-key">Услуга</p>
-                                    <p class="company-value usluga no-bottom">Что</p>
-                                
-                                </div>
-                            </div>
-                            <!-- <div class="hr-solid-vertical"></div> -->
-                            <div class="company-content-right">
-                                <div class="flex-content-no-gap">
-                                    <div class="">
-                                        <p class="company-key">Количество купонов</p>
-                                        <p class="company-value coupon-count">От 1 до 20</p>
-                                    </div>
-                                    <div class="">
-                                        <p class="company-key">Розничная цена</p>
-                                        <p class="company-value no-bottom retail-price">100 USD</p>
-                                    </div>    
-                                </div>
-                            </div> 
-                        </div>
-    
-                        <hr class="card-hr-solid">
-    
-                        <div class="company-card-main company-card-main-bottom"> 
-                            <div class="company-content-left">
-                                <div class=>
-                                    <p class="company-key">Цена купона</p>
-                                    <p class="company-value no-bottom coupon-price">5 USD</p>
-                                
-                                </div>
-                            </div>
-                            <!-- <div class="hr-solid-vertical"></div> -->
-                            <div class="company-content-right">
-                                <div class="flex-content-no-gap">
-                                    <button style="margin-top: -2px; max-width: 150px;" class="button check-pop-up">
-                                        <p class="button-p">Посмотреть вложения</p>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                        </div>
-    
-                        <hr class="card-hr-solid ">
-    
-                        <div class="company-card-main"> 
-                            <div class="company-content-left">
-                                <div class="">
-                                    <p class="contacts">Контакты</p>
-                                    <div class="contacts-flex">
-                                        <p class="contacts-mail">dekholoduniya.yaha@gmail.com</p>
-                                        <p class="contacts-phone">+375 29 888 88 88</p>
-                                    </div>
-                                
-                                </div>
-                            </div>
-                            <!-- <div class="hr-solid-vertical"></div> -->
-                            <div class="company-content-right">
-                                <div class="flex-content-no-gap">
-                                    <div class="">
-                                        <p class="contacts-name">Станислав Брониславович</p>
-                                        <p class="contacts-proffesion">— (Директор по закупкам)</p>
-                                    </div>   
-                                </div>
-                            </div> 
-                        </div>
-                        <hr class="hr-solid">
-                        <div class="company-card-buttons">
-                            <button class="button button-282px">
-                                <p class="button-p">Посмотреть вложения</p>
-                            </button>
-                            <button class="button button-282px">
-                                <p class="button-p">Редактировать предложение</p>
-                            </button>
-                        </div>
-                    </div>
-                
-
-
-                
-
-
-
-               
 
             </div>
 
@@ -466,39 +263,14 @@
             </div>
         </div>
         </main>
-        <footer class="footer">
-            <div class="footer-container">
-                <hr class="hr-solid mg-bottom-48px">
-                <div class="footer-content">
-                    <div class="footer-logo">
-                        <a href="#" class="nav-log__title">КроссМ</a>
-                    </div>
-                    <div class="footer-arrow">
-                        <svg width="100%" height="100%" viewBox="0 0 522 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM521.707 8.70715C522.098 8.31663 522.098 7.68346 521.707 7.29294L515.343 0.928977C514.953 0.538453 514.319 0.538453 513.929 0.928977C513.538 1.3195 513.538 1.95267 513.929 2.34319L519.586 8.00005L513.929 13.6569C513.538 14.0474 513.538 14.6806 513.929 15.0711C514.319 15.4616 514.953 15.4616 515.343 15.0711L521.707 8.70715ZM1 9L521 9.00005L521 7.00005L1 7L1 9Z" fill="#E6E6E6"/>
-                        </svg>
-                    </div>
-                    <div class="footer-nav">
-                    <div class="footer-top-titles">
-                        <span class="nav-menu__title">Каталог</span>
-                        <span class="nav-menu__title">Что такое КМ?</span>
-                        <span class="nav-menu__title">Мои предложения</span>
-                    </div>
-                        <p class="nav-menu__title">Политика конфиденциальности</p>
-                    </div>
-                </div>
-                <div class="footer-contacts">
-                    <p class="prava">Все права защищены @2023</p>
-                    <p class="developer">Сайт разработан командой Старрук инк :)</p>
-                </div> 
-            </div>
-        </footer>
+
+{% include "footer.html" %}
         <!-- <div class="bottom-margin"></div> -->
         <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
-        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
         
-        <script src="../../../static/js/catalog.js"></script>
+        <script src="{% static 'js/catalog.js' %}"></script>
         <script>
             
         document.querySelector('.test-filter').addEventListener('click', () => {  
@@ -546,17 +318,56 @@
 
         document.querySelectorAll('.check-pop-up').forEach((el) => {
             el.addEventListener('click', () => {
-                document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[0].children[1].innerHTML
-                document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].children[3].innerHTML
-                document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.children[0].children[0].children[1].innerHTML
-                document.querySelector('.pop-up-images').classList.toggle('pop-up-delete-active');
+                getImages(el.id, el);
             })
         })  
 
         document.querySelector('.pop-up-exit').addEventListener('click', () => {
             document.querySelector('.pop-up-images').classList.remove('pop-up-delete-active');
-        })  
+        })
+
+
+
+
+function getImages(id, el)
+{
+
+    $.ajax(
+    {
+        url: '{% url "offers:get-images" %}',
+        data: {
+            'id': id,
+        },
+        dataType: 'json',
+        success: function(data) {
+                 const output = document.querySelector(".images-container")
+                 let images = "";
+
+                 for (let i = 0; i < data.images.length; i++) {
+                 const out = data.images[i]
+                 console.log(out);
+
+                    images += `
+                <img src="${out}" alt="image" class="pop-up-img">
+              `;
+                 }
+                 images += ` <div style="margin-top: 32px" class=""></div> `
+                 console.log(images);
+                 output.innerHTML = images;
+                 setTimeout(() => {}, "500")
+                document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[0].children[1].innerHTML
+                document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].children[3].innerHTML
+                document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.children[0].children[0].children[1].innerHTML
+                document.querySelector('.pop-up-images').classList.toggle('pop-up-delete-active');
+        },
+        type: "GET",
+
+    });
+
+}
+
+
         </script>
     </body>
-
+{% endblock %}
 </html>

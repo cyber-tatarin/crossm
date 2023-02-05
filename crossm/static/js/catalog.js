@@ -55,7 +55,7 @@ sortButton.addEventListener('click', (btn) => {
         
     let nisha = choices[0].innerHTML;
     let valuta = choices[1].innerHTML;
-    let country = choices[2].innerHTML
+//    let country = choices[2].innerHTML
         
     const allCopmanies = document.querySelectorAll('.company-card')
 

@@ -14,6 +14,8 @@ class Offers(models.Model):
     amount_min = models.IntegerField(blank=False, null=True)
     amount_max = models.IntegerField(blank=False, null=True)
 
+    has_photo = models.BooleanField(null=True)
+
     def natural_key(self):
         return (self.title,) + self.company.natural_key() + self.company.owner.natural_key()
 
