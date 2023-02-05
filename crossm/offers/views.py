@@ -150,8 +150,8 @@ class CatalogPageView(View):
 
     def get(self, request, **kwargs):
         offers = Offers.objects.prefetch_related('company__owner__profile_set').order_by('-id').all()
-        countries = Countries.objects.all()
         currencies = Offers.objects.values('currency').distinct()
+        niches = Companies.objects.values('niche').distinct()
 
         # niche = request.GET.get('niche')
         # if niche:
@@ -224,7 +224,7 @@ class CatalogPageView(View):
         context = {
             'offers': offers,
             'profile_ph': profile_ph,
-            'countries': countries,
-            'currencies': currencies
+            'currencies': currencies,
+            'niches': niches
         }
         return render(request, self.template_name, context)
