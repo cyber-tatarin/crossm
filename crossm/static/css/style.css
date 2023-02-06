@@ -707,7 +707,7 @@ button:hover{
     font-size: 12px;
     line-height: 15px;
     border: 2px solid #000000;
-    
+    border-radius: 20px;
 }
 
 .is-open .choices__list--dropdown{
@@ -1352,7 +1352,7 @@ button:hover{
 }
 
 .company-card:hover {
-    box-shadow: none;
+    box-shadow: 2px 2px 6px 5px rgba(0, 0, 0, 0.08);
 }
 
 .card-hr-solid {
@@ -1387,7 +1387,7 @@ button:hover{
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-bottom: 20px;    
+    margin-bottom: 20px;
 }
 
 .company-card-logo {
@@ -1406,7 +1406,7 @@ button:hover{
 
 .company-card-main {
     display: flex;
-    
+
     /* align-items: center; */
     /* justify-content: space-between;
     gap: 10px; */
@@ -1472,7 +1472,7 @@ button:hover{
     line-height: 15px;
     /* margin-bottom: 20px; */
     /* position: absolute; */
-    
+
     /* transform: translate(-50%, -50%); */
 }
 
@@ -1495,7 +1495,7 @@ button:hover{
 }
 
 .error-item {
-    
+
     /* width: 100%; */
     padding: 22px 32px;
     text-align: center;
@@ -1520,7 +1520,7 @@ button:hover{
 }
 
 .div-search {
-    width: 100%; 
+    width: 100%;
     max-width: 463px;
     position: relative;
 }
@@ -1693,7 +1693,7 @@ input[type=number] {
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 120;
+    z-index: 103;
     opacity: 0;
     visibility: hidden;
     transition: 0.2s ease-out;
@@ -1725,7 +1725,7 @@ input[type=number] {
     /* overflow: auto; */
     min-width: 500px;
     position: relative;
-    padding: 64px 52px 52px;
+    padding: 64px 52px 104px;
     margin: auto;
     width: 100%;
     max-width: 1200px;
@@ -1755,11 +1755,17 @@ input[type=number] {
     row-gap: 20px;
     height: 100%;
     overflow: auto;
+    border-radius: 50px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
+
+
 .images-container::-webkit-scrollbar {
+    display: none;
     padding: 50px 0px;
-    width: 6px;
+    width: none;
     background-color: #FCFCFC;
 }
 
@@ -1771,7 +1777,7 @@ input[type=number] {
 
 .images-container::-webkit-scrollbar-track {
     margin: 0px 0px 50px;
-} 
+}
 
 .pop-up-img {
     width: 100%;
@@ -1825,7 +1831,7 @@ input[type=number] {
 
 .container-scroll::-webkit-scrollbar-track {
     margin: 40px 0px 50px;
-} 
+}
 
 .delete-photo {
     position: absolute;
@@ -1861,7 +1867,7 @@ input[type=number] {
 }
 
 .catalog-filters-container{
-    margin: 0 auto; 
+    margin: 0 auto;
     max-width: 1380px;
 }
 
@@ -1945,7 +1951,7 @@ p.ot {
     top: 0;
     right: 0;
     left: 320px;
-    background-image: url(../../static/images/exit.svg);
+    background-image: url(../images/exit.svg);
     background-color: #ffda50;
     background-repeat: no-repeat;
     background-position: center;

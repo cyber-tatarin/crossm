@@ -68,7 +68,7 @@
                                     </button> 
                                 </div>
                                 <div class="button-240px">
-                                    <button class="button" >
+                                    <button class="button button-for-pop-up" >
                                         <p class="button-p">Удалить компанию</p>
                                     </button> 
                                 </div>
@@ -130,6 +130,29 @@
                 {% endif %}
 
                 <section style="display: flex; column-gap: 24px; margin-bottom: 24px;">
+
+
+                    <div class="pop-up-delete">
+                        <div class="pop-up-container">
+                            <div class="pop-up-body">
+                                <p class="pop-up-title">Вы уверены, что хотите удалить эту компанию?
+                                </p>
+                                <div class="pop-up-buttons">
+                                    <div class="pop-up-button pop-up-button-cancel">
+                                        <button class="button">
+                                            <p class="button-p">Отменить</p>
+                                        </button>
+                                    </div>
+                                    <div class="pop-up-button pop-up-button-confirm">
+                                        <button class="button">
+                                            <p class="button-p">Удалить</p>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     {% if reviews %}
                     <div class="container-scroll">
                         {% else %}
@@ -320,7 +343,7 @@
                                         <button class="button button-282px" onclick="window.location.href = '{% url 'offers:update-offer' offer.id %}'">
                                             <p class="button-p">Редактировать предложение</p>
                                         </button>
-                                        <button class="button button-282px" onclick="deleteOffer({{offer.id}})">
+                                        <button class="button button-282px button-for-pop-up" onclick="deleteOffer({{offer.id}})">
                                             <p class="button-p">Удалить предложение</p>
                                         </button>
                                     </div>
@@ -467,6 +490,56 @@
 
     return false;
 });
+
+let cardId;
+let masonry;
+
+window.onload = () => {
+    masonry = new Masonry('.grid', {
+    gutter: '.gutter-sizer',
+    itemSelector: '.grid-item',
+    columnWidth: '.grid-sizer',
+    percentPosition: true,
+    transitionDuration: '0.2s',
+  });
+};
+
+document.querySelectorAll('.button-for-pop-up').forEach((el) => {
+    el.addEventListener('click', () => {
+        document.querySelector('.pop-up-delete').classList.toggle('pop-up-delete-active');
+        cardId = el.id
+
+        })
+})
+
+document.querySelector('.pop-up-button-cancel').addEventListener('click', () => {
+    document.querySelector('.pop-up-delete').classList.remove('pop-up-delete-active');
+})
+
+document.querySelector('.pop-up-button-confirm').addEventListener('click', () => {
+
+    $.ajax ({
+        url: '{% url "companies:delete-company" %}',
+        data: {
+            'id': cardId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function(data) {
+            $("#company-" + cardId).remove();
+            masonry = new Masonry('.grid', {
+            gutter: '.gutter-sizer',
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer',
+            percentPosition: true,
+            transitionDuration: '0.2s',
+        });
+        },
+        type: "POST",
+    });
+
+    document.querySelector('.pop-up-delete').classList.remove('pop-up-delete-active');
+})
 
 function deletePhoto(id){
 

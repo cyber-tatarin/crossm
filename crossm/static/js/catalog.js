@@ -23,10 +23,7 @@ const renderSelect = () => {
 
 renderSelect()
 
-
-const sortButton = document.getElementById('sort-button')
-sortButton.addEventListener('click', (btn) => {
-
+let sort = function () {
     let couponCountOt = document.getElementById('coupon-count-ot')
     let couponCountDo = document.getElementById('coupon-count-do')
 
@@ -45,124 +42,109 @@ sortButton.addEventListener('click', (btn) => {
     couponPriceOt = couponPriceOt.value ? (couponPriceOt.value) : (couponPriceOt.placeholder);
     couponPriceDo = couponPriceDo.value ? (couponPriceDo.value) : (couponPriceDo.placeholder);
 
-    console.log(couponCountOt, couponCountDo, retailPriceOt, retailPriceDo, couponPriceOt, couponPriceDo)
-
     const checkbox = document.getElementById('phone')
-
-    // console.log(couponCountOt.placeholder || couponCountOt.value)
-
     const choices = document.querySelectorAll('option')
-        
+
     let nisha = choices[0].innerHTML;
     let valuta = choices[1].innerHTML;
-//    let country = choices[2].innerHTML
-        
+
     const allCopmanies = document.querySelectorAll('.company-card')
 
     allCopmanies.forEach((el) => {
 
         el.style.display = 'block';
-        // console.log(couponCountOt.placeholder)
-        
 
-        // let rescouponCountOt;
-        // if (couponCountOt.value === '') {
-        //     rescouponCountOt = couponCountOt.placeholder
-        // }
-        // else {
-        //     rescouponCountOt = couponCountOt.value
-        // }
-
-        // if(couponCountOt.value === '') couponCountOt = couponCountOt.placeholder else 
-
-
-
-        // const currentCompanyTitle = el.querySelector('.company-card-name').innerHTML;
         const currentCompanyNisha = el.querySelector('.nisha').innerHTML;
-        // const currentCompanyYslyga = el.querySelector('.usluga').innerHTML;
         const currentCompanyCouponCount = el.querySelector('.coupon-count').innerHTML;
         const currentCompanyCouponPrice = el.querySelector('.coupon-price').innerHTML;
         const currentCompanyRetailPrice = el.querySelector('.retail-price').innerHTML;
         const currentCompanyPhone = el.querySelector('.contacts-phone').innerHTML
 
         let resCouponCount = currentCompanyCouponCount.match(/(-?\d+(\.\d+)?)/g).map(v => +v);
-        let resCouponPrice = parseInt(currentCompanyCouponPrice.match(/\d+/)) 
-        let resRetailPrice = parseInt(currentCompanyRetailPrice.match(/\d+/)) 
-        // console.log(resCurrentCompanyRetailPrice, resCurrentCompanyCouponPricet, resCurrentCompanyCouponCount)
-        console.log(resCouponPrice, Number(couponPriceOt), couponPriceDo)
-        console.log(Number(couponPriceOt) <= resCouponPrice && Number(couponPriceDo) >= resCouponPrice)
+        let resCouponPrice = parseInt(currentCompanyCouponPrice.match(/\d+/))
+        let resRetailPrice = parseInt(currentCompanyRetailPrice.match(/\d+/))
 
-        // (Number(couponCountOt) >= resCouponCount[0] && Number(couponCountDo) <= resCouponCount[1])
-
-        // || !(Number(couponCountOt) <= resCouponCount[0]) && !(Number(couponCountDo) >= resCouponCount[1])
-
-        if  (nisha != currentCompanyNisha && nisha !="Все" 
-            || valuta != currentCompanyCouponPrice.slice(-3) && valuta !="Все" 
-            || checkbox.checked != !!currentCompanyPhone 
+        if  (nisha != currentCompanyNisha && nisha !="Все"
+            || valuta != currentCompanyCouponPrice.slice(-3) && valuta !="Все"
+            || (checkbox.checked && !currentCompanyPhone)
             || !(Number(couponPriceOt) <= resCouponPrice && Number(couponPriceDo) >= resCouponPrice)
             || !(Number(retailPriceOt) <= resRetailPrice && Number(retailPriceDo) >= resRetailPrice)
             || (Number(couponCountOt) < resCouponCount[0] && Number(couponCountDo) < resCouponCount[0])
-            || (Number(couponCountDo) > resCouponCount[1] && Number(couponCountOt) > resCouponCount[1])
-            ) {
-            
-            el.style.display = 'none'
-            masonry = new Masonry('.grid', {
+            || (Number(couponCountDo) > resCouponCount[1] && Number(couponCountOt) > resCouponCount[1])) {
+                el.style.display = 'none'
+                masonry = new Masonry('.grid', {
                 gutter: '.gutter-sizer',
                 itemSelector: '.grid-item',
                 columnWidth: '.grid-sizer',
                 percentPosition: true,
-                transitionDuration: '0.2s', 
+                transitionDuration: '0.2s',
               });
-        }   else {
-            masonry = new Masonry('.grid', {
+        } else {
+                masonry = new Masonry('.grid', {
                 gutter: '.gutter-sizer',
                 itemSelector: '.grid-item',
                 columnWidth: '.grid-sizer',
                 percentPosition: true,
-                transitionDuration: '0.2s', 
+                transitionDuration: '0.2s',
               });
         }
-
-        
-
-    //    console.log(currentCompanyTitle, currentCompanyNisha)
-
-        // if (el.innerHTML != currentCompanyTitle) {
-        //     el.closest('.company-card').style.display = 'none'
-        // }
-               
-                
     })
-            
-        
+}
+
+
+const sortButton = document.getElementById('sort-button')
+
+sortButton.addEventListener('click', (btn) => {
+    sort ()
+    document.querySelector('.search-input').value = ''
 })
 
 document.querySelector('.search-input').oninput = function () {
     let val = this.value.trim();
-    let elasticItems = document.querySelectorAll('.company-card-name');
+    let companies = document.querySelectorAll('.company-card');
     if (val != '') {
-        
-        elasticItems.forEach( (el) => {
-            if (el.innerText.search(RegExp(val,"gi")) == -1) {
-                el.closest('.company-card').style.display = 'none'
-            } else {
-                el.closest('.company-card').style.display = 'block'
-                masonry = new Masonry('.grid', {
-                    gutter: '.gutter-sizer',
-                    itemSelector: '.grid-item',
-                    columnWidth: '.grid-sizer',
-                    percentPosition: true,
-                    transitionDuration: '0.2s', 
-                  });
+        sort()
+        companies.forEach( (el) => {
+            if (el.querySelector('.company-card-name').innerHTML.search(RegExp(val,"gi")) == -1
+            && el.querySelector('.usluga').innerHTML.search(RegExp(val,"gi")) == -1) {
+                el.style.display = 'none';
+
+            }
+
+            if (companies.length === 0) {
+                console.log('clear')
             }
         })
+
     } else {
-        
-        elasticItems.forEach((el) => {
-            el.closest('.company-card').style.display = 'block'
+        companies.forEach((el) => {
+            el.style.display = 'block'
+            sort()
         })
     }
+    masonry = new Masonry('.grid', {
+        gutter: '.gutter-sizer',
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-sizer',
+        percentPosition: true,
+        transitionDuration: '0.2s',
+    });
+    let total = 0;
+    companies.forEach( (el) => {
+        if (el.style.display === 'block') {
+            total +=1;
+        }
+    })
+    if (total === 0){
+       document.querySelector('.message-error').innerHTML = 'Ничего не найдено'
+    }
+    else {
+        document.querySelector('.message-error').innerHTML = ''
+    }
+
 }
+
+
 
 
 
