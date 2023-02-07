@@ -59,6 +59,7 @@ class DeleteOfferView(LoginRequiredMixin, View):
     def post(self, request, **kwargs):
         obj = get_object_or_404(Offers, id=request.POST.get('id'))
         if obj.company.owner != self.request.user:
+            print('wrong')
             raise Http404
         obj.delete()
         data = {'deleted': True, 'success': True}

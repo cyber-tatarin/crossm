@@ -47,7 +47,7 @@
                 <div class="pop-up-delete">
                         <div class="pop-up-container">
                             <div class="pop-up-body">
-                                <p class="pop-up-title">Вы уверены, что хотите удалить эту компанию?
+                                <p class="pop-up-title">Вы уверены, что хотите удалить это предложение?
                                 </p>
                                 <div class="pop-up-buttons">
                                     <div class="pop-up-button pop-up-button-cancel">
@@ -64,6 +64,34 @@
                             </div>
                         </div>
                     </div>
+
+
+                <div class="pop-up-images">
+                    <div class="pop-up-container">
+                        <div class="pop-up-images-body">
+                            <div class="pop-up-exit">
+
+                            </div>
+                            <div style="margin-bottom: 32px;" class="flex">
+                            <p class="pop-up-images-title"></p>
+                            <div style="margin-right: 16px;" class="">
+                                <span class="profile-user__city">Услуга:&nbsp</span>
+                                <span class="profile-user__city__name pop-up-input-title"></span>
+                            </div>
+                            <div class="">
+                                <span class="profile-user__city">Цена купона:&nbsp</span>
+                                <span class="profile-user__city__name pop-up-input-price"></span>
+                            </div>
+                            </div>
+                            <div class="images-container">
+<!--                                <img src="" alt="" class="pop-up-img">-->
+<!--                                <div style="margin-top: 32px" class=""></div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
 
             <div class="card-container">
 
@@ -88,7 +116,7 @@
                     {% for company in objects %}
                     {% for offer in company.offers_set.all %}
 
-                <div class="company-card grid-item">
+                <div id="offer-{{offer.id}}" class="company-card grid-item">
                     <div class="company-card-top">
                         <div class="company-card-logo"></div>
                         <p class="company-card-name">{{company.title}}</p>
@@ -132,9 +160,11 @@
                         <!-- <div class="hr-solid-vertical"></div> -->
                         <div class="company-content-right">
                             <div class="flex-content-no-gap">
-                                <button style="margin-top: -2px; max-width: 150px;" class="button check-pop-up" onclick="getImages({{offer.id}})">
+                                {% if offer.has_photo %}
+                                <button id="img-{{offer.id}}" style="margin-top: -2px; max-width: 150px;" class="button check-pop-up">
                                     <p class="button-p">Посмотреть вложения</p>
                                 </button>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -168,11 +198,11 @@
 
                     <hr class="hr-solid">
                     <div class="company-card-buttons">
-                        <button class="button button-282px">
-                            <p class="button-p">Посмотреть вложения</p>
-                        </button>
-                        <button class="button button-282px button-for-pop-up">
+                        <button class="button button-282px" onclick="window.location.href = '{% url 'offers:update-offer' offer.id %}'">
                             <p class="button-p">Редактировать предложение</p>
+                        </button>
+                        <button id="del-{{offer.id}}" class="button button-282px button-for-pop-up">
+                            <p class="button-p">Удалить предложение</p>
                         </button>
                     </div>
                 </div>
@@ -196,8 +226,8 @@
 
     <script>
 
-    let cardId;
-let masonry;
+let cardId;
+
 
 window.onload = () => {
     masonry = new Masonry('.grid', {
@@ -212,7 +242,7 @@ window.onload = () => {
 document.querySelectorAll('.button-for-pop-up').forEach((el) => {
     el.addEventListener('click', () => {
         document.querySelector('.pop-up-delete').classList.toggle('pop-up-delete-active');
-        cardId = el.id
+        cardId = parseInt(el.id.replace(/[^\d]/g, ''))
 
         })
 })
@@ -224,14 +254,14 @@ document.querySelector('.pop-up-button-cancel').addEventListener('click', () => 
 document.querySelector('.pop-up-button-confirm').addEventListener('click', () => {
 
     $.ajax ({
-        url: '{% url "companies:delete-company" %}',
+        url: '{% url "offers:delete-offer" %}',
         data: {
             'id': cardId,
             'csrfmiddlewaretoken': '{{ csrf_token }}'
         },
         dataType: 'json',
         success: function(data) {
-            $("#company-" + cardId).remove();
+            $("#offer-" + cardId).remove();
             masonry = new Masonry('.grid', {
             gutter: '.gutter-sizer',
             itemSelector: '.grid-item',
@@ -246,42 +276,20 @@ document.querySelector('.pop-up-button-confirm').addEventListener('click', () =>
     document.querySelector('.pop-up-delete').classList.remove('pop-up-delete-active');
 })
 
-     document.querySelectorAll('.check-pop-up').forEach((el) => {
+
+document.querySelectorAll('.check-pop-up').forEach((el) => {
             el.addEventListener('click', () => {
-                getImages(el.id, el);
+                getImages(parseInt(el.id.replace(/[^\d]/g, '')), el);
             })
         })
-
-        document.querySelector('.pop-up-exit').addEventListener('click', () => {
+         document.querySelector('.pop-up-exit').addEventListener('click', () => {
             document.querySelector('.pop-up-images').classList.remove('pop-up-delete-active');
         })
 
-function deleteUser(id)
-{
-  var action = confirm("Are you sure you want to delete this user?");
-  if (action != false)
-  {
-    $.ajax(
-    {
-        url: '{% url "offers:delete-offer" %}',
-        data: {
-            'id': id,
-             'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        dataType: 'json',
-        success: function(data) {
-              $("#offer-" + id).remove();
-              $("#button-" + id).remove();
-        },
-        type: "POST",
 
-    });
-  }
-}
 
 function getImages(id, el)
 {
-
     $.ajax(
     {
         url: '{% url "offers:get-images" %}',
@@ -301,7 +309,7 @@ function getImages(id, el)
                 <img src="${out}" alt="image" class="pop-up-img">
               `;
                  }
-                 images += ` <div style="margin-top: 32px" class=""></div> `
+<!--                 images += ` <div style="margin-top: 32px" class=""></div> `-->
                  console.log(images);
                  output.innerHTML = images;
                  setTimeout(() => {}, "500")

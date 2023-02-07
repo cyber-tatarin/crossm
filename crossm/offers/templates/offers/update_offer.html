@@ -152,18 +152,6 @@
                         <hr class="line__dashed line__dashed-620">
                     </div>
 
-                    <p>Старые фото</p>
-                    {% for i in images %}
-                    <img id="image-{{i.id}}" src="{{i.image.url}}" width="100px" height="100px">
-                    <div id="button-{{i.id}}" class="button-278px">
-
-                                    <a onclick="deleteUser({{i.id}})" class="button-p">Удалить фото</a>
-
-                            </div>
-                    {% endfor %}
-
-                    <output><p>Новые фото</p></output>
-
                     <div class="button-submit">
                         <button class="button" type="submit">
                             <p class="button-p">Создать предложение</p>
@@ -229,6 +217,53 @@
             </div>
 
         </main>
+
+<!--                        <p>Старые фото</p>-->
+<!--                    {% for i in images %}-->
+<!--                    <img id="image-{{i.id}}" src="{{i.image.url}}" width="100px" height="100px">-->
+<!--                    <div id="button-{{i.id}}" class="button-278px">-->
+
+<!--                                    <a onclick="deleteUser({{i.id}})" class="button-p">Удалить фото</a>-->
+
+<!--                            </div>-->
+<!--                    {% endfor %}-->
+
+<!--                    <output><p>Новые фото</p></output>-->
+
+
+     <section style="margin-top: 24px">
+      <div class="container-padding">
+        <div class="container">
+          <h3 style="margin-bottom: 24px" class="inputs-part__title">
+            Вложения
+          </h3>
+            {% if images %}
+          <div class="images-delete-container">
+              {% for i in images %}
+            <div class="image-container">
+              <img id="image-{{i.id}}" src="{{i.image.url}}" alt="" class="small-image" />
+              <a id="img-button{{i.id}}" onclick="deleteUser({{i.id}})" class="delete-image">Удалить фото</a>
+            </div>
+              {% endfor %}
+              <div class="images-delete-container" id="new-img"></div>
+
+          </div>
+
+            {% else %}
+
+          <p style="position: static; margin-top: -4px" class="p-no-reviews">
+                  Сохраненных вложений пока нет
+                </p>
+                <div class="images-delete-container" id="new-img"></div>
+            {% endif %}
+        </div>
+
+      </div>
+
+    </section>
+
+
+
             {% include "footer.html" %}
         <!-- <div class="bottom-margin"></div> -->
         <script src="{% static 'js/file-animation.js' %}"></script>
@@ -251,6 +286,7 @@ function deleteUser(id)
         dataType: 'json',
         success: function(data) {
               $("#image-" + id).remove();
+              $("#img-button-" + id).remove();
         },
         type: "GET",
 
@@ -259,16 +295,17 @@ function deleteUser(id)
 }
 
 
-const output = document.querySelector("output");
+const output = document.querySelector("#new-img");
 const input = document.getElementById("choose-file-container");
 let imagesArray = [];
 
 function displayImages() {
   let images = "";
   imagesArray.forEach((image, index) => {
-       images += `<div class="image">
-                <img src="${URL.createObjectURL(image)}" alt="image">
-                <span onclick="deleteImage(${index})">&times;</span>
+       images +=
+       `<div class="image-container">
+                <img src="${URL.createObjectURL(image)}" alt="" class="small-image">
+                <a class="delete-image" onclick="deleteImage(${index})">Удалить фото</a>
               </div>`;
   })
   output.innerHTML = images;

@@ -1710,7 +1710,26 @@ input[type="number"] {
   transition: 0.2s ease-out;
 }
 
+.pop-up-delete-company,
+.pop-up-images {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 103;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s ease-out;
+}
+
 .pop-up-delete-active {
+  visibility: visible;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.pop-up-delete-company-active {
   visibility: visible;
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.6);

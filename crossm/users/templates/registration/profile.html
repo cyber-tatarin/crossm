@@ -105,6 +105,7 @@
                         <h2 class="profile-content-title">
                             Компании
                         </h2>
+
                         <div class="grid">
                             <div class="grid-sizer"></div>
                             <div class="gutter-sizer"></div>
@@ -217,19 +218,21 @@
 
                 <section>
 
-                    <div class="container">
-                        <h2 class="main-title profile-title">
+                    <div class="card-container">
+                        <h2 class="profile-content-title">
                             Компании
                         </h2>
-                        <div class="card-container">
+                        <div class="grid">
+                            <div class="grid-sizer"></div>
+                            <div class="gutter-sizer"></div>
 
                             {% for company in user.companies_set.all %}
 
-                        <div class="card">
+                        <div class="card grid-item" id="company-{{company.id}}">
                             <div class="card-info">
                                 <div class="card__logo"></div>
                                 <div class="card__info">
-                                    <h3 class="company-name">{{company.title}}”</h3>
+                                    <h3 onclick="window.location.href = '{% url 'companies:company-page' company.id %}'" class="company-name">{{company.title}}”</h3>
                                     <div class="company-title">
                                         <span class="company-sphere">Ниша:&nbsp</span>
                                         <span class="company-sphere-name">{{company.niche}}</span>

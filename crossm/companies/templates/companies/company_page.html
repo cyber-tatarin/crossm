@@ -23,6 +23,49 @@
 
                     {% if owner %}
 
+                <div class="pop-up-delete">
+                        <div class="pop-up-container">
+                            <div class="pop-up-body">
+                                <p class="pop-up-title">Вы уверены, что хотите удалить это предложение?
+                                </p>
+                                <div class="pop-up-buttons">
+                                    <div class="pop-up-button pop-up-button-cancel company-cancel">
+                                        <button class="button">
+                                            <p class="button-p">Отменить</p>
+                                        </button>
+                                    </div>
+                                    <div class="pop-up-button pop-up-button-confirm company-delete">
+                                        <button class="button">
+                                            <p class="button-p">Удалить</p>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="pop-up-delete-company">
+                        <div class="pop-up-container">
+                            <div class="pop-up-body">
+                                <p class="pop-up-title">Вы уверены, что хотите удалить эту компанию?
+                                </p>
+                                <div class="pop-up-buttons">
+                                    <div class="pop-up-button pop-up-button-cancel">
+                                        <button class="button">
+                                            <p class="button-p">Отменить</p>
+                                        </button>
+                                    </div>
+                                    <div class="pop-up-button pop-up-button-confirm">
+                                        <button class="button">
+                                            <p class="button-p">Удалить</p>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 <div class="profile">
                     <div class="profile-owner">
 
@@ -68,7 +111,7 @@
                                     </button> 
                                 </div>
                                 <div class="button-240px">
-                                    <button class="button button-for-pop-up" >
+                                    <button class="button button-for-pop-up company-del-button">
                                         <p class="button-p">Удалить компанию</p>
                                     </button> 
                                 </div>
@@ -131,27 +174,30 @@
 
                 <section style="display: flex; column-gap: 24px; margin-bottom: 24px;">
 
+                    <div class="pop-up-images">
+                    <div class="pop-up-container">
+                        <div class="pop-up-images-body">
+                            <div class="pop-up-exit">
 
-                    <div class="pop-up-delete">
-                        <div class="pop-up-container">
-                            <div class="pop-up-body">
-                                <p class="pop-up-title">Вы уверены, что хотите удалить эту компанию?
-                                </p>
-                                <div class="pop-up-buttons">
-                                    <div class="pop-up-button pop-up-button-cancel">
-                                        <button class="button">
-                                            <p class="button-p">Отменить</p>
-                                        </button>
-                                    </div>
-                                    <div class="pop-up-button pop-up-button-confirm">
-                                        <button class="button">
-                                            <p class="button-p">Удалить</p>
-                                        </button>
-                                    </div>
-                                </div>
+                            </div>
+                            <div style="margin-bottom: 32px;" class="flex">
+                            <p class="pop-up-images-title"></p>
+                            <div style="margin-right: 16px;" class="">
+                                <span class="profile-user__city">Услуга:&nbsp</span>
+                                <span class="profile-user__city__name pop-up-input-title"></span>
+                            </div>
+                            <div class="">
+                                <span class="profile-user__city">Цена купона:&nbsp</span>
+                                <span class="profile-user__city__name pop-up-input-price"></span>
+                            </div>
+                            </div>
+                            <div class="images-container">
+<!--                                <img src="" alt="" class="pop-up-img">-->
+<!--                                <div style="margin-top: 32px" class=""></div>-->
                             </div>
                         </div>
                     </div>
+                </div>
 
                     {% if reviews %}
                     <div class="container-scroll">
@@ -215,17 +261,17 @@
                         </div>
                       </div>
 
-                    {% if owner %}
+
                         {% if reviews %}
                         <div class="container">
                             {% else %}
                             <div style="width: 100%;" class="container">
                                 {% endif %}
-                            <h2 class="main-title">Компании</h2>
+                            <h2 class="main-title">Контакты</h2>
 
                             <!-- с текстом -->
-                            {% if company.owner.bio %}
-                             <div style="margin-bottom: 25px;" class="profile-user-small">
+                            {% if company.owner.profile_set.all.0.bio %}
+                             <div style="margin-bottom: 16px;" class="profile-user-small">
                                 <div class="profile-user-left">
                                     <div class="profile-user__logo-small"></div>
                                 </div>
@@ -236,7 +282,7 @@
                                     <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
                                 </div>
                                 <div class="profile__remark-small">
-                                    {{company.owner.bio}}
+                                    {{company.owner.profile_set.all.0.bio}}
                                 </div>
                                 </div>
                             </div>
@@ -245,7 +291,7 @@
 
                             <!-- без текста -->
 
-                            <div style="margin-bottom: 25px; align-items: center;" class="profile-user-small">
+                            <div style="margin-bottom: 16px; align-items: center;" class="profile-user-small">
                                 <div class="profile-user-left">
                                     <div class="profile-user__logo-small"></div>
                                 </div>
@@ -260,6 +306,7 @@
 
                             {% endif %}
 
+
                             <div class="profile-user__mail">
                                 <p class="user__mail">{{company.owner.email}}</p>
                             </div>
@@ -273,7 +320,6 @@
                             {% endif %}
                         </div>
                         </div>
-                            {% endif %}
                     </div>
                 </section>
 
@@ -283,7 +329,7 @@
                     <div class="card-container">
                         <div class="flex-32">
                         <p class="main-title">
-                            Компании
+                            Предложения
                         </p>
                         <a href="{% url 'offers:create-offer' company.id %}" class="add-offer-no-change">Добавить предложение</a>
                     </div>
@@ -296,16 +342,13 @@
                 {% for offer in company.offers_set.all %}
 
                                 <div id="offer-{{offer.id}}" class="company-card grid-item">
-                                    <div class="company-card-top">
-                                        <div class="company-card-logo"></div>
-                                        <p class="company-card-name">{{offer.company.title}}</p>
-                                    </div>
+
                                     <hr class="card-hr-solid">
                                     <div class="company-card-main"> 
                                         <div class="company-content-left">
                                             <div style="margin-bottom: 12px;" class="">
                                                 <p class="company-key">{{offer.type}}</p>
-                                                <p class="company-value no-bottom">{{offer.title}}</p>
+                                                <p class="company-value no-bottom" >{{offer.title}}</p>
                                             </div>
                                             <div class=""> 
                                                 <p class="company-key">Розничная цена</p>
@@ -332,7 +375,7 @@
                                     <div class="company-card-main"> 
                                         <div class="card-button-single">
                                         <div class="flex-content">
-                                            <button style="margin-top: -2px; max-width: 100%;" class="button">
+                                            <button id="get-img-{{offer.id}}" style="margin-top: -2px; max-width: 100%;" class="button check-pop-up">
                                                 <p class="button-p">Посмотреть вложения</p>
                                             </button>
                                         </div>
@@ -343,7 +386,7 @@
                                         <button class="button button-282px" onclick="window.location.href = '{% url 'offers:update-offer' offer.id %}'">
                                             <p class="button-p">Редактировать предложение</p>
                                         </button>
-                                        <button class="button button-282px button-for-pop-up" onclick="deleteOffer({{offer.id}})">
+                                        <button id="of-del-{{offer.id}}" class="button button-282px button-for-pop-up offer-del-button">
                                             <p class="button-p">Удалить предложение</p>
                                         </button>
                                     </div>
@@ -361,7 +404,7 @@
                     <div class="card-container">
                         <div class="flex-32">
                         <p class="main-title">
-                            Компании
+                            Предложения
                         </p>
                     </div>
 
@@ -372,10 +415,7 @@
                                 {% for offer in company.offers_set.all %}
 
                 <div class="company-card grid-item">
-                                    <div class="company-card-top">
-                                        <div class="company-card-logo"></div>
-                                        <p class="company-card-name">{{offer.company.title}}</p>
-                                    </div>
+
                                     <hr class="card-hr-solid">
                                     <div class="company-card-main">
                                         <div class="company-content-left">
@@ -408,7 +448,7 @@
                                     <div class="company-card-main">
                                         <div class="card-button-single">
                                         <div class="flex-content">
-                                            <button style="margin-top: -2px; max-width: 100%;" class="button">
+                                            <button id="get-img-{{offer.id}}" style="margin-top: -2px; max-width: 100%;" class="button check-pop-up">
                                                 <p class="button-p">Посмотреть вложения</p>
                                             </button>
                                         </div>
@@ -443,56 +483,8 @@
         <script src="{% static 'js/sort-companies.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
     <script>
-    function deleteOffer(id)
-{
-  var action = confirm("Are you sure you want to delete this user?");
-  if (action != false)
-  {
-    $.ajax(
-    {
-        url: '{% url "offers:delete-offer" %}',
-        data: {
-            'id': id,
-             'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        dataType: 'json',
-        success: function(data) {
-              $("#offer-" + id).remove();
-        },
-        type: "POST",
-
-    });
-  }
-}
-
-
-    $("form#files").submit(function(){
-
-    var formData = new FormData($(this)[0]);
-
-    $.ajax({
-        url: '{% url "companies:upload-photo" %}',
-        type: 'POST',
-        data: formData,
-        async: false,
-        success: function (data) {
-
-                    let out = data.image
-                    console.log(out)
-
-              document.querySelector(".profile-user__img").src=out;
-
-        },
-        cache: false,
-        contentType: false,
-        processData: false
-    });
-
-    return false;
-});
 
 let cardId;
-let masonry;
 
 window.onload = () => {
     masonry = new Masonry('.grid', {
@@ -504,10 +496,10 @@ window.onload = () => {
   });
 };
 
-document.querySelectorAll('.button-for-pop-up').forEach((el) => {
+document.querySelectorAll('.offer-del-button').forEach((el) => {
     el.addEventListener('click', () => {
         document.querySelector('.pop-up-delete').classList.toggle('pop-up-delete-active');
-        cardId = el.id
+        cardId = parseInt(el.id.replace(/[^\d]/g, ''))
 
         })
 })
@@ -519,14 +511,14 @@ document.querySelector('.pop-up-button-cancel').addEventListener('click', () => 
 document.querySelector('.pop-up-button-confirm').addEventListener('click', () => {
 
     $.ajax ({
-        url: '{% url "companies:delete-company" %}',
+        url: '{% url "offers:delete-offer" %}',
         data: {
             'id': cardId,
             'csrfmiddlewaretoken': '{{ csrf_token }}'
         },
         dataType: 'json',
         success: function(data) {
-            $("#company-" + cardId).remove();
+            $("#offer-" + cardId).remove();
             masonry = new Masonry('.grid', {
             gutter: '.gutter-sizer',
             itemSelector: '.grid-item',
@@ -557,6 +549,116 @@ function deletePhoto(id){
         type: "POST",
     });
     }
+
+$("form#files").submit(function(){
+
+    var formData = new FormData($(this)[0]);
+
+    $.ajax({
+        url: '{% url "companies:upload-photo" %}',
+        type: 'POST',
+        data: formData,
+        async: false,
+        success: function (data) {
+
+                    let out = data.image
+                    console.log(out)
+
+              document.querySelector(".profile-user__img").src=out;
+
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+
+    return false;
+});
+
+
+
+
+document.querySelectorAll('.check-pop-up').forEach((el) => {
+            el.addEventListener('click', () => {
+                getImages(parseInt(el.id.replace(/[^\d]/g, '')), el);
+            })
+        })
+         document.querySelector('.pop-up-exit').addEventListener('click', () => {
+            document.querySelector('.pop-up-images').classList.remove('pop-up-delete-active');
+        })
+
+function getImages(id, el)
+{
+    $.ajax(
+    {
+        url: '{% url "offers:get-images" %}',
+        data: {
+            'id': id,
+        },
+        dataType: 'json',
+        success: function(data) {
+                 const output = document.querySelector(".images-container")
+                 let images = "";
+
+                 for (let i = 0; i < data.images.length; i++) {
+                 const out = data.images[i]
+                 console.log(out);
+
+                    images += `
+                <img src="${out}" alt="image" class="pop-up-img">
+              `;
+                 }
+<!--                 images += ` <div style="margin-top: 32px" class=""></div> `-->
+                 console.log(images);
+                 output.innerHTML = images;
+                 setTimeout(() => {}, "500")
+                document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[0].children[1].innerHTML
+                document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].children[1].innerHTML
+                document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.children[0].children[0].children[1].innerHTML
+                document.querySelector('.pop-up-images').classList.toggle('pop-up-delete-active');
+        },
+        type: "GET",
+
+    });
+
+}
+
+
+
+
+
+document.querySelectorAll('.company-del-button').forEach((el) => {
+    el.addEventListener('click', () => {
+        document.querySelector('.pop-up-delete-company').classList.toggle('pop-up-delete-company-active');
+        cmpId = parseInt(el.id.replace(/[^\d]/g, ''))
+
+        })
+})
+
+document.querySelector('.company-cancel').addEventListener('click', () => {
+    document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
+})
+
+document.querySelector('.company-delete').addEventListener('click', () => {
+
+    $.ajax ({
+        url: '{% url "companies:delete-company" %}',
+        data: {
+            'id': cmpId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function(data) {
+            window.location.href = "{% url 'offers:catalog' %}"
+
+        },
+        type: "POST",
+    });
+
+    document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
+})
+
+
 
 
 

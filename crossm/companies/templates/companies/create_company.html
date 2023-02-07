@@ -118,84 +118,24 @@
             </div>
           </form>
 
-          {% if form.non_field_errors or form.title.errors or form.niche.errors
-          or form.country_of_res.errors or form.link.errors or form.role.errors
-          %}
+          {% if form.non_field_errors or form.title.errors or form.niche.errors or form.country_of_res.errors or form.link.errors or form.role.errors %}
           <div class="error">
-            {% if form.non_field_errors %} {% for error in form.non_field_errors
-            %} {{error}} {% endfor %} {% endif %} {% if form.title.errors %} {%
-            for error in form.title.errors %} {{error}} {% endfor %} {% endif %}
+            {% if form.non_field_errors %} {% for error in form.non_field_errors %} {{error}}
+            {% endfor %} {% endif %} {% if form.title.errors %}
+            {% for error in form.title.errors %} {{error}} {% endfor %} {% endif %}
             {% if form.niche.errors %} {% for error in form.niche.errors %}
-            {{error}} {% endfor %} {% endif %} {% if form.country_of_res.errors
-            %} {% for error in form.country_of_res.errors %} {{error}} {% endfor
-            %} {% endif %} {% if form.link.errors %} {% for error in
-            form.link.errors %} {{error}} {% endfor %} {% endif %} {% if
-            form.role.errors %} {% for error in form.role.errors %} {{error}} {%
-            endfor %} {% endif %}
+            {{error}} {% endfor %} {% endif %} {% if form.country_of_res.errors %}
+            {% for error in form.country_of_res.errors %} {{error}} {% endfor %}
+            {% endif %} {% if form.link.errors %} {% for error in form.link.errors %}
+            {{error}} {% endfor %} {% endif %} {% if form.role.errors %}
+            {% for error in form.role.errors %} {{error}}
+            {% endfor %} {% endif %}
           </div>
           {% endif %}
         </div>
       </div>
     </main>
-    <section style="margin-top: 24px">
-      <div class="container-padding">
-        <div class="container">
-          <h3 style="margin-bottom: 24px" class="inputs-part__title">
-            Вложения
-          </h3>
-          <div class="images-delete-container">
-            <div class="image-container">
-              <img src="../images/android.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-            <div class="image-container">
-              <img src="../images/cat.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-            <div class="image-container">
-              <img src="../images/Dima.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-            <div class="image-container">
-              <img src="../images/panda.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-            <div class="image-container">
-              <img src="../images/android.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-            <div class="image-container">
-              <img src="../images/wolf.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-            <div class="image-container">
-              <img src="../images/panda.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-            <div class="image-container">
-              <img src="../images/Dima.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-            <div class="image-container">
-              <img src="../images/android.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-            <div class="image-container">
-              <img src="../images/Dima.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-            <div class="image-container">
-              <img src="../images/cat.jpg" alt="" class="small-image" />
-              <a href="" class="delete-image">Удалить фото</a>
-            </div>
-          </div>
 
-          <!-- <p style="position: static; margin-top: -4px" class="p-no-reviews">
-                  Отзывов пока нет
-                </p> -->
-        </div>
-      </div>
-    </section>
     {% include "footer.html" %}
     <!-- <div class="bottom-margin"></div> -->
     <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
