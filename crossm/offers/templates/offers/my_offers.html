@@ -94,7 +94,7 @@
 
 
             <div class="card-container">
-
+                    {% if objects %}
                 <div class="all-companies">
                     {% for company in objects %}
                     <span id="{{company.id}}" class="company">{{company.title}}</span>
@@ -106,20 +106,23 @@
                     <div class="pop-up-arrow"></div>
                     <p class="p-pop-up">Пожалуйста, выберите компанию, от лица которой Вы хотите создать предложение</p>
                 </div>
-
+{% else %}
+                <p class="p-no-reviews">Пока что у Вас нет компаний и предложений</p>
+                <a class="add-offer">Добавить свою компанию</a>
+                {% endif %}
 
 
                 <div class="grid">
                 <div class="grid-sizer"></div>
                 <div class="gutter-sizer"></div>
-
+{% if company.offers_set.all %}
                     {% for company in objects %}
                     {% for offer in company.offers_set.all %}
 
                 <div id="offer-{{offer.id}}" class="company-card grid-item">
                     <div class="company-card-top">
                         <div class="company-card-logo"></div>
-                        <p class="company-card-name">{{company.title}}</p>
+                        <span onclick="window.location.href = '{% url 'companies:company-page' company.id %}'" class="company-card-name">{{company.title}}</span>
                     </div>
                     <hr class="card-hr-solid">
                     <div class="company-card-main">
@@ -209,8 +212,10 @@
 
                     {% endfor %}
                     {% endfor %}
-
-<output></output>
+                    {% else %}
+                    <span class="p-no-reviews">Пока что у Вас нет предложений</span>
+                    <div style="margin-bottom:20px"></div>
+                    {% endif %}
 
                 </div>
             </div>

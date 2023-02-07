@@ -157,6 +157,16 @@ body {
   color: #0500ff;
 }
 
+.nav-menu__title-policy {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 19px;
+  transition: 0.3s ease-out;
+}
+.nav-menu__title-policy:hover {
+  color: #0500ff;
+}
+
 .active {
   font-weight: 900;
   font-size: 16px;
@@ -253,6 +263,12 @@ input {
 
 .profile__remark-small {
   margin-bottom: 12px;
+}
+
+.profile__remark-small-wout-margin {
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 15px;
 }
 
 .inputs-part__double {
@@ -1124,6 +1140,7 @@ button:hover {
 
 .company-name {
   margin-bottom: 7px;
+  cursor:pointer;
 }
 
 .company-link {
@@ -1412,6 +1429,7 @@ button:hover {
   font-weight: 900;
   font-size: 16px;
   line-height: 19px;
+  cursor: pointer;
 }
 
 .company-card-main {
@@ -1745,7 +1763,7 @@ input[type="number"] {
   padding: 44px 32px 32px;
   margin: auto;
   width: 700px;
-  height: 206px;
+  height: auto;
   background-color: #fcfcfc;
   border-radius: 40px;
 }
@@ -1871,6 +1889,7 @@ input[type="number"] {
   color: rgba(0, 0, 0, 0.5);
   margin-top: 147px;
   margin-left: 30px;
+  cursor: pointer;
 }
 
 .delete-photo:hover {
@@ -2013,6 +2032,7 @@ p.ot {
   line-height: 13px;
   text-align: center;
   color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 
 .delete-image:hover {

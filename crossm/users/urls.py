@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
-from .views import RegisterView, LoginView, SetProfileInfo, ProfileView, ProfileUpdateView, ProfilePhotoUpload, DeletePhotoView
+from .views import RegisterView, LoginView, SetProfileInfo, ProfileView, \
+    ProfileUpdateView, ProfilePhotoUpload, DeletePhotoView, WhatisCMView
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
@@ -12,4 +13,5 @@ urlpatterns = [
     path('profile/update/', ProfileUpdateView.as_view(), name='update-profile'),
     path('profile/photoupload/', ProfilePhotoUpload.as_view(), name='upload-photo'),
     path('profile/photodelete/', DeletePhotoView.as_view(), name='delete-photo'),
+    path('whatis', WhatisCMView.as_view(), name='what-is-cm'),
 ]

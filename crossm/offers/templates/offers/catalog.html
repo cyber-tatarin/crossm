@@ -173,7 +173,7 @@
                     <div class="company-card grid-item">
                         <div class="company-card-top">
                             <div class="company-card-logo"></div>
-                            <p class="company-card-name">{{offer.company.title}}</p>
+                            <span onclick="window.location.href = '{% url 'companies:company-page' offer.company.id %}'" class="company-card-name">{{offer.company.title}}</span>
                         </div>
                         <hr class="card-hr-solid">
                         <div class="company-card-main"> 

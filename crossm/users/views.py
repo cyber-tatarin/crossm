@@ -4,6 +4,8 @@ from django.db.models.signals import pre_save, post_delete
 from django.dispatch import receiver
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views import View
+from django.views.generic import TemplateView
+
 from .forms import UserCreateForm, UserLoginForm, ProfileInfoForm, ProfileUpdateForm
 from django.contrib.auth import authenticate, login
 from .models import Profile, Cities, User
@@ -96,7 +98,7 @@ class LoginView(View):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('companies:create-company')
+            return redirect('offers:catalog')
 
         context = {
             'form': form
@@ -212,4 +214,8 @@ def pre_save_image(sender, instance, *args, **kwargs):
                 os.remove(old_img)
     except:
         pass
+
+
+class WhatisCMView(TemplateView):
+    template_name = 'registration/what_is_cm.html'
 
