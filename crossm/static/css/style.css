@@ -1016,9 +1016,9 @@ button:hover {
 .profile-user__phone {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
+  width: fit-content;
   max-width: 220px;
+  padding: 24px 32px;
   gap: 20px;
   height: 65px;
   border-radius: 24px;
@@ -1255,8 +1255,7 @@ button:hover {
 .footer-arrow {
   background-repeat: no-repeat;
   width: 100%;
-  max-width: 522px;
-  margin-right: 105px;
+  max-width: 520px;
 }
 
 .footer-content {
@@ -1537,9 +1536,10 @@ button:hover {
 }
 
 .search {
+  column-gap: 110px;
   margin-top: -30px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   margin-bottom: 36px;
   margin-right: 144px;
@@ -1548,7 +1548,8 @@ button:hover {
 
 .div-search {
   width: 100%;
-  max-width: 463px;
+  max-width: 462px;
+  min-width: 462px;
   position: relative;
 }
 
@@ -2037,4 +2038,22 @@ p.ot {
 
 .delete-image:hover {
   color: #000000;
+}
+
+.add-something {
+  display: block;
+  transition: 0.2s ease-out;
+  width: fit-content;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 13px;
+  border-bottom: 3px solid #0500ff;
+  border-radius: 2px;
+  padding-bottom: 1px;
+  margin-bottom: 28px;
+  margin-left: 28px;
+}
+
+.add-something:hover {
+  border-bottom: 3px solid transparent;
 }

@@ -12,107 +12,67 @@
 <!--{% endif %}-->
 
 <!DOCTYPE html>
-{% load static %}
-{% load widget_tweaks %}
+{% load static %} {% load widget_tweaks %}
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <title>Document</title>
-    </head>
-    <body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    {% include "base.html" %} {% block content %}
 
-    {% include "base.html" %}
-    {% block content %}
+    <main>
+      <div class="container-padding">
+        <div class="container">
+          <h2 class="main-title">Создание предложения</h2>
+          <hr class="hr-solid" />
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="inputs">
+              <div class="inputs-part inputs-part__double">
+                <h3 class="inputs-part__title">Услуга</h3>
+                <div class="inputs-part__div">
+                  {{form.title|attr:"maxlength:80"}}
+                </div>
+                <p class="input__comment">
+                  Напишите название услуги. <br />Максимальное количество
+                  символов —
+                </p>
+              </div>
 
-        <main>
-            <div class="container-padding">
-            <div class="container">
-                <h2 class="main-title">
-                    Создание предложения
-                </h2>
-                <hr class="hr-solid">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="inputs">
-                        <div class="inputs-part inputs-part__double">
-                            <h3 class="inputs-part__title">Услуга</h3>
-                            <div class="inputs-part__div">
-                                {{form.title|attr:"maxlength:80"}}
-                            </div>
-                            <p class="input__comment">Напишите название услуги.
-                            <br>Максимальное количество символов —
-
-                        </div>
-                        <div class="inputs-part inputs-part__double">
-                            <h3 class="inputs-part__title">Количество купонов</h3>
-                            <div class="inputs-part__double-flex">
-                                <div class="inputs-part inputs-part__double">
-
-                            <div class="inputs-part__div">
-                                {{form.amount_min|attr:"maxlength:4"}}
-                            </div>
-
-                            <p class="input__comment">Напишите желаемое количество купонов для реализации.
-                            </p>
-                            </div>
-
-                                <div class="inputs-part__300px">
-
-                            <div class="inputs-part__div">
-                                {{form.amount_max|attr:"maxlength:4"}}
-                            </div>
-
-                            <p class="input__comment">Введите валюту
-                            </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="line">
-                        <hr class="line__dashed line__dashed-620">
-                        <hr class="line__dashed line__dashed-620">
+              <div class="inputs-part inputs-part__double">
+                <h3 class="inputs-part__title">Количество купонов</h3>
+                <div class="inputs-part__double-flex">
+                  <div class="inputs-part inputs-part__double">
+                    <div class="inputs-part__div">
+                      {{form.amount_min|attr:"maxlength:4"}}
                     </div>
 
-                    <div class="inputs">
-                        <div class="inputs-part inputs-part__double">
-                            <h3 class="inputs-part__title">Розничная цена</h3>
-                            <div class="inputs-part__div">
-                                {{form.retail_price|attr:"maxlength:10"}}
-                            </div>
-                            <p class="input__comment">Здесь укажите цену услуги при розничной продаже
-                        </div>
+                    <p class="input__comment">
+                      Напишите желаемое количество купонов для реализации.
+                    </p>
+                  </div>
 
-                        <div class="inputs-part inputs-part__double">
-                            <div class="inputs-part__double-flex">
-
-                            <div class="inputs-part inputs-part__double">
-                                <h3 class="inputs-part__title">Цена купона</h3>
-                                <div class="inputs-part__div">
-                                    {{form.coupon_price|attr:"maxlength:10"}}
-                                </div>
-                                <p class="input__comment">Здесь укажите цену 1 купона
-                            </div>
-                            <div class="inputs-part__300px">
-                            <h3 class="inputs-part__title">Валюта</h3>
-                            <div class="inputs-part__div">
-                                {{form.currency}}
-                            </div>
-                            <div class="bottom-16px"></div>
-                            <p class="input__comment">Введите валюту
-                            </div>
-                        </div>
-                        </div>
+                  <div class="inputs-part__300px">
+                    <div class="inputs-part__div">
+                      {{form.amount_max|attr:"maxlength:4"}}
                     </div>
 
+<<<<<<< HEAD
                     <div class="line">
                         <hr class="line__dashed line__dashed-620">
                         <div class="left-hr">
@@ -213,108 +173,221 @@
                     </div>
                 {% endif %}
 
+=======
+                    <p class="input__comment">Введите валюту</p>
+                  </div>
+                </div>
+              </div>
+>>>>>>> d66d5a57611b563ffddf5203594a7a0d6d608174
             </div>
+            <div class="line">
+              <hr class="line__dashed line__dashed-620" />
+              <hr class="line__dashed line__dashed-620" />
             </div>
 
-        </main>
+            <div class="inputs">
+              <div class="inputs-part inputs-part__double">
+                <h3 class="inputs-part__title">Розничная цена</h3>
+                <div class="inputs-part__div">
+                  {{form.retail_price|attr:"maxlength:10"}}
+                </div>
+                <p class="input__comment">
+                  Здесь укажите цену услуги при розничной продаже
+                </p>
+              </div>
 
-<!--                        <p>Старые фото</p>-->
-<!--                    {% for i in images %}-->
-<!--                    <img id="image-{{i.id}}" src="{{i.image.url}}" width="100px" height="100px">-->
-<!--                    <div id="button-{{i.id}}" class="button-278px">-->
+              <div class="inputs-part inputs-part__double">
+                <div class="inputs-part__double-flex">
+                  <div class="inputs-part inputs-part__double">
+                    <h3 class="inputs-part__title">Цена купона</h3>
+                    <div class="inputs-part__div">
+                      {{form.coupon_price|attr:"maxlength:10"}}
+                    </div>
+                    <p class="input__comment">Здесь укажите цену 1 купона</p>
+                  </div>
 
-<!--                                    <a onclick="deleteUser({{i.id}})" class="button-p">Удалить фото</a>-->
+                  <div class="inputs-part__300px">
+                    <h3 class="inputs-part__title">Валюта</h3>
+                    <div class="inputs-part__div">{{form.currency}}</div>
+                    <div class="bottom-16px"></div>
+                    <p class="input__comment">Введите валюту</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-<!--                            </div>-->
-<!--                    {% endfor %}-->
+            <div class="line">
+              <hr class="line__dashed line__dashed-620" />
+              <div class="left-hr">
+                <hr class="line__dashed line__dashed-300" />
+                <hr class="line__dashed line__dashed-300" />
+              </div>
+            </div>
 
-<!--                    <output><p>Новые фото</p></output>-->
+            <div class="inputs">
+              <div class="inputs-part inputs-part__double">
+                <h3 class="inputs-part__title">Фото купонов</h3>
+                <div class="inputs-part__div">
+                  <div class="file-form">
+                    <div class="choose-file-container input-620px-single">
+                      <label class="choose-file-button" id="test">
+                        {{form.image}}
+                        <span class="button-file">Выбрать файлы</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="bottom-16px"></div>
+                <p class="input__comment">
+                  Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона
+                </p>
+              </div>
 
+              <div class="inputs-part inputs-part__double">
+                <h3 class="inputs-part__title">Тип предложения</h3>
+                <div class="inputs-part__div">{{form.type}}</div>
+                <div class="bottom-16px"></div>
+                <p class="input__comment">
+                  Выберите нишу Вашей компании. Если в списке нет того, что Вам
+                  <br />нужно, выберите наиболее подходящую
+                </p>
+              </div>
+            </div>
+            <div class="line">
+              <hr class="line__dashed line__dashed-620" />
+              <hr class="line__dashed line__dashed-620" />
+            </div>
 
-     <section style="margin-top: 24px">
+            <div class="button-submit">
+              <button class="button" type="submit">
+                <p class="button-p">Создать предложение</p>
+              </button>
+            </div>
+          </form>
+
+          {% if form.non_field_errors or form.title.errors or form.amount.errors
+          or form.retail_price.errors or form.coupon_price.errors or
+          form.type.errors or form.image.errors or form.currency.errors %}
+          <div class="error">
+            {% if form.non_field_errors %} {% for error in form.non_field_errors
+            %}
+            <div class="error-item">{{error}}</div>
+            {% endfor %} {% endif %} {% if form.title.errors %} {% for error in
+            form.title.errors %}
+            <div class="error-item">{{error}}</div>
+            {% endfor %} {% endif %} {% if form.amount.errors %} {% for error in
+            form.amount.errors %}
+            <div class="error-item">{{error}}</div>
+            {% endfor %} {% endif %} {% if form.coupon_price.errors %} {% for
+            error in form.coupon_price.errors %}
+            <div class="error-item">{{error}}</div>
+            {% endfor %} {% endif %} {% if form.retail_price.errors %} {% for
+            error in form.retail_price.errors %}
+            <div class="error-item">{{error}}</div>
+            {% endfor %} {% endif %} {% if form.currency.errors %} {% for error
+            in form.currency.errors %}
+            <div class="error-item">{{error}}</div>
+            {% endfor %} {% endif %} {% if form.type.errors %} {% for error in
+            form.type.errors %}
+            <div class="error-item">{{error}}</div>
+            {% endfor %} {% endif %} {% if form.image.errors %} {% for error in
+            form.image.errors %}
+            <div class="error-item">{{error}}</div>
+            {% endfor %} {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </main>
+
+    <!--                        <p>Старые фото</p>-->
+    <!--                    {% for i in images %}-->
+    <!--                    <img id="image-{{i.id}}" src="{{i.image.url}}" width="100px" height="100px">-->
+    <!--                    <div id="button-{{i.id}}" class="button-278px">-->
+
+    <!--                                    <a onclick="deleteUser({{i.id}})" class="button-p">Удалить фото</a>-->
+
+    <!--                            </div>-->
+    <!--                    {% endfor %}-->
+
+    <!--                    <output><p>Новые фото</p></output>-->
+
+    <section style="margin-top: 24px">
       <div class="container-padding">
         <div class="container">
           <h3 style="margin-bottom: 24px" class="inputs-part__title">
             Вложения
           </h3>
-            {% if images %}
+          {% if images %}
           <div class="images-delete-container">
-              {% for i in images %}
+            {% for i in images %}
             <div class="image-container">
+
               <img id="image-{{i.id}}" src="{{i.image.url}}" alt="" class="small-image" />
               <a id="img-button-{{i.id}}" onclick="deleteUser({{i.id}})" class="delete-image">Удалить фото</a>
-            </div>
-              {% endfor %}
-              <div class="images-delete-container" id="new-img"></div>
 
+            </div>
+            {% endfor %}
+            <div class="images-delete-container" id="new-img"></div>
           </div>
 
-            {% else %}
+          {% else %}
 
           <p style="position: static; margin-top: -4px" class="p-no-reviews">
-                  Сохраненных вложений пока нет
-                </p>
-                <div class="images-delete-container" id="new-img"></div>
-            {% endif %}
+            Сохраненных вложений пока нет
+          </p>
+          <div class="images-delete-container" id="new-img"></div>
+          {% endif %}
         </div>
-
       </div>
-
     </section>
 
+    {% include "footer.html" %}
+    <!-- <div class="bottom-margin"></div> -->
+    <script src="{% static 'js/file-animation.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 
-
-            {% include "footer.html" %}
-        <!-- <div class="bottom-margin"></div> -->
-        <script src="{% static 'js/file-animation.js' %}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
-        <script src="{% static 'js/main.js' %}"></script>
-
-     <script>
-
-function deleteUser(id)
-{
-  var action = confirm("Are you sure you want to delete this user?");
-  if (action != false)
-  {
-    $.ajax(
-    {
-        url: '{% url "offers:delete-image" %}',
-        data: {
-            'id': id,
-        },
-        dataType: 'json',
-        success: function(data) {
+    <script>
+      function deleteUser(id) {
+        var action = confirm("Are you sure you want to delete this user?");
+        if (action != false) {
+          $.ajax({
+            url: '{% url "offers:delete-image" %}',
+            data: {
+              id: id,
+            },
+            dataType: "json",
+            success: function (data) {
               $("#image-" + id).remove();
               $("#img-button-" + id).remove();
-        },
-        type: "GET",
+            },
+            type: "GET",
+          });
+        }
+      }
 
-    });
-  }
-}
+      const output = document.querySelector("#new-img");
+      const input = document.getElementById("choose-file-container");
+      let imagesArray = [];
 
-
-const output = document.querySelector("#new-img");
-const input = document.getElementById("choose-file-container");
-let imagesArray = [];
-
-function displayImages() {
-  let images = "";
-  imagesArray.forEach((image, index) => {
-       images +=
-       `<div class="image-container">
-                <img src="${URL.createObjectURL(image)}" alt="" class="small-image">
+      function displayImages() {
+        let images = "";
+        imagesArray.forEach((image, index) => {
+          images += `<div class="image-container">
+                <img src="${URL.createObjectURL(
+                  image
+                )}" alt="" class="small-image">
                 <a class="delete-image" onclick="deleteImage(${index})">Удалить фото</a>
               </div>`;
-  })
-  output.innerHTML = images;
-};
+        });
+        output.innerHTML = images;
+      }
 
-function deleteImage(index) {
-  const dt = new DataTransfer()
-  const input = document.getElementById('choose-file-container')
-  const { files } = input
+      function deleteImage(index) {
+        const dt = new DataTransfer();
+        const input = document.getElementById("choose-file-container");
+        const { files } = input;
 
 this.closest('.image-container').style.display = 'none'
 
@@ -329,15 +402,15 @@ this.closest('.image-container').style.display = 'none'
 <!--  displayImages();-->
 };
 
-input.addEventListener("change", () => {
-const files = input.files;
- for (let i = 0; i < files.length; i++) {
-    imagesArray.push(files[i]);
-    }
-    displayImages();
-});
 
-</script>
-    </body>
-{% endblock %}
+      input.addEventListener("change", () => {
+        const files = input.files;
+        for (let i = 0; i < files.length; i++) {
+          imagesArray.push(files[i]);
+        }
+        displayImages();
+      });
+    </script>
+  </body>
+  {% endblock %}
 </html>
