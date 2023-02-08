@@ -190,7 +190,7 @@ input {
 }
 
 .main-title {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;
@@ -932,6 +932,18 @@ button:hover {
   align-items: center;
 }
 
+.flex-32-24 {
+  display: flex;
+  margin-bottom: 24px;
+  column-gap: 32px;
+  align-items: center;
+}
+
+.flex-32-24 .main-title,
+.flex-32-24 .add-offer {
+  margin-bottom: 0px;
+}
+
 .flex-32 .main-title,
 .flex-32 .add-offer {
   margin-bottom: 0px;
@@ -1061,6 +1073,7 @@ button:hover {
   box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.08);
   border-radius: 40px;
   margin-bottom: 20px;
+  transition: 0.2s ease-out;
 }
 
 .card-guest {
@@ -1377,7 +1390,7 @@ button:hover {
 }
 
 .company-card:hover {
-  box-shadow: 2px 2px 6px 5px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .card-hr-solid {
@@ -1674,7 +1687,7 @@ button:hover {
 }
 
 .profile-content-title {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;
@@ -2050,10 +2063,14 @@ p.ot {
   border-bottom: 3px solid #0500ff;
   border-radius: 2px;
   padding-bottom: 1px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   margin-left: 28px;
 }
 
 .add-something:hover {
   border-bottom: 3px solid transparent;
+}
+
+.card:hover {
+box-shadow: none;
 }

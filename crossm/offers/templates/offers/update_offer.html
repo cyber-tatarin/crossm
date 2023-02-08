@@ -33,6 +33,7 @@
     <title>Document</title>
   </head>
   <body>
+  <div class="Test"></div>
     {% include "base.html" %} {% block content %}
 
     <main>
@@ -332,30 +333,30 @@
                 <img src="${URL.createObjectURL(
                   image
                 )}" alt="" class="small-image">
-                <a class="delete-image" onclick="deleteImage(${index})">Удалить фото</a>
+                <a id = '${index}' class="delete-image" onclick="deleteImage(${index}, id)">Удалить фото</a>
               </div>`;
+
         });
         output.innerHTML = images;
       }
 
-      function deleteImage(index) {
+      function deleteImage(index, id) {
+
+        document.getElementById(`${id}`).parentNode.style.display = 'none';
+
         const dt = new DataTransfer();
         const input = document.getElementById("choose-file-container");
         const { files } = input;
 
-this.closest('.image-container').style.display = 'none'
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          if (index !== i) dt.items.add(file); // here you exclude the file. thus removing it.
+        }
 
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i]
-    if (index !== i)
-      dt.items.add(file) // here you exclude the file. thus removing it.
-  }
-
-  input.files = dt.files // Assign the updates list
-  imagesArray.splice(index, 1)
-<!--  displayImages();-->
-};
-
+        input.files = dt.files; // Assign the updates list
+        imagesArray.splice(index, 1);
+        // displayImages();
+      }
 
       input.addEventListener("change", () => {
         const files = input.files;
@@ -364,6 +365,17 @@ this.closest('.image-container').style.display = 'none'
         }
         displayImages();
       });
+
+
+document.querySelector('.choose-file-button').addEventListener('click', () => {
+          if (document.getElementById('new-img')) {
+            document.getElementById('new-img').innerHTML = ''
+            imagesArray = [];
+            images = "";
+          }
+        })
+
+
     </script>
   </body>
   {% endblock %}

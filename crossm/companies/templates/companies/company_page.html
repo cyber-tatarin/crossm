@@ -139,7 +139,6 @@
                             <div class="profile-user__logo">
                                 {% if company.photo %}
                                 <img id="image" class="profile-user__img" src="{{company.photo.url}}">
-                                <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo">Удалить фото</a>
                                 {% else %}
                                 {% endif %}
                             </div>
@@ -281,6 +280,12 @@
                                     <span class="profile-user__city-small">Город:&nbsp</span>
                                     <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
                                 </div>
+
+                                    <div class="city-info-small">
+                                    <span class="profile-user__city-small">Город:&nbsp</span>
+                                    <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
+                                </div>
+
                                 <div class="profile__remark-small-wout-margin">
                                     {{company.owner.profile_set.all.0.bio}}
                                 </div>
@@ -327,7 +332,7 @@
 
                 <section>
                     <div class="card-container">
-                        <div class="flex-32">
+                        <div class="flex-32-24">
                         <p class="main-title">
                             Предложения
                         </p>
@@ -379,9 +384,15 @@
                                     <div class="company-card-main"> 
                                         <div class="card-button-single">
                                         <div class="flex-content">
+                                            {% if offer.has_photo %}
                                             <button id="get-img-{{offer.id}}" style="margin-top: -2px; max-width: 100%;" class="button check-pop-up">
                                                 <p class="button-p">Посмотреть вложения</p>
                                             </button>
+                                            {% else %}
+                                            <button  style="margin-top: -2px; max-width: 100%;" class="button button-ynp">
+                                                <p class="button-p">Посмотреть вложения</p>
+                                            </button>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     </div>
@@ -406,7 +417,7 @@
 
                 <section>
                     <div class="card-container">
-                        <div class="flex-32">
+                        <div class="flex-32-24">
                         <p class="main-title">
                             Предложения
                         </p>
@@ -456,9 +467,15 @@
                                     <div class="company-card-main">
                                         <div class="card-button-single">
                                         <div class="flex-content">
+                                            {% if offer.has_photo %}
                                             <button id="get-img-{{offer.id}}" style="margin-top: -2px; max-width: 100%;" class="button check-pop-up">
                                                 <p class="button-p">Посмотреть вложения</p>
                                             </button>
+                                            {% else %}
+                                            <button  style="margin-top: -2px; max-width: 100%;" class="button button-ynp">
+                                                <p class="button-p">Посмотреть вложения</p>
+                                            </button>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     </div>
@@ -490,6 +507,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!--        <script src="{% static 'js/sort-companies.js' %}"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
     <script>
 
 let cardId;
@@ -503,7 +521,11 @@ window.onload = () => {
     transitionDuration: '0.2s',
   });
 };
+    </script>
 
+        {% if owner %}
+
+    <script>
 document.querySelectorAll('.offer-del-button').forEach((el) => {
     el.addEventListener('click', () => {
         document.querySelector('.pop-up-delete').classList.toggle('pop-up-delete-active');
@@ -583,8 +605,46 @@ $("form#files").submit(function(){
     return false;
 });
 
+</script>
 
+<script>
 
+document.querySelectorAll('.company-del-button').forEach((el) => {
+    el.addEventListener('click', () => {
+        document.querySelector('.pop-up-delete-company').classList.toggle('pop-up-delete-company-active');
+        cmpId = parseInt(el.id.replace(/[^\d]/g, ''))
+
+        })
+})
+
+document.querySelector('.company-cancel').addEventListener('click', () => {
+    document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
+})
+
+document.querySelector('.company-delete').addEventListener('click', () => {
+
+    $.ajax ({
+        url: '{% url "companies:delete-company" %}',
+        data: {
+            'id': cmpId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function(data) {
+            window.location.href = "{% url 'offers:catalog' %}"
+
+        },
+        type: "POST",
+    });
+
+    document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
+})
+
+</script>
+
+    {% else %}
+
+    <script>
 
 document.querySelectorAll('.check-pop-up').forEach((el) => {
             el.addEventListener('click', () => {
@@ -631,49 +691,9 @@ function getImages(id, el)
 
 }
 
-
-
-
-
-document.querySelectorAll('.company-del-button').forEach((el) => {
-    el.addEventListener('click', () => {
-        document.querySelector('.pop-up-delete-company').classList.toggle('pop-up-delete-company-active');
-        cmpId = parseInt(el.id.replace(/[^\d]/g, ''))
-
-        })
-})
-
-document.querySelector('.company-cancel').addEventListener('click', () => {
-    document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
-})
-
-document.querySelector('.company-delete').addEventListener('click', () => {
-
-    $.ajax ({
-        url: '{% url "companies:delete-company" %}',
-        data: {
-            'id': cmpId,
-            'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        dataType: 'json',
-        success: function(data) {
-            window.location.href = "{% url 'offers:catalog' %}"
-
-        },
-        type: "POST",
-    });
-
-    document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
-})
-
-
-
-
-
 </script>
 
-
-
+{% endif %}
 
     </body>
 {% endblock %}
