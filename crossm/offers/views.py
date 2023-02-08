@@ -8,7 +8,7 @@ from companies.models import Companies, Countries
 from .models import OffersImages, Offers
 from django.views.generic import DeleteView
 from users.models import User
-from django.http import Http404, JsonResponse, HttpResponse
+from django.http import Http404, JsonResponse, HttpResponse, HttpResponseRedirect
 from funcy import omit
 from django.dispatch import receiver
 import os
@@ -16,14 +16,16 @@ from django.db.models.signals import post_delete, pre_save
 from users.views import get_profile_ph
 from users.models import Profile
 import json
+from users.views import is_allowed
 
 
 class CreateOfferView(LoginRequiredMixin, View):
     template_name = 'offers/create_offer.html'
 
     def get(self, request, **kwargs):
-        if not request.user.allowed:
-            return redirect('login')
+
+        is_allowed(request)
+
         context = {
             'form': CreateOfferForm(),
             'profile_ph': get_profile_ph(request),
@@ -31,6 +33,9 @@ class CreateOfferView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request, **kwargs):
+
+        is_allowed(request)
+
         form = CreateOfferForm(request.POST, request.FILES)
         company_id = kwargs['pk']
         images = request.FILES.getlist('image')
@@ -47,10 +52,18 @@ class CreateOfferView(LoginRequiredMixin, View):
             for i in images:
                 OffersImages(offer=obj, image=i).save()
 
-            return redirect('companies:create-company')
+            nexty = request.POST.get('next')
+            if nexty:
+                try:
+                    return HttpResponseRedirect(nexty)
+                except:
+                    raise Http404
+            else:
+                return redirect('offers:my-offers')
 
         context = {
             'form': form,
+            'profile_ph': get_profile_ph(request),
         }
         return render(request, self.template_name, context)
 
@@ -58,9 +71,10 @@ class CreateOfferView(LoginRequiredMixin, View):
 class DeleteOfferView(LoginRequiredMixin, View):
     def post(self, request, **kwargs):
         obj = get_object_or_404(Offers, id=request.POST.get('id'))
+
         if obj.company.owner != self.request.user:
-            print('wrong')
             raise Http404
+
         obj.delete()
         data = {'deleted': True, 'success': True}
         return JsonResponse(data)
@@ -70,9 +84,14 @@ class UpdateOfferView(LoginRequiredMixin, View):
     template_name = 'offers/update_offer.html'
 
     def get(self, request, **kwargs):
+
+        is_allowed(request)
+
         obj = get_object_or_404(Offers, id=kwargs['pk'])
+
         if obj.company.owner != request.user:
             raise Http404
+
         context = {
             'form': CreateOfferForm(initial={
                 'type': obj.type,
@@ -89,7 +108,14 @@ class UpdateOfferView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request, **kwargs):
+
+        is_allowed(request)
+
         instance = get_object_or_404(Offers, id=kwargs['pk'])
+
+        if instance.company.owner != request.user:
+            raise Http404
+
         form = CreateOfferForm(request.POST, request.FILES, instance=instance)
         images = request.FILES.getlist('image')
 
@@ -98,10 +124,18 @@ class UpdateOfferView(LoginRequiredMixin, View):
             for i in images:
                 OffersImages(offer=obj, image=i).save()
 
-            return redirect('companies:create-company')
+            nexty = request.POST.get('next')
+            if nexty:
+                try:
+                    return HttpResponseRedirect(nexty)
+                except:
+                    raise Http404
+            else:
+                return redirect('offers:my-offers')
 
         context = {
             'form': form,
+            'profile_ph': get_profile_ph(request),
         }
         return render(request, self.template_name, context)
 
@@ -129,6 +163,8 @@ class MyOffersPageView(LoginRequiredMixin, View):
     template_name = 'offers/my_offers.html'
 
     def get(self, request, **kwargs):
+        is_allowed(request)
+
         objects = Companies.objects.filter(owner=request.user).prefetch_related('offers_set',
                                                                                 'owner__profile_set').all()
         context = {
@@ -151,7 +187,8 @@ class CatalogPageView(View):
     template_name = 'offers/catalog.html'
 
     def get(self, request, **kwargs):
-        offers = Offers.objects.prefetch_related('offersimages_set', 'company__owner__profile_set').order_by('-id').all()
+        offers = Offers.objects.prefetch_related('offersimages_set', 'company__owner__profile_set').order_by(
+            '-id').all()
         currencies = Offers.objects.values('currency').distinct()
         niches = Companies.objects.values('niche').distinct()
 
@@ -227,7 +264,7 @@ class CatalogPageView(View):
             'offers': offers,
             'profile_ph': profile_ph,
             'currencies': currencies,
-            'niches': niches
+            'niches': niches,
         }
         return render(request, self.template_name, context)
 

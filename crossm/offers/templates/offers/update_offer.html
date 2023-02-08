@@ -72,7 +72,7 @@
                       {{form.amount_max|attr:"maxlength:4"}}
                     </div>
 
-<<<<<<< HEAD
+
                     <div class="line">
                         <hr class="line__dashed line__dashed-620">
                         <div class="left-hr">
@@ -81,43 +81,7 @@
                         </div>
                     </div>
 
-                    <div class="inputs">
-                        <div class="inputs-part inputs-part__double">
-                            <h3 class="inputs-part__title">Фото купонов</h3>
-                            <div class="inputs-part__div">
-                                <div class="file-form">
-                                    <div class="choose-file-container input-620px-single">
-                                        <label class="choose-file-button" id="test">
-                                            {{form.image}}
-                                            <span class="button-file">Выбрать файлы</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bottom-16px"></div>
-                            <p class="input__comment">Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона
-                        </div>
-                        <div class="inputs-part inputs-part__double">
-                            <h3 class="inputs-part__title">Тип предложения</h3>
-                            <div class="inputs-part__div">
-                                {{form.type}}
-                            </div>
-                            <div class="bottom-16px"></div>
-                            <p class="input__comment">Выберите нишу Вашей компании. Если в списке нет того, что Вам
-                            <br>нужно, выберите наиболее подходящую
-                        </div>
-                    </div>
-                    <div class="line">
-                        <hr class="line__dashed line__dashed-620">
-                        <hr class="line__dashed line__dashed-620">
-                    </div>
-
-                    <div class="button-submit">
-                        <button class="button" type="submit">
-                            <p class="button-p">Сохранить</p>
-                        </button>
-                    </div>
-                </form>
+<!---->
 
                 {% if form.non_field_errors or form.title.errors or form.amount.errors or form.retail_price.errors or form.coupon_price.errors or form.type.errors or form.image.errors or form.currency.errors %}
             <div class="error">
@@ -173,12 +137,12 @@
                     </div>
                 {% endif %}
 
-=======
+
                     <p class="input__comment">Введите валюту</p>
                   </div>
                 </div>
               </div>
->>>>>>> d66d5a57611b563ffddf5203594a7a0d6d608174
+
             </div>
             <div class="line">
               <hr class="line__dashed line__dashed-620" />
@@ -259,39 +223,29 @@
             </div>
 
             <div class="button-submit">
-              <button class="button" type="submit">
-                <p class="button-p">Создать предложение</p>
+              <button class="button" type="submit" name="next" value="{{ request.GET.next }}">
+                <p class="button-p">Сохранить</p>
               </button>
             </div>
           </form>
 
-          {% if form.non_field_errors or form.title.errors or form.amount.errors
-          or form.retail_price.errors or form.coupon_price.errors or
-          form.type.errors or form.image.errors or form.currency.errors %}
+          {% if form.non_field_errors or form.title.errors or form.amount.errors or form.retail_price.errors or form.coupon_price.errors or form.type.errors or form.image.errors or form.currency.errors %}
           <div class="error">
-            {% if form.non_field_errors %} {% for error in form.non_field_errors
-            %}
+            {% if form.non_field_errors %} {% for error in form.non_field_errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.title.errors %} {% for error in
-            form.title.errors %}
+            {% endfor %} {% endif %} {% if form.title.errors %} {% for error in form.title.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.amount.errors %} {% for error in
-            form.amount.errors %}
+            {% endfor %} {% endif %} {% if form.amount.errors %} {% for error in form.amount.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.coupon_price.errors %} {% for
-            error in form.coupon_price.errors %}
+            {% endfor %} {% endif %} {% if form.coupon_price.errors %} {% for error in form.coupon_price.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.retail_price.errors %} {% for
-            error in form.retail_price.errors %}
+            {% endfor %} {% endif %} {% if form.retail_price.errors %} {% for error in form.retail_price.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.currency.errors %} {% for error
-            in form.currency.errors %}
+            {% endfor %} {% endif %} {% if form.currency.errors %} {% for error in form.currency.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.type.errors %} {% for error in
-            form.type.errors %}
+            {% endfor %} {% endif %} {% if form.type.errors %} {% for error in form.type.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.image.errors %} {% for error in
-            form.image.errors %}
+            {% endfor %} {% endif %} {% if form.image.errors %} {% for error in form.image.errors %}
             <div class="error-item">{{error}}</div>
             {% endfor %} {% endif %}
           </div>

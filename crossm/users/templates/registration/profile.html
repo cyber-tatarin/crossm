@@ -72,7 +72,7 @@
                         {% if user.profile_set.all.0.phone_num_show %}
                         <div class="profile-user__phone">
                             <p class="user__phone">{{user.profile_set.all.0.phone_num}}</p>
-                            <div class="user__phone__logo"></div>
+<!--                            <div class="user__phone__logo"></div>-->
                         </div>
                         {% endif %}
                     </div>
@@ -104,15 +104,13 @@
                     <div class="card-container">
                         <div style="align-items: center" class="flex">
                 <h2 class="profile-content-title">Компании</h2>
-                <a href="#" class="add-something">Добавить предложение</a>
+                <a href="{% url 'companies:create-company' %}" class="add-something">Добавить компанию</a>
               </div>
-                   <!-- елси нет предложений <p
-                style="position: static; margin-top: -10px"
-                class="p-no-reviews"
-              >
-                The above
-              </p> -->
-
+{% if not user.companies_set.all %}
+                   <p style="position: static; margin-top: -10px" class="p-no-reviews">
+                У вас пока нет компаний
+              </p>
+{% endif %}
 
                         <div class="grid">
                             <div class="grid-sizer"></div>
@@ -158,7 +156,7 @@
                             </div>
                             <div class="profile-user__buttons profile-user__buttons__gap-12px">
                             <div class="button-278px">
-                                <button class="button button-long" onclick="window.location.href = '{% url 'companies:update-company' company.id %}'">
+                                <button class="button button-long" onclick="window.location.href = '{% url 'companies:update-company' company.id %}?next={{ request.path|urlencode }}'">
                                     <p class="button-p">Редактировать компанию</p>
                                 </button>
                             </div>
@@ -218,7 +216,6 @@
                         {% if user.profile_set.all.0.phone_num_show %}
                         <div class="profile-user__phone">
                             <p class="user__phone">{{user.profile_set.all.0.phone_num}}</p>
-                            <div class="user__phone__logo"></div>
                         </div>
                         {% endif %}
                     </div>
@@ -230,6 +227,11 @@
                         <h2 class="profile-content-title">
                             Компании
                         </h2>
+                        {% if not user.companies_set.all %}
+                   <p style="position: static; margin-top: -10px" class="p-no-reviews">
+                       У этого пользователя пока нет компаний
+              </p>
+{% endif %}
                         <div class="grid">
                             <div class="grid-sizer"></div>
                             <div class="gutter-sizer"></div>
