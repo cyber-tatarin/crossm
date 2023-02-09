@@ -33,6 +33,7 @@
     <title>Document</title>
   </head>
   <body>
+    <div class="Test"></div>
     {% include "base.html" %} {% block content %}
 
     <main>
@@ -72,113 +73,10 @@
                       {{form.amount_max|attr:"maxlength:4"}}
                     </div>
 
-<<<<<<< HEAD
-                    <div class="line">
-                        <hr class="line__dashed line__dashed-620">
-                        <div class="left-hr">
-                            <hr class="line__dashed line__dashed-300">
-                            <hr class="line__dashed line__dashed-300">
-                        </div>
-                    </div>
-
-                    <div class="inputs">
-                        <div class="inputs-part inputs-part__double">
-                            <h3 class="inputs-part__title">Фото купонов</h3>
-                            <div class="inputs-part__div">
-                                <div class="file-form">
-                                    <div class="choose-file-container input-620px-single">
-                                        <label class="choose-file-button" id="test">
-                                            {{form.image}}
-                                            <span class="button-file">Выбрать файлы</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bottom-16px"></div>
-                            <p class="input__comment">Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона
-                        </div>
-                        <div class="inputs-part inputs-part__double">
-                            <h3 class="inputs-part__title">Тип предложения</h3>
-                            <div class="inputs-part__div">
-                                {{form.type}}
-                            </div>
-                            <div class="bottom-16px"></div>
-                            <p class="input__comment">Выберите нишу Вашей компании. Если в списке нет того, что Вам
-                            <br>нужно, выберите наиболее подходящую
-                        </div>
-                    </div>
-                    <div class="line">
-                        <hr class="line__dashed line__dashed-620">
-                        <hr class="line__dashed line__dashed-620">
-                    </div>
-
-                    <div class="button-submit">
-                        <button class="button" type="submit">
-                            <p class="button-p">Сохранить</p>
-                        </button>
-                    </div>
-                </form>
-
-                {% if form.non_field_errors or form.title.errors or form.amount.errors or form.retail_price.errors or form.coupon_price.errors or form.type.errors or form.image.errors or form.currency.errors %}
-            <div class="error">
-
-                        {% if form.non_field_errors %}
-                        {% for error in form.non_field_errors %}
-                        <div class="error-item">{{error}}</div>
-                        {% endfor %}
-                        {% endif %}
-
-                        {% if form.title.errors %}
-                            {% for error in form.title.errors %}
-                        <div class="error-item">{{error}}</div>
-                            {% endfor %}
-                            {% endif %}
-
-                        {% if form.amount.errors %}
-                            {% for error in form.amount.errors %}
-                         <div class="error-item">{{error}}</div>
-                            {% endfor %}
-                            {% endif %}
-
-                        {% if form.coupon_price.errors %}
-                            {% for error in form.coupon_price.errors %}
-                          <div class="error-item">{{error}}</div>
-                            {% endfor %}
-                            {% endif %}
-
-                        {% if form.retail_price.errors %}
-                            {% for error in form.retail_price.errors %}
-                        <div class="error-item">{{error}}</div>
-                            {% endfor %}
-                            {% endif %}
-
-                        {% if form.currency.errors %}
-                            {% for error in form.currency.errors %}
-                        <div class="error-item">{{error}}</div>
-                            {% endfor %}
-                            {% endif %}
-
-                        {% if form.type.errors %}
-                            {% for error in form.type.errors %}
-                        <div class="error-item">{{error}}</div>
-                            {% endfor %}
-                            {% endif %}
-
-                        {% if form.image.errors %}
-                            {% for error in form.image.errors %}
-                        <div class="error-item">{{error}}</div>
-                            {% endfor %}
-                            {% endif %}
-
-                    </div>
-                {% endif %}
-
-=======
                     <p class="input__comment">Введите валюту</p>
                   </div>
                 </div>
               </div>
->>>>>>> d66d5a57611b563ffddf5203594a7a0d6d608174
             </div>
             <div class="line">
               <hr class="line__dashed line__dashed-620" />
@@ -265,33 +163,23 @@
             </div>
           </form>
 
-          {% if form.non_field_errors or form.title.errors or form.amount.errors
-          or form.retail_price.errors or form.coupon_price.errors or
-          form.type.errors or form.image.errors or form.currency.errors %}
+          {% if form.non_field_errors or form.title.errors or form.amount.errors or form.retail_price.errors or form.coupon_price.errors or form.type.errors or form.image.errors or form.currency.errors %}
           <div class="error">
-            {% if form.non_field_errors %} {% for error in form.non_field_errors
-            %}
+            {% if form.non_field_errors %} {% for error in form.non_field_errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.title.errors %} {% for error in
-            form.title.errors %}
+            {% endfor %} {% endif %} {% if form.title.errors %} {% for error in form.title.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.amount.errors %} {% for error in
-            form.amount.errors %}
+            {% endfor %} {% endif %} {% if form.amount.errors %} {% for error in form.amount.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.coupon_price.errors %} {% for
-            error in form.coupon_price.errors %}
+            {% endfor %} {% endif %} {% if form.coupon_price.errors %} {% for error in form.coupon_price.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.retail_price.errors %} {% for
-            error in form.retail_price.errors %}
+            {% endfor %} {% endif %} {% if form.retail_price.errors %} {% for error in form.retail_price.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.currency.errors %} {% for error
-            in form.currency.errors %}
+            {% endfor %} {% endif %} {% if form.currency.errors %} {% for error in form.currency.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.type.errors %} {% for error in
-            form.type.errors %}
+            {% endfor %} {% endif %} {% if form.type.errors %} {% for error in form.type.errors %}
             <div class="error-item">{{error}}</div>
-            {% endfor %} {% endif %} {% if form.image.errors %} {% for error in
-            form.image.errors %}
+            {% endfor %} {% endif %} {% if form.image.errors %} {% for error in form.image.errors %}
             <div class="error-item">{{error}}</div>
             {% endfor %} {% endif %}
           </div>
@@ -322,10 +210,18 @@
           <div class="images-delete-container">
             {% for i in images %}
             <div class="image-container">
-
-              <img id="image-{{i.id}}" src="{{i.image.url}}" alt="" class="small-image" />
-              <a id="img-button-{{i.id}}" onclick="deleteUser({{i.id}})" class="delete-image">Удалить фото</a>
-
+              <img
+                id="image-{{i.id}}"
+                src="{{i.image.url}}"
+                alt=""
+                class="small-image"
+              />
+              <a
+                id="img-button{{i.id}}"
+                onclick="deleteUser({{i.id}})"
+                class="delete-image"
+                >Удалить фото</a
+              >
             </div>
             {% endfor %}
             <div class="images-delete-container" id="new-img"></div>
@@ -378,30 +274,36 @@
                 <img src="${URL.createObjectURL(
                   image
                 )}" alt="" class="small-image">
-                <a class="delete-image" onclick="deleteImage(${index})">Удалить фото</a>
+                <a id = '${index}' class="delete-image" onclick="deleteImage(${index}, id)">Удалить фото</a>
               </div>`;
+              
         });
         output.innerHTML = images;
       }
 
-      function deleteImage(index) {
+      function deleteImage(index, id) {
+        
+        document.getElementById(`${id}`).parentNode.style.display = 'none'
+        document.querySelector('.button-file').addEventListener('click', () => {
+          if (document.getElementById('new-img')) {
+            document.getElementById('new-img').display = 'none'
+          }
+        })
+        
+
         const dt = new DataTransfer();
         const input = document.getElementById("choose-file-container");
         const { files } = input;
 
-this.closest('.image-container').style.display = 'none'
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          if (index !== i) dt.items.add(file); // here you exclude the file. thus removing it.
+        }
 
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i]
-    if (index !== i)
-      dt.items.add(file) // here you exclude the file. thus removing it.
-  }
-
-  input.files = dt.files // Assign the updates list
-  imagesArray.splice(index, 1)
-<!--  displayImages();-->
-};
-
+        input.files = dt.files; // Assign the updates list
+        imagesArray.splice(index, 1);
+        // displayImages();
+      }
 
       input.addEventListener("change", () => {
         const files = input.files;
