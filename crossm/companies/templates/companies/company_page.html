@@ -79,12 +79,12 @@
                                 <form id="files" method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <label style="width: 135px; height: 135px; background-color: transparent; border-radius: 50%; position: absolute;" class="label-image">
-                                    <img id="image" class="profile-user__img" src="" style="visibility: hidden">
-                                    <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo" style="visibility: hidden;">Сохранить фото</a>
+                                    <img id="image" class="profile-user__img" src="">
                                     <input name="id" type="hidden" value="{{company.id}}">
                                     <input style="display: none;" name="image" type="file" />
                                     <button style="display: none;">Сохранить</button>
                                     </label>
+                                    <button type="submit" id="dela" class="delete-photo" style="visibility: hidden; margin-left: 22px;">Сохранить фото</button>
                                 </form>
                                 
                                 {% endif %}
@@ -285,14 +285,14 @@
                                 </div>
                                 <div class="profile-user-right">
                                 <h1 class="profile-user__name-small">{{company.owner.first_name}} {{company.owner.last_name}}</h1>
-                                <div style="margin-bottom: 0px;" class="city-info-small">
+                                <div style="margin-bottom: -2px;" class="city-info-small">
                                     <span class="profile-user__city-small">Город:&nbsp</span>
                                     <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
                                 </div>
 
                                     <div class="city-info-small">
                                     <span class="profile-user__city-small">Должность:&nbsp</span>
-                                    <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
+                                    <span class="profile-user__city__name-small">{{company.role}}</span>
                                 </div>
 
                                 <div class="profile__remark-small-wout-margin">
@@ -311,10 +311,17 @@
                                 </div>
                                 <div class="profile-user-right">
                                 <h1 class="profile-user__name-small">{{company.owner.first_name}} {{company.owner.last_name}}</h1>
-                                <div class="">
+
+                                <div style="margin-bottom: -2px;" class="city-info-small">
                                     <span class="profile-user__city-small">Город:&nbsp</span>
                                     <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
                                 </div>
+
+                                    <div class="city-info-small">
+                                    <span class="profile-user__city-small">Должность:&nbsp</span>
+                                    <span class="profile-user__city__name-small">{{company.role}}</span>
+                                </div>
+
                                 </div>
                             </div>
 
@@ -519,12 +526,6 @@
 
     <script>
 
-        document.querySelector('.label-image').addEventListener('change', (el) => {
-            console.log(el);
-            document.querySelector('.label-image').classList.toggle('label-iamge-change');
-            console.log('added')
-            document.querySelector('.delete-photo').style.visibility = 'visible'
-        })
 
 let cardId;
 
@@ -610,7 +611,7 @@ $("form#files").submit(function(){
                     let out = data.image
                     console.log(out)
 
-              document.querySelector(".profile-user__img").src=out;
+              document.querySelector(".profile-user__img").src = data.image;
 
         },
         cache: false,
@@ -711,6 +712,16 @@ function getImages(id, el)
 </script>
 
 {% endif %}
+
+    <script>
+                document.querySelector('.label-image').addEventListener('change', (el) => {
+            console.log(el);
+            document.querySelector('.label-image').classList.toggle('label-iamge-change');
+            console.log('added')
+            document.querySelector('.delete-photo').style.visibility = 'visible'
+        })
+    </script>
+
 
     </body>
 {% endblock %}

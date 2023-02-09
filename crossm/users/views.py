@@ -194,6 +194,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
             obj.city = Cities.objects.get(city=data['city'])
             obj.phone_num = data['phone_num']
             obj.phone_num_show = data['phone_num_show']
+            obj.bio = data['bio']
             obj.save()
             return redirect(reverse('view-profile', kwargs={'pk': request.user.id}))
 
