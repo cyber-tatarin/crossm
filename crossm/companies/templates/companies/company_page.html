@@ -76,8 +76,17 @@
                                 <img id="image" class="profile-user__img" src="{{company.photo.url}}">
                                 <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo">Удалить фото</a>
                                 {% else %}
-                                <img id="image" class="profile-user__img" src="" style="visibility: hidden">
-                                <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo" style="visibility: hidden">Удалить фото</a>
+                                <form id="files" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <label style="width: 135px; height: 135px; background-color: transparent; border-radius: 50%; position: absolute;" class="label-image">
+                                    <img id="image" class="profile-user__img" src="" style="visibility: hidden">
+                                    <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo" style="visibility: hidden;">Сохранить фото</a>
+                                    <input name="id" type="hidden" value="{{company.id}}">
+                                    <input style="display: none;" name="image" type="file" />
+                                    <button style="display: none;">Сохранить</button>
+                                    </label>
+                                </form>
+                                
                                 {% endif %}
                             </div>
 
@@ -111,12 +120,12 @@
                                     </button> 
                                 </div>
                                 <div class="button-240px">
-                                    <button class="button button-for-pop-up company-del-button">
+                                    <button id="cmp-{{company.id}}" class="button button-for-pop-up company-del-button">
                                         <p class="button-p">Удалить компанию</p>
                                     </button> 
                                 </div>
                                 <div class="button-240px">
-                                    <button class="button" onclick="window.location.href = '{% url 'offers:create-offer' company.id %}'">
+                                    <button class="button" onclick="window.location.href = '{% url 'offers:create-offer' company.id %}?next={{ request.path|urlencode }}'">
                                         <p class="button-p">Добавить предложение</p>
                                     </button> 
                                 </div>
@@ -139,7 +148,6 @@
                             <div class="profile-user__logo">
                                 {% if company.photo %}
                                 <img id="image" class="profile-user__img" src="{{company.photo.url}}">
-                                <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo">Удалить фото</a>
                                 {% else %}
                                 {% endif %}
                             </div>
@@ -277,10 +285,16 @@
                                 </div>
                                 <div class="profile-user-right">
                                 <h1 class="profile-user__name-small">{{company.owner.first_name}} {{company.owner.last_name}}</h1>
-                                <div class="city-info-small">
+                                <div style="margin-bottom: 0px;" class="city-info-small">
                                     <span class="profile-user__city-small">Город:&nbsp</span>
                                     <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
                                 </div>
+
+                                    <div class="city-info-small">
+                                    <span class="profile-user__city-small">Должность:&nbsp</span>
+                                    <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
+                                </div>
+
                                 <div class="profile__remark-small-wout-margin">
                                     {{company.owner.profile_set.all.0.bio}}
                                 </div>
@@ -327,13 +341,17 @@
 
                 <section>
                     <div class="card-container">
-                        <div class="flex-32">
+                        <div class="flex-32-24">
                         <p class="main-title">
                             Предложения
                         </p>
-                        <a href="{% url 'offers:create-offer' company.id %}" class="add-offer-no-change">Добавить предложение</a>
+                        <a href="{% url 'offers:create-offer' company.id %}?next={{ request.path|urlencode }}" class="add-offer-no-change">Добавить предложение</a>
                     </div>
-
+                        {% if not company.offers_set.all %}
+                        <p style="position: static; margin-top: -10px" class="p-no-reviews">
+                       У Вашей компании пока нет предложений
+                        </p>
+                        {% endif %}
 
                             <div class="grid">
                                 <div class="grid-sizer"></div>
@@ -375,15 +393,21 @@
                                     <div class="company-card-main"> 
                                         <div class="card-button-single">
                                         <div class="flex-content">
+                                            {% if offer.has_photo %}
                                             <button id="get-img-{{offer.id}}" style="margin-top: -2px; max-width: 100%;" class="button check-pop-up">
                                                 <p class="button-p">Посмотреть вложения</p>
                                             </button>
+                                            {% else %}
+                                            <button  style="margin-top: -2px; max-width: 100%;" class="button button-ynp">
+                                                <p class="button-p">Посмотреть вложения</p>
+                                            </button>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     </div>
                                     <hr style="margin-bottom: 20px;" class="card-hr-solid">
                                     <div class="company-card-buttons">
-                                        <button class="button button-282px" onclick="window.location.href = '{% url 'offers:update-offer' offer.id %}'">
+                                        <button class="button button-282px" onclick="window.location.href = '{% url 'offers:update-offer' offer.id %}?next={{ request.path|urlencode }}'">
                                             <p class="button-p">Редактировать предложение</p>
                                         </button>
                                         <button id="of-del-{{offer.id}}" class="button button-282px button-for-pop-up offer-del-button">
@@ -402,12 +426,16 @@
 
                 <section>
                     <div class="card-container">
-                        <div class="flex-32">
+                        <div class="flex-32-24">
                         <p class="main-title">
                             Предложения
                         </p>
                     </div>
-
+                        {% if not company.offers_set.all %}
+                        <p style="position: static; margin-top: -10px" class="p-no-reviews">
+                       У этой компании пока нет предложений
+                        </p>
+                        {% endif %}
                             <div class="grid">
                                 <div class="grid-sizer"></div>
                                 <div class="gutter-sizer"></div>
@@ -448,9 +476,15 @@
                                     <div class="company-card-main">
                                         <div class="card-button-single">
                                         <div class="flex-content">
+                                            {% if offer.has_photo %}
                                             <button id="get-img-{{offer.id}}" style="margin-top: -2px; max-width: 100%;" class="button check-pop-up">
                                                 <p class="button-p">Посмотреть вложения</p>
                                             </button>
+                                            {% else %}
+                                            <button  style="margin-top: -2px; max-width: 100%;" class="button button-ynp">
+                                                <p class="button-p">Посмотреть вложения</p>
+                                            </button>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     </div>
@@ -482,7 +516,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!--        <script src="{% static 'js/sort-companies.js' %}"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
     <script>
+
+        document.querySelector('.label-image').addEventListener('change', (el) => {
+            console.log(el);
+            document.querySelector('.label-image').classList.toggle('label-iamge-change');
+            console.log('added')
+            document.querySelector('.delete-photo').style.visibility = 'visible'
+        })
 
 let cardId;
 
@@ -495,7 +537,11 @@ window.onload = () => {
     transitionDuration: '0.2s',
   });
 };
+    </script>
 
+        {% if owner %}
+
+    <script>
 document.querySelectorAll('.offer-del-button').forEach((el) => {
     el.addEventListener('click', () => {
         document.querySelector('.pop-up-delete').classList.toggle('pop-up-delete-active');
@@ -575,8 +621,47 @@ $("form#files").submit(function(){
     return false;
 });
 
+</script>
+
+<script>
 
 
+document.querySelectorAll('.company-del-button').forEach((el) => {
+    el.addEventListener('click', () => {
+        document.querySelector('.pop-up-delete-company').classList.toggle('pop-up-delete-company-active');
+        cmpId = parseInt(el.id.replace(/[^\d]/g, ''))
+
+        })
+})
+
+document.querySelector('.company-cancel').addEventListener('click', () => {
+    document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
+})
+
+document.querySelector('.company-delete').addEventListener('click', () => {
+
+    $.ajax ({
+        url: '{% url "companies:delete-company" %}',
+        data: {
+            'id': cmpId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function(data) {
+            window.location.href = "{% url 'offers:catalog' %}"
+
+        },
+        type: "POST",
+    });
+
+    document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
+})
+
+</script>
+
+    {% else %}
+
+    <script>
 
 document.querySelectorAll('.check-pop-up').forEach((el) => {
             el.addEventListener('click', () => {
@@ -623,49 +708,9 @@ function getImages(id, el)
 
 }
 
-
-
-
-
-document.querySelectorAll('.company-del-button').forEach((el) => {
-    el.addEventListener('click', () => {
-        document.querySelector('.pop-up-delete-company').classList.toggle('pop-up-delete-company-active');
-        cmpId = parseInt(el.id.replace(/[^\d]/g, ''))
-
-        })
-})
-
-document.querySelector('.company-cancel').addEventListener('click', () => {
-    document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
-})
-
-document.querySelector('.company-delete').addEventListener('click', () => {
-
-    $.ajax ({
-        url: '{% url "companies:delete-company" %}',
-        data: {
-            'id': cmpId,
-            'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        dataType: 'json',
-        success: function(data) {
-            window.location.href = "{% url 'offers:catalog' %}"
-
-        },
-        type: "POST",
-    });
-
-    document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
-})
-
-
-
-
-
 </script>
 
-
-
+{% endif %}
 
     </body>
 {% endblock %}

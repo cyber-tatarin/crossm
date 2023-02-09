@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from funcy import omit
 from last_seen.models import LastSeen
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404, HttpResponseRedirect
 
 
 def get_profile_ph(request):
@@ -22,6 +22,11 @@ def get_profile_ph(request):
         return obj.photo.url
     else:
         return None
+
+
+def is_allowed(request):
+    if not request.user.allowed:
+        return redirect('set-profile-info')
 
 
 class RegisterView(View):
@@ -56,7 +61,8 @@ class SetProfileInfo(LoginRequiredMixin, View):
 
     def get(self, request):
         if request.user.allowed:
-            return redirect('login')
+            raise Http404
+
         context = {
             'form': ProfileInfoForm(),
             'profile_ph': get_profile_ph(request),
@@ -64,6 +70,9 @@ class SetProfileInfo(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request):
+        if request.user.allowed:
+            raise Http404
+
         form = ProfileInfoForm(request.POST)
 
         if form.is_valid():
@@ -98,7 +107,15 @@ class LoginView(View):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('offers:catalog')
+
+            nexty = request.POST.get('next')
+            if nexty:
+                try:
+                    return HttpResponseRedirect(nexty)
+                except:
+                    raise Http404
+            else:
+                return redirect('offers:my-offers')
 
         context = {
             'form': form
@@ -111,8 +128,9 @@ class ProfileView(LoginRequiredMixin, View):
     template_name = 'registration/profile.html'
 
     def get(self, request, **kwargs):
-        if not request.user.allowed:
-            return redirect('set-profile-info')
+
+        is_allowed(request)
+
         owner = 0
         s_user = kwargs['pk']
         if request.user.id == s_user:
@@ -143,8 +161,8 @@ class ProfileUpdateView(LoginRequiredMixin, View):
     template_name = 'registration/update_profile.html'
 
     def get(self, request):
-        if not request.user.allowed:
-            return redirect('login')
+
+        is_allowed(request)
 
         profile = get_object_or_404(Profile, user=request.user)
 
@@ -163,6 +181,9 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request):
+
+        is_allowed(request)
+
         form = ProfileUpdateForm(request.user.id, request.POST)
 
         if form.is_valid():
@@ -178,6 +199,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
 
         context = {
             'form': form,
+            'profile_ph': get_profile_ph(request),
         }
         return render(request, self.template_name, context)
 
@@ -218,4 +240,7 @@ def pre_save_image(sender, instance, *args, **kwargs):
 
 class WhatisCMView(TemplateView):
     template_name = 'registration/what_is_cm.html'
+
+    def get_context_data(self, **kwargs):
+        return {'profile_ph': get_profile_ph(self.request)}
 

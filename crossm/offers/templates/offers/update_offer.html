@@ -33,7 +33,11 @@
     <title>Document</title>
   </head>
   <body>
+<<<<<<< HEAD
     <div class="Test"></div>
+=======
+  <div class="Test"></div>
+>>>>>>> 77e0efdddfbd674a40e91dce1efe618cd0f26908
     {% include "base.html" %} {% block content %}
 
     <main>
@@ -73,10 +77,83 @@
                       {{form.amount_max|attr:"maxlength:4"}}
                     </div>
 
+<<<<<<< HEAD
+=======
+
+                    <div class="line">
+                        <hr class="line__dashed line__dashed-620">
+                        <div class="left-hr">
+                            <hr class="line__dashed line__dashed-300">
+                            <hr class="line__dashed line__dashed-300">
+                        </div>
+                    </div>
+
+<!---->
+
+                {% if form.non_field_errors or form.title.errors or form.amount.errors or form.retail_price.errors or form.coupon_price.errors or form.type.errors or form.image.errors or form.currency.errors %}
+            <div class="error">
+
+                        {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                        <div class="error-item">{{error}}</div>
+                        {% endfor %}
+                        {% endif %}
+
+                        {% if form.title.errors %}
+                            {% for error in form.title.errors %}
+                        <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.amount.errors %}
+                            {% for error in form.amount.errors %}
+                         <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.coupon_price.errors %}
+                            {% for error in form.coupon_price.errors %}
+                          <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.retail_price.errors %}
+                            {% for error in form.retail_price.errors %}
+                        <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.currency.errors %}
+                            {% for error in form.currency.errors %}
+                        <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.type.errors %}
+                            {% for error in form.type.errors %}
+                        <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                        {% if form.image.errors %}
+                            {% for error in form.image.errors %}
+                        <div class="error-item">{{error}}</div>
+                            {% endfor %}
+                            {% endif %}
+
+                    </div>
+                {% endif %}
+
+
+>>>>>>> 77e0efdddfbd674a40e91dce1efe618cd0f26908
                     <p class="input__comment">Введите валюту</p>
                   </div>
                 </div>
               </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 77e0efdddfbd674a40e91dce1efe618cd0f26908
             </div>
             <div class="line">
               <hr class="line__dashed line__dashed-620" />
@@ -157,8 +234,8 @@
             </div>
 
             <div class="button-submit">
-              <button class="button" type="submit">
-                <p class="button-p">Создать предложение</p>
+              <button class="button" type="submit" name="next" value="{{ request.GET.next }}">
+                <p class="button-p">Сохранить</p>
               </button>
             </div>
           </form>
@@ -276,12 +353,17 @@
                 )}" alt="" class="small-image">
                 <a id = '${index}' class="delete-image" onclick="deleteImage(${index}, id)">Удалить фото</a>
               </div>`;
+<<<<<<< HEAD
               
+=======
+
+>>>>>>> 77e0efdddfbd674a40e91dce1efe618cd0f26908
         });
         output.innerHTML = images;
       }
 
       function deleteImage(index, id) {
+<<<<<<< HEAD
         
         document.getElementById(`${id}`).parentNode.style.display = 'none'
         document.querySelector('.button-file').addEventListener('click', () => {
@@ -290,6 +372,10 @@
           }
         })
         
+=======
+
+        document.getElementById(`${id}`).parentNode.style.display = 'none';
+>>>>>>> 77e0efdddfbd674a40e91dce1efe618cd0f26908
 
         const dt = new DataTransfer();
         const input = document.getElementById("choose-file-container");
@@ -312,6 +398,17 @@
         }
         displayImages();
       });
+
+
+document.querySelector('.choose-file-button').addEventListener('click', () => {
+          if (document.getElementById('new-img')) {
+            document.getElementById('new-img').innerHTML = ''
+            imagesArray = [];
+            images = "";
+          }
+        })
+
+
     </script>
   </body>
   {% endblock %}

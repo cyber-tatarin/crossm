@@ -106,6 +106,7 @@ body {
 
 .nav-menu__user {
   /* display: block; */
+  cursor:pointer;
   min-width: 42px;
   position: relative;
   transition: 0.3s ease-out;
@@ -190,7 +191,7 @@ input {
 }
 
 .main-title {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;
@@ -932,6 +933,18 @@ button:hover {
   align-items: center;
 }
 
+.flex-32-24 {
+  display: flex;
+  margin-bottom: 24px;
+  column-gap: 32px;
+  align-items: center;
+}
+
+.flex-32-24 .main-title,
+.flex-32-24 .add-offer {
+  margin-bottom: 0px;
+}
+
 .flex-32 .main-title,
 .flex-32 .add-offer {
   margin-bottom: 0px;
@@ -1061,6 +1074,7 @@ button:hover {
   box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.08);
   border-radius: 40px;
   margin-bottom: 20px;
+  transition: 0.2s ease-out;
 }
 
 .card-guest {
@@ -1320,11 +1334,27 @@ button:hover {
   font-size: 12px;
   line-height: 13px;
   /* text-decoration-line: underline; */
-  border-bottom: 3px solid #807efd;
+  /* border-bottom: 3px solid #807efd; */
+  border-bottom-width: 3px ;
+  border-bottom-style: solid;
+  border-bottom-color: #807efd;
   /* border-bottom-left-radius: 5px; */
   border-radius: 2px;
   padding-bottom: 1px;
   margin-bottom: 28px;
+}
+
+.add-offer-0500FF {
+  color: #000000;
+  border-bottom-color: #0500ff;
+}
+
+.add-offer-transparent {
+  border-bottom-color: transparent;
+}
+
+.add-offer-0500FF:hover {
+  border-bottom-color: transparent;
 }
 
 .add-offer-no-change {
@@ -1335,14 +1365,29 @@ button:hover {
   font-weight: 700;
   font-size: 12px;
   line-height: 13px;
-  border-bottom: 3px solid #0500ff;
+  border-bottom: 3px solid;
+  border-color: #0500ff;
   border-radius: 2px;
   padding-bottom: 1px;
 }
 
 .add-offer:hover {
+  /* border-bottom: 3px solid transparent; */
   cursor: pointer;
+  border-bottom-color: transparent;
 }
+
+.add-offer-no-change:hover{
+  border-color: transparent;
+}
+
+/* .add-offer-new-hover {
+  border-bottom: 10px solid black;
+} */
+
+/* .add-offer-new-hover:hover{
+  border-bottom: 10px solid black;
+} */
 
 .pop-up {
   z-index: 5;
@@ -1377,7 +1422,7 @@ button:hover {
 }
 
 .company-card:hover {
-  box-shadow: 2px 2px 6px 5px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .card-hr-solid {
@@ -1674,7 +1719,7 @@ button:hover {
 }
 
 .profile-content-title {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;
@@ -2050,10 +2095,23 @@ p.ot {
   border-bottom: 3px solid #0500ff;
   border-radius: 2px;
   padding-bottom: 1px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   margin-left: 28px;
 }
 
 .add-something:hover {
   border-bottom: 3px solid transparent;
+}
+
+.card:hover {
+box-shadow: none;
+}
+
+.iframe {
+  position: absolute;
+  border-radius: 25px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

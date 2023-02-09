@@ -18,8 +18,10 @@ const allCopmaniesClick = allCopmanies.forEach((el) => {
     el.addEventListener('click', () => {
         document.querySelector('.pop-up').style.opacity = '0'
         document.querySelector('.pop-up').style.visibility = 'hidden'
-        document.querySelector('.add-offer').style.color = '#000000'
-        document.querySelector('.add-offer').style.borderBottom = '3px solid #0500FF'
+        document.querySelector('.add-offer').classList.remove('add-offer-0500FF')
+        document.querySelector('.add-offer').classList.toggle('add-offer-0500FF')
+        // document.querySelector('.add-offer').style.color = '#000000'
+        // document.querySelector('.add-offer').style.borderBottomColor = '#0500FF'
 
         allCopmanies.forEach((el) => {
             el.classList.remove('company-active')
@@ -62,13 +64,15 @@ document.addEventListener('click', (e) => {
         if (targetElement.classList.contains('add-offer') || targetElement.classList.contains('pop-up') || targetElement.classList.contains('pop-up-arrow') || targetElement.classList.contains('p-pop-up')) {
         document.querySelector('.pop-up').style.opacity = '1'
         document.querySelector('.pop-up').style.visibility = 'visible'
-        document.querySelector('.add-offer').style.borderBottom = '3px solid transparent'
+        // document.querySelector('.add-offer').style.borderBottomColor = 'transparent'
+        document.querySelector('.add-offer').classList.toggle('add-offer-transparent')
         }
 
         else {
         document.querySelector('.pop-up').style.opacity = '0'
         document.querySelector('.pop-up').style.visibility = 'hidden'
-        document.querySelector('.add-offer').style.borderBottom = '3px solid #807EFD'
+        document.querySelector('.add-offer').classList.remove('add-offer-transparent')
+        // document.querySelector('.add-offer').style.borderBottomColor = '#807EFD'
         }
     }
 })

@@ -107,26 +107,18 @@
                     <p class="p-pop-up">Пожалуйста, выберите компанию, от лица которой Вы хотите создать предложение</p>
                 </div>
 
-{% else %}
-                <p class="p-no-reviews">Пока что у Вас нет компаний и предложений</p>
-                <a class="add-offer">Добавить свою компанию</a>
-                {% endif %}
 
-
-<!--                Если нету предложений то
+{% if not objects.0.offers_set.all %}
                 <p
                 style="position: static; margin-top: -10px;"
                 class="p-no-reviews message-error"
-                >The above
-
-                </p>-->
-
-
-
+                >У вас пока нет предложений
+{% else %}
+                </p>
                 <div class="grid">
                 <div class="grid-sizer"></div>
                 <div class="gutter-sizer"></div>
-{% if company.offers_set.all %}
+
                     {% for company in objects %}
                     {% for offer in company.offers_set.all %}
 
@@ -178,6 +170,10 @@
                                 <button id="img-{{offer.id}}" style="margin-top: -2px; max-width: 150px;" class="button check-pop-up">
                                     <p class="button-p">Посмотреть вложения</p>
                                 </button>
+                                {% else %}
+                                <button style="margin-top: -2px; max-width: 150px;" class="button button-ynp">
+                                    <p class="button-p">Посмотреть вложения</p>
+                                </button>
                                 {% endif %}
                             </div>
                         </div>
@@ -223,12 +219,19 @@
 
                     {% endfor %}
                     {% endfor %}
-                    {% else %}
-                    <span class="p-no-reviews">Пока что у Вас нет предложений</span>
-                    <div style="margin-bottom:20px"></div>
-                    {% endif %}
+
+
 
                 </div>
+                                    {% endif %}
+                {% else %}
+                <a href="{% url 'companies:create-company' %}" class="add-offer">Добавить свою компанию</a>
+
+                <p
+                style="position: static; margin-top: -10px;"
+                class="p-no-reviews message-error"
+                >У вас пока нет компаний
+       {% endif %}
             </div>
         </div>
         </main>
