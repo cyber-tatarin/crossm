@@ -1,6 +1,6 @@
 import os
 
-from django.db.models.signals import pre_save, post_delete
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views import View
