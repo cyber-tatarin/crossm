@@ -1942,6 +1942,10 @@ input[type="number"] {
   color: #000000;
 }
 
+.no-hover:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
+
 .owner-info-no-bottom {
   display: flex;
   align-items: center;
@@ -2114,4 +2118,35 @@ box-shadow: none;
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.change-image-button {
+    transition: 0.3s ease-out;
+    width: fit-content;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 13px;
+    border-bottom: 3px solid;
+    border-color: #0500ff;
+    border-radius: 2px;
+    padding-bottom: 1px;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.change-image-button:hover {
+  color: #000000;
+  border: none;
+  filter: none;
+}
+
+.label-image {
+  width: 135px; height: 135px; 
+  background-color: transparent; 
+  border-radius: 50%; 
+  position: absolute; 
+  cursor: pointer;
 }

@@ -78,13 +78,15 @@
                                 {% else %}
                                 <form id="files" method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    <label style="width: 135px; height: 135px; background-color: transparent; border-radius: 50%; position: absolute;" class="label-image">
-                                    <img id="image" class="profile-user__img" src="">
+                                    <label id="label-image-id" class="label-image">
+                                    <img style="cursor: pointer; display: none;" id="image" class="profile-user__img" src="">
                                     <input name="id" type="hidden" value="{{company.id}}">
-                                    <input style="display: none;" name="image" type="file" />
-                                    <button style="display: none;">Сохранить</button>
+                                    <input style="visibility: hidden;" name="image" type="file" id="image-input" />
+                                    <!-- <button style="display: none;">Сохранить</button> -->
                                     </label>
-                                    <button type="submit" id="dela" class="delete-photo" style="visibility: hidden; margin-left: 22px;">Сохранить фото</button>
+                                    <!-- <button class="change-image-button button-image-first" style="visibility: visible; margin-left: 22px;">Добавить фото</button> -->
+                                    <p id="p-image" style="cursor: auto; margin-left: 25px;" class="delete-photo no-hover">Добавить фото</p>
+                                    <button type="submit" id="dela" class="delete-photo change-image-button" style="visibility: hidden; margin-left: 22px;">Сохранить фото</button>
                                 </form>
                                 
                                 {% endif %}
@@ -512,12 +514,12 @@
 
         {% include "footer.html" %}
 
-<form id="files" method="post" enctype="multipart/form-data">
+<!-- <form id="files" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <input name="id" type="hidden" value="{{company.id}}">
     <input name="image" type="file" />
     <button>Сохранить</button>
-</form>
+</form> -->
 
         <!-- <div class="bottom-margin"></div> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -590,8 +592,11 @@ function deletePhoto(id){
         },
         dataType: 'json',
         success: function(data) {
-            $("#image").style = "visibility: hidden";
-            $("#dela").style = "visibility: hidden";
+            console.log(123)
+            // $("#image").style = "visibility: hidden";
+            // $("#dela").style = "visibility: hidden";
+            document.querySelector('#image').style = "visibility: hidden";
+            document.querySelector('#dela').style = "visibility: hidden";
         },
         type: "POST",
     });
@@ -714,12 +719,37 @@ function getImages(id, el)
 {% endif %}
 
     <script>
-                document.querySelector('.label-image').addEventListener('change', (el) => {
-            console.log(el);
-            document.querySelector('.label-image').classList.toggle('label-iamge-change');
-            console.log('added')
-            document.querySelector('.delete-photo').style.visibility = 'visible'
+        if (document.getElementById('label-image-id')) {
+
+           
+            // reader.readAsDataURL(file);
+
+            // console.log(document.querySelector('.label-image').innerHTML)
+            document.querySelector('.label-image').addEventListener('change', (el) => {
+
+                
+            
+                const files = document.querySelector('#image-input').files[0];
+                if (files) {
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL(files);
+                    fileReader.addEventListener("load", function () {
+                    document.querySelector('.profile-user__img').src = this.result;
+                    document.querySelector('.profile-user__img').style.display = 'inline-block';
+                    });    
+                   
+                } 
+                
+
+            // if (!document.querySelector('.label-image').classList.contains('label-iamge-change')) document.querySelector('.label-image').classList.toggle('label-iamge-change');
+            // document.querySelector('.profile-user__img').style.display = 'inline';
+            document.querySelector('.delete-photo').style.visibility = 'visible';
+            document.getElementById('p-image').style.display = 'none';
+            document.querySelector('.change-image-button').style.visibility = 'visible';
+            // document.querySelector('.profile-user__img').style.display = 'inline-block';
+            
         })
+}
     </script>
 
 
