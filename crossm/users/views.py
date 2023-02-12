@@ -1,11 +1,9 @@
 import os
-
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views import View
 from django.views.generic import TemplateView
-
 from .forms import UserCreateForm, UserLoginForm, ProfileInfoForm, ProfileUpdateForm
 from django.contrib.auth import authenticate, login
 from .models import Profile, Cities, User
@@ -17,16 +15,22 @@ from django.http import JsonResponse, Http404, HttpResponseRedirect
 
 
 def get_profile_ph(request):
-    obj = get_object_or_404(Profile, user=request.user)
-    if obj.photo:
-        return obj.photo.url
-    else:
+    try:
+        obj = Profile.objects.filter(user=request.user).first()
+        if obj:
+            if obj.photo:
+                return obj.photo.url
+            else:
+                return None
+        else:
+            return None
+    except TypeError:
         return None
 
 
 def is_allowed(request):
     if not request.user.allowed:
-        return redirect('set-profile-info')
+        raise PermissionError
 
 
 class RegisterView(View):
@@ -115,7 +119,7 @@ class LoginView(View):
                 except:
                     raise Http404
             else:
-                return redirect('offers:my-offers')
+                return redirect('offers:catalog')
 
         context = {
             'form': form
@@ -129,7 +133,10 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request, **kwargs):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         owner = 0
         s_user = kwargs['pk']
@@ -162,7 +169,10 @@ class ProfileUpdateView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         profile = get_object_or_404(Profile, user=request.user)
 
@@ -182,7 +192,10 @@ class ProfileUpdateView(LoginRequiredMixin, View):
 
     def post(self, request):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         form = ProfileUpdateForm(request.user.id, request.POST)
 
@@ -244,4 +257,3 @@ class WhatisCMView(TemplateView):
 
     def get_context_data(self, **kwargs):
         return {'profile_ph': get_profile_ph(self.request)}
-

@@ -24,7 +24,10 @@ class CreateOfferView(LoginRequiredMixin, View):
 
     def get(self, request, **kwargs):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         context = {
             'form': CreateOfferForm(),
@@ -34,7 +37,10 @@ class CreateOfferView(LoginRequiredMixin, View):
 
     def post(self, request, **kwargs):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         form = CreateOfferForm(request.POST, request.FILES)
         company_id = kwargs['pk']
@@ -85,7 +91,10 @@ class UpdateOfferView(LoginRequiredMixin, View):
 
     def get(self, request, **kwargs):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         obj = get_object_or_404(Offers, id=kwargs['pk'])
 
@@ -109,7 +118,10 @@ class UpdateOfferView(LoginRequiredMixin, View):
 
     def post(self, request, **kwargs):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         instance = get_object_or_404(Offers, id=kwargs['pk'])
 
@@ -163,7 +175,11 @@ class MyOffersPageView(LoginRequiredMixin, View):
     template_name = 'offers/my_offers.html'
 
     def get(self, request, **kwargs):
-        is_allowed(request)
+
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         objects = Companies.objects.filter(owner=request.user).prefetch_related('offers_set',
                                                                                 'owner__profile_set').all()

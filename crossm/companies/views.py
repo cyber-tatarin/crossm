@@ -18,7 +18,10 @@ class CreateCompanyView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         context = {
             'form': CompanyCreateForm(),
@@ -27,6 +30,12 @@ class CreateCompanyView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request):
+
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
+
         form = CompanyCreateForm(request.POST)
 
         if form.is_valid():
@@ -58,7 +67,10 @@ class CompanyPageView(LoginRequiredMixin, View):
 
     def get(self, request, **kwargs):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         company = Companies.objects.filter(id=kwargs['pk']).select_related('owner').all(). \
             prefetch_related('offers_set', 'owner__profile_set').all()
@@ -91,7 +103,10 @@ class UpdateCompanyView(LoginRequiredMixin, View):
 
     def get(self, request, **kwargs):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         obj = get_object_or_404(Companies, id=kwargs['pk'], owner=request.user)
         form = CompanyCreateForm(initial={
@@ -109,7 +124,10 @@ class UpdateCompanyView(LoginRequiredMixin, View):
 
     def post(self, request, **kwargs):
 
-        is_allowed(request)
+        try:
+            is_allowed(request)
+        except PermissionError:
+            return redirect('set-profile-info')
 
         form = CompanyCreateForm(request.POST)
 
