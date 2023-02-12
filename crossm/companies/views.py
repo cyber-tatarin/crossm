@@ -193,3 +193,12 @@ def post_save_image(sender, instance, *args, **kwargs):
         instance.photo.delete(save=False)
     except:
         pass
+
+
+class CheckCompanyPhoto(LoginRequiredMixin, View):
+    def get(self, request, **kwargs):
+        obj = get_object_or_404(Companies, owner=request.user, id=request.GET.get('id'))
+        if obj.photo:
+            return JsonResponse({'success': True, 'image': obj.photo.url})
+        else:
+            return JsonResponse({'success': True, 'image': False})

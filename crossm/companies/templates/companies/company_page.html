@@ -65,6 +65,30 @@
                         </div>
                     </div>
 
+                <div class="pop-up-images">
+                    <div class="pop-up-container">
+                        <div class="pop-up-images-body">
+                            <div class="pop-up-exit">
+
+                            </div>
+                            <div style="margin-bottom: 32px;" class="flex">
+                            <p class="pop-up-images-title"></p>
+                            <div style="margin-right: 16px;" class="">
+                                <span class="profile-user__city">Услуга:&nbsp</span>
+                                <span class="profile-user__city__name pop-up-input-title"></span>
+                            </div>
+                            <div class="">
+                                <span class="profile-user__city">Цена купона:&nbsp</span>
+                                <span class="profile-user__city__name pop-up-input-price"></span>
+                            </div>
+                            </div>
+                            <div class="images-container">
+<!--                                <img src="" alt="" class="pop-up-img">-->
+<!--                                <div style="margin-top: 32px" class=""></div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="profile">
                     <div class="profile-owner">
@@ -72,10 +96,11 @@
                          <div class="profile-user-left">
 
                             <div class="profile-user__logo">
-                                {% if company.photo %}
-                                <img id="image" class="profile-user__img" src="{{company.photo.url}}">
-                                <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo">Удалить фото</a>
-                                {% else %}
+
+
+
+<!--                                <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo">Удалить фото</a>-->
+
                                 <form id="files" method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <label id="label-image-id" class="label-image">
@@ -85,11 +110,11 @@
                                     <!-- <button style="display: none;">Сохранить</button> -->
                                     </label>
                                     <!-- <button class="change-image-button button-image-first" style="visibility: visible; margin-left: 22px;">Добавить фото</button> -->
-                                    <p id="p-image" style="cursor: auto; margin-left: 25px;" class="delete-photo no-hover">Добавить фото</p>
+                                    <p onclick="check_photo({{company.id}}) " id="p-image" style="cursor: auto; margin-left: 25px;" class="delete-photo no-hover">Добавить фото</p>
                                     <button type="submit" id="dela" class="delete-photo change-image-button" style="visibility: hidden; margin-left: 22px;">Сохранить фото</button>
                                 </form>
                                 
-                                {% endif %}
+
                             </div>
 
                         </div>
@@ -665,7 +690,7 @@ document.querySelector('.company-delete').addEventListener('click', () => {
 
 </script>
 
-    {% else %}
+{% endif %}
 
     <script>
 
@@ -716,7 +741,7 @@ function getImages(id, el)
 
 </script>
 
-{% endif %}
+
 
     <script>
         if (document.getElementById('label-image-id')) {
@@ -752,6 +777,24 @@ function getImages(id, el)
 }
     </script>
 
+    <script>
+function check_photo(cmpId){
+        $.ajax ({
+        url: '{% url "companies:check-photo" %}',
+        data: {
+            'id': cmpId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: 'json',
+        success: function(data) {
+            console.log(data.image);
+        },
+        type: "GET",
+    });
+       }
+
+
+    </script>
 
     </body>
 {% endblock %}

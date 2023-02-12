@@ -33,6 +33,8 @@
                             {% if user.profile_set.all.0.photo %}
                             <img class="profile-user__img" id="image" src="{{user.profile_set.all.0.photo.url}}">
                             <a id="dela" onclick="deletePhoto({{request.user.id}})" class="delete-photo">Удалить фото</a>
+                                {% else %}
+                                <img class="profile-user__img" id="image" src="/media/images/no_company_logo.png">
 <!--                            <p onclick="deletePhoto({{request.user.id}})">Удалить фото</p>-->
                             {% endif %}
                                 </div>
@@ -124,7 +126,13 @@
 
                         <div class="card grid-item" id="company-{{company.id}}">
                             <div class="card-info">
-                                <div class="card__logo"></div>
+                                <div class="card__logo" style="position: relative;">
+                                    {% if company.photo %}
+                                <img class="card__img" src="{{company.photo.url}}">
+                                    {% else %}
+                                <img class="card__img" src="/media/images/no_company_logo.png">
+                                    {% endif %}
+                                </div>
                                 <div class="card__info">
                                     <h3 onclick="window.location.href = '{% url 'companies:company-page' company.id %}'" class="company-name">{{company.title}}</h3>
                                     <div class="company-title">
@@ -147,16 +155,16 @@
                                     {% endif %}
 
                                 </div>
-                                <div class="card-reviews">
-                                    <span class="reviews-count">Отзывы(7)</span>
-                                    <div class="rating-mini">
-                                        <span class="active"></span>
-                                        <span class="active"></span>
-                                        <span class="active"></span>
-                                        <span class="not-active"></span>
-                                        <span class="not-active"></span>
-                                    </div>
-                                </div>
+<!--                                <div class="card-reviews">-->
+<!--                                    <span class="reviews-count">Отзывы(7)</span>-->
+<!--                                    <div class="rating-mini">-->
+<!--                                        <span class="active"></span>-->
+<!--                                        <span class="active"></span>-->
+<!--                                        <span class="active"></span>-->
+<!--                                        <span class="not-active"></span>-->
+<!--                                        <span class="not-active"></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                             <div class="profile-user__buttons profile-user__buttons__gap-12px">
                             <div class="button-278px">
@@ -191,7 +199,15 @@
                 <div class="profile">
                     <div class="profile-user">
                         <div class="profile-user-left">
-                            <div class="profile-user__logo"></div>
+                            <div class="profile-user__logo">
+                                {% if user.profile_set.all.0.photo %}
+                            <img class="profile-user__img" id="image" src="{{user.profile_set.all.0.photo.url}}">
+                            <a id="dela" onclick="deletePhoto({{request.user.id}})" class="delete-photo">Удалить фото</a>
+                                {% else %}
+                                <img class="profile-user__img" id="image" src="/media/images/no_company_logo.png">
+<!--                            <p onclick="deletePhoto({{request.user.id}})">Удалить фото</p>-->
+                            {% endif %}
+                            </div>
                         </div>
                         <div class="profile-user-right">
                             <h1 class="profile-user__name">{{user.first_name}} {{user.last_name}}</h1>
@@ -244,7 +260,13 @@
 
                         <div class="card grid-item" id="company-{{company.id}}">
                             <div class="card-info">
-                                <div class="card__logo"></div>
+                                <div class="card__logo" style="position: relative;">
+                                    {% if company.photo %}
+                                <img class="card__img" src="{{company.photo.url}}">
+                                    {% else %}
+                                <img class="card__img" src="/media/images/no_company_logo.png">
+                                    {% endif %}
+                                </div>
                                 <div class="card__info">
                                     <h3 onclick="window.location.href = '{% url 'companies:company-page' company.id %}'" class="company-name">{{company.title}}”</h3>
                                     <div class="company-title">
@@ -265,16 +287,16 @@
                                     <a href="{% url 'companies:company-page' company.id %}" class="company-link">{% url 'companies:company-page' company.id %}</a>
                                     {% endif %}
                                 </div>
-                                <div class="card-reviews">
-                                    <span class="reviews-count">Отзывы(7)</span>
-                                    <div class="rating-mini">
-                                        <span class="active"></span>
-                                        <span class="active"></span>
-                                        <span class="active"></span>
-                                        <span class="not-active"></span>
-                                        <span class="not-active"></span>
-                                    </div>
-                                </div>
+<!--                                <div class="card-reviews">-->
+<!--                                    <span class="reviews-count">Отзывы(7)</span>-->
+<!--                                    <div class="rating-mini">-->
+<!--                                        <span class="active"></span>-->
+<!--                                        <span class="active"></span>-->
+<!--                                        <span class="active"></span>-->
+<!--                                        <span class="not-active"></span>-->
+<!--                                        <span class="not-active"></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                         </div>
 
