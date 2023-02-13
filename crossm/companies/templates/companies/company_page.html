@@ -12,7 +12,7 @@
         <title>Document</title>
     </head>
     <body>
-
+        <div class="Test"></div>
     {% include "base.html" %}
 
 {% block content %}
@@ -99,19 +99,20 @@
 
 
 
-<!--                                <a id="dela" onclick="deletePhoto({{company.id}})" class="delete-photo">Удалить фото</a>-->
+                               <a id="dela" onclick="deletePhoto({{company.id}})" style="visibility: hidden; z-index: 13;" class="delete-photo a-delete">Удалить фото</a>
 
                                 <form id="files" method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
+                                    <!-- Сюда вместо Димы поставь дефолтную фотку, если у пользователя нет своей -->
+                                    <img  id="image" class="profile-user__img" src="../../../static/images/Dima.jpg">
                                     <label id="label-image-id" class="label-image">
-                                    <img style="cursor: pointer; display: none;" id="image" class="profile-user__img" src="">
                                     <input name="id" type="hidden" value="{{company.id}}">
                                     <input style="visibility: hidden;" name="image" type="file" id="image-input" />
                                     <!-- <button style="display: none;">Сохранить</button> -->
                                     </label>
                                     <!-- <button class="change-image-button button-image-first" style="visibility: visible; margin-left: 22px;">Добавить фото</button> -->
-                                    <p onclick="check_photo({{company.id}}) " id="p-image" style="cursor: auto; margin-left: 25px;" class="delete-photo no-hover">Добавить фото</p>
-                                    <button type="submit" id="dela" class="delete-photo change-image-button" style="visibility: hidden; margin-left: 22px;">Сохранить фото</button>
+                                    <!-- <p onclick="check_photo({{company.id}}) " id="p-image" style="cursor: auto; margin-left: 25px;" class="delete-photo no-hover">Добавить фото</p> -->
+                                    <button type="submit" class="delete-photo change-image-button" style="visibility: hidden; margin-left: 22px; transition: none;">Сохранить фото</button>
                                 </form>
                                 
 
@@ -539,17 +540,54 @@
 
         {% include "footer.html" %}
 
-<!-- <form id="files" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input name="id" type="hidden" value="{{company.id}}">
-    <input name="image" type="file" />
-    <button>Сохранить</button>
-</form> -->
-
-        <!-- <div class="bottom-margin"></div> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--        <script src="{% static 'js/sort-companies.js' %}"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+
+    <script>
+
+       function check_photo(cmpId){
+               $.ajax ({
+                url: '{% url "companies:check-photo" %}',
+                data: {
+                    'id': cmpId,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data.image);
+                    if (data.image){
+
+                        document.querySelector('#image').src = data.image;
+
+                        document.querySelector('#image').onload = function() {
+                        document.querySelector(".Test").style.opacity = "0";
+                        document.querySelector(".Test").style.visibility = "hidden";
+                        document.querySelector(".Test").style.zIndex = "-10";
+                    };
+
+                        document.querySelector('#image').onerror = function() {
+                        document.querySelector(".Test").style.opacity = "0";
+                        document.querySelector(".Test").style.visibility = "hidden";
+                        document.querySelector(".Test").style.zIndex = "-10";
+                    };
+                    } else {
+                        
+                        document.querySelector(".Test").style.opacity = "0";
+                        document.querySelector(".Test").style.visibility = "hidden";
+                        document.querySelector(".Test").style.zIndex = "-10";
+                
+                    }
+                    
+                    
+                },
+                type: "GET",
+            });
+           
+               }
+        
+               check_photo({{company.id}})
+    </script>
 
     <script>
 
@@ -563,7 +601,8 @@ window.onload = () => {
     columnWidth: '.grid-sizer',
     percentPosition: true,
     transitionDuration: '0.2s',
-  });
+  }); 
+ 
 };
     </script>
 
@@ -617,11 +656,12 @@ function deletePhoto(id){
         },
         dataType: 'json',
         success: function(data) {
-            console.log(123)
-            // $("#image").style = "visibility: hidden";
-            // $("#dela").style = "visibility: hidden";
-            document.querySelector('#image').style = "visibility: hidden";
+            // И сюда тоже вместо Димы поставь дефолтную фотку, если у пользователя нет своей
+            document.querySelector('#image').src = "../../../static/images/Dima.jpg"
+            document.querySelector('.change-image-button').style = "visibility: hidden";
             document.querySelector('#dela').style = "visibility: hidden";
+            document.querySelector('.change-image-button').style.marginLeft = "22px";
+            document.querySelector('#label-image-id').style.visibility = "visible";
         },
         type: "POST",
     });
@@ -661,7 +701,6 @@ document.querySelectorAll('.company-del-button').forEach((el) => {
     el.addEventListener('click', () => {
         document.querySelector('.pop-up-delete-company').classList.toggle('pop-up-delete-company-active');
         cmpId = parseInt(el.id.replace(/[^\d]/g, ''))
-
         })
 })
 
@@ -680,7 +719,6 @@ document.querySelector('.company-delete').addEventListener('click', () => {
         dataType: 'json',
         success: function(data) {
             window.location.href = "{% url 'offers:catalog' %}"
-
         },
         type: "POST",
     });
@@ -741,19 +779,11 @@ function getImages(id, el)
 
 </script>
 
-
-
     <script>
         if (document.getElementById('label-image-id')) {
 
-           
-            // reader.readAsDataURL(file);
-
-            // console.log(document.querySelector('.label-image').innerHTML)
             document.querySelector('.label-image').addEventListener('change', (el) => {
 
-                
-            
                 const files = document.querySelector('#image-input').files[0];
                 if (files) {
                     const fileReader = new FileReader();
@@ -762,39 +792,25 @@ function getImages(id, el)
                     document.querySelector('.profile-user__img').src = this.result;
                     document.querySelector('.profile-user__img').style.display = 'inline-block';
                     });    
-                   
                 } 
-                
 
-            // if (!document.querySelector('.label-image').classList.contains('label-iamge-change')) document.querySelector('.label-image').classList.toggle('label-iamge-change');
-            // document.querySelector('.profile-user__img').style.display = 'inline';
-            document.querySelector('.delete-photo').style.visibility = 'visible';
-            document.getElementById('p-image').style.display = 'none';
             document.querySelector('.change-image-button').style.visibility = 'visible';
-            // document.querySelector('.profile-user__img').style.display = 'inline-block';
-            
+            document.querySelector('.change-image-button').style.transition = 'none';
+            document.querySelector('.a-delete').style.visibility = "hidden";
+            document.querySelector('#dela').style = "visibility: hidden";            
         })
-}
-    </script>
+        }
 
-    <script>
-function check_photo(cmpId){
-        $.ajax ({
-        url: '{% url "companies:check-photo" %}',
-        data: {
-            'id': cmpId,
-            'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        dataType: 'json',
-        success: function(data) {
-            console.log(data.image);
-        },
-        type: "GET",
-    });
-       }
-
+        document.querySelector('.change-image-button').addEventListener('click', (el) => {
+            document.querySelector('.change-image-button').style = "visibility: hidden";
+            document.querySelector('.change-image-button').style.transition = 'none';
+            document.querySelector('.change-image-button').style.marginLeft = "22px";
+            document.querySelector('.a-delete').style.visibility = "visible";
+            document.querySelector('#label-image-id').style.visibility = "hidden";
+        })
 
     </script>
+
 
     </body>
 {% endblock %}
