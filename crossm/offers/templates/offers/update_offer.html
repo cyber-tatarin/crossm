@@ -30,7 +30,7 @@
     />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Document</title>
+    <title>Редактирование предложения</title>
   </head>
   <body>
 
@@ -249,8 +249,8 @@
 
     <script>
       function deleteUser(id) {
-        var action = confirm("Are you sure you want to delete this user?");
-        if (action != false) {
+
+{
           $.ajax({
             url: '{% url "offers:delete-image" %}',
             data: {
@@ -263,8 +263,9 @@
             },
             type: "GET",
           });
-        }
-      }
+
+}
+
 
       const output = document.querySelector("#new-img");
       const input = document.getElementById("choose-file-container");

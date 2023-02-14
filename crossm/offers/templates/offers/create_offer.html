@@ -24,9 +24,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <title>Document</title>
+        <title>Создание предложения</title>
     </head>
     <body>
+
+        <div class="Test"></div>
 
     {% include "base.html" %}
     {% block content %}
@@ -138,7 +140,7 @@
                                 </div>
                             </div>
                             <div class="bottom-16px"></div>
-                            <p class="input__comment">Пишитие, пожалуйста с 9 до 20 в вайбер на номер телфона
+                            <p class="input__comment">Пишитие, пожалуйста с 9 до 20 в вайбер на номер телефона
                         </div>
                         <div class="inputs-part inputs-part__double">
                             <h3 class="inputs-part__title">Тип предложения</h3>
@@ -154,8 +156,6 @@
                         <hr class="line__dashed line__dashed-620">
                         <hr class="line__dashed line__dashed-620">
                     </div>
-
-                    <output></output>
 
                     <div class="button-submit">
                         <button class="button" type="submit" name="next" value="{{ request.GET.next }}">
@@ -230,7 +230,18 @@
         </main>
 
 
+<section style="margin-top: 24px">
+      <div class="container-padding">
+        <div class="container">
+          <h3 style="margin-bottom: 24px" class="inputs-part__title">
+            Вложения
+          </h3>
 
+          <div class="images-delete-container" id="new-img"></div>
+
+        </div>
+      </div>
+    </section>
 
 
             {% include "footer.html" %}
@@ -241,44 +252,63 @@
 
     <script>
 
-const output = document.querySelector("output");
-const input = document.getElementById("choose-file-container");
-let imagesArray = [];
+      const output = document.querySelector("#new-img");
+      const input = document.getElementById("choose-file-container");
+      let imagesArray = [];
 
-function displayImages() {
-  let images = "";
-  imagesArray.forEach((image, index) => {
-       images += `<div class="image">
-                <img src="${URL.createObjectURL(image)}" alt="image">
-                <span onclick="deleteImage(${index})">&times;</span>
+      function displayImages() {
+        let images = "";
+        imagesArray.forEach((image, index) => {
+          images += `<div class="image-container">
+                <img src="${URL.createObjectURL(
+                  image
+                )}" alt="" class="small-image">
+                <a id = '${index}' class="delete-image" onclick="deleteImage(${index}, id)">Удалить фото</a>
               </div>`;
-  })
-  output.innerHTML = images;
-};
+        });
+        output.innerHTML = images;
+      }
 
-function deleteImage(index) {
-  const dt = new DataTransfer()
-  const input = document.getElementById('choose-file-container')
-  const { files } = input
+      function deleteImage(index, id) {
 
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i]
-    if (index !== i)
-      dt.items.add(file) // here you exclude the file. thus removing it.
-  }
+        document.getElementById(`${id}`).parentNode.style.display = 'none'
+        document.querySelector('.button-file').addEventListener('click', () => {
+          if (document.getElementById('new-img')) {
+            document.getElementById('new-img').display = 'none'
+          }
+        })
 
-  input.files = dt.files // Assign the updates list
-  imagesArray.splice(index, 1)
-  displayImages();
-};
 
-input.addEventListener("change", () => {
-const files = input.files;
- for (let i = 0; i < files.length; i++) {
-    imagesArray.push(files[i]);
-    }
-    displayImages();
-});
+        const dt = new DataTransfer();
+        const input = document.getElementById("choose-file-container");
+        const { files } = input;
+
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          if (index !== i) dt.items.add(file); // here you exclude the file. thus removing it.
+        }
+
+        input.files = dt.files; // Assign the updates list
+        imagesArray.splice(index, 1);
+        // displayImages();
+      }
+
+      input.addEventListener("change", () => {
+        const files = input.files;
+        for (let i = 0; i < files.length; i++) {
+          imagesArray.push(files[i]);
+        }
+        displayImages();
+      });
+
+
+document.querySelector('.choose-file-button').addEventListener('click', () => {
+          if (document.getElementById('new-img')) {
+            document.getElementById('new-img').innerHTML = ''
+            imagesArray = [];
+            images = "";
+          }
+        })
 
 
 
