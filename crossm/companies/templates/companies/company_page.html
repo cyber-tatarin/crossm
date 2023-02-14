@@ -560,6 +560,9 @@
 
                         document.querySelector('#image').src = data.image;
 
+                        document.querySelector('#dela').style = "visibility: visible";
+                        document.querySelector('#label-image-id').style.visibility = "hidden";
+
                         document.querySelector('#image').onload = function() {
                         document.querySelector(".Test").style.opacity = "0";
                         document.querySelector(".Test").style.visibility = "hidden";
@@ -573,6 +576,8 @@
                     };
                     } else {
                         
+                        
+
                         document.querySelector(".Test").style.opacity = "0";
                         document.querySelector(".Test").style.visibility = "hidden";
                         document.querySelector(".Test").style.zIndex = "-10";
