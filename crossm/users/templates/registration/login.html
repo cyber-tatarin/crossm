@@ -20,6 +20,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+		{% include "favicon.html" %}
         <title>PMarket | Вход</title>
     </head>
     <body>
@@ -59,7 +60,7 @@
                         <hr class="line__dashed line__dashed-620">
                     </div>
                     <div class="button-submit">
-                        <button class="button" type="submit">
+                        <button class="button" type="submit" name="next" value="{{ request.GET.next }}">
                             <p class="button-p">Войти</p>
                         </button>
                         <a href="{% url 'register' %}" class="a-account">

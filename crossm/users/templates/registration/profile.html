@@ -13,10 +13,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+		{% include "favicon.html" %}
         <title>PMarket | Страница пользователя</title>
     </head>
     <body>
-        <div class="Test"></div>
+
     {% include "base.html" %}
 
 {% block content %}
@@ -25,8 +26,8 @@
         <main class="main">
             <div class="container-padding">
             <div class="container-main">
-                <div class="profile">
-                    <div class="profile-user">
+                <div class="profile"  style="align-items:unset; height:auto;">
+                    <div class="profile-user" style="height:auto;">
                         <div class="profile-user-left">
 
                             <div class="profile-user__logo">
@@ -78,7 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="profile-contacts">
+                    <div class="profile-contacts" style="height: auto;">
                         <h2 class="profile-contacts__title">Контакты</h2>
                         <div class="profile-user__mail">
                             <p class="user__mail">{{user.email}}</p>
@@ -210,7 +211,6 @@
                             <div class="profile-user__logo">
                                 {% if user.profile_set.all.0.photo %}
                             <img class="profile-user__img" id="image" src="{{user.profile_set.all.0.photo.url}}">
-                            <a id="dela" onclick="deletePhoto({{request.user.id}})" class="delete-photo">Удалить фото</a>
                                 {% else %}
                                 <img class="profile-user__img" id="image" src="/media/images/no_company_logo.png">
 <!--                            <p onclick="deletePhoto({{request.user.id}})">Удалить фото</p>-->
@@ -228,6 +228,10 @@
                                     -
                                     {% endif %}
                                 </span>
+                                <div class="">
+                                <span class="profile-user__city">Последний раз был:&nbsp</span>
+                                <span class="profile-user__city__name">{{seen}}</span>
+                            </div>
                             </div>
                             <div class="profile__remark">
                                 {% if user.profile_set.all.0.bio %}
@@ -348,6 +352,10 @@ window.onload = () => {
   });
 };
 
+</script>
+		{% if owner %}
+	<script>
+
 document.querySelectorAll('.button-for-pop-up').forEach((el) => {
     el.addEventListener('click', () => {
         document.querySelector('.pop-up-delete').classList.toggle('pop-up-delete-active');
@@ -441,7 +449,6 @@ $("form#files").submit(function(){
 <!-------------------------------------------------------->
 
         <script>
-
        function check_photo(){
                $.ajax ({
                 url: '{% url "check-photo" %}',
@@ -519,7 +526,7 @@ $("form#files").submit(function(){
         })
 
     </script>
-
+{% endif %}
 
     </body>
 {% endblock %}

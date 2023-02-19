@@ -9,6 +9,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+		{% include "favicon.html" %}
         <title>Компания {{company.title}}</title>
     </head>
     <body>
@@ -175,6 +176,7 @@
                                 {% if company.photo %}
                                 <img class="profile-user__img" src="{{company.photo.url}}">
                                 {% else %}
+								<img  id="image" class="profile-user__img" src="/media/images/upload_photo.jpg">
                                 {% endif %}
                             </div>
                         </div>
@@ -243,7 +245,7 @@
                             <div class="reviews-container">
                                 <div class="reviews-info">
                                     <div class="main-title profile-title">
-                                        Отзывы&nbsp(11)
+                                        Отзывы&nbsp(0)
                                     </div>
                                     <div class="rating-small">
                                         <span class="active"></span>	
@@ -307,10 +309,16 @@
                             {% if company.owner.profile_set.all.0.bio %}
                              <div style="margin-bottom: 16px;" class="profile-user-small">
                                 <div class="profile-user-left">
-                                    <div class="profile-user__logo-small"></div>
+                                    <div class="profile-user__logo-small" style="position: relative;">
+										{% if company.owner.profile_set.all.0.photo %}
+										<img class="profile-user__logo-small" src="{{company.owner.profile_set.all.0.photo.url}}">
+										{% else %}
+										<img class="profile-user__logo-small" src="/media/images/no_company_logo.png">
+										{% endif %}
+									</div>
                                 </div>
                                 <div class="profile-user-right">
-                                <h1 class="profile-user__name-small">{{company.owner.first_name}} {{company.owner.last_name}}</h1>
+                                <h1 class="profile-user__name-small" onclick="window.location.href = '{% url 'view-profile' company.owner.id %}'">{{company.owner.first_name}} {{company.owner.last_name}}</h1>
                                 <div style="margin-bottom: -2px;" class="city-info-small">
                                     <span class="profile-user__city-small">Город:&nbsp</span>
                                     <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
@@ -333,11 +341,16 @@
 
                             <div style="margin-bottom: 16px; align-items: center;" class="profile-user-small">
                                 <div class="profile-user-left">
-                                    <div class="profile-user__logo-small"></div>
+                                    <div class="profile-user__logo-small" style="position: relative;">
+										{% if company.owner.profile_set.all.0.photo %}
+										<img class="profile-user__logo-small" src="{{company.owner.profile_set.all.0.photo.url}}">
+										{% else %}
+										<img class="profile-user__logo-small" src="/media/images/no_company_logo.png">
+										{% endif %}
+									</div>
                                 </div>
                                 <div class="profile-user-right">
-                                <h1 class="profile-user__name-small">{{company.owner.first_name}} {{company.owner.last_name}}</h1>
-
+                                <h1 class="profile-user__name-small" onclick="window.location.href = '{% url 'view-profile' company.owner.id %}'">{{company.owner.first_name}} {{company.owner.last_name}}</h1>
                                 <div style="margin-bottom: -2px;" class="city-info-small">
                                     <span class="profile-user__city-small">Город:&nbsp</span>
                                     <span class="profile-user__city__name-small">{{company.owner.profile_set.all.0.city.city}}</span>
@@ -713,7 +726,7 @@ document.querySelector('.company-delete').addEventListener('click', () => {
     </script>
 
             <script>
-
+		let owner = {{owner}}
        function check_photo(cmpId){
                $.ajax ({
                 url: '{% url "companies:check-photo" %}',
@@ -724,7 +737,7 @@ document.querySelector('.company-delete').addEventListener('click', () => {
                 dataType: 'json',
                 success: function(data) {
                     console.log(data.image);
-                    if (data.image){
+                    if (data.image && owner){
 
                         document.querySelector('#image').src = data.image;
 
