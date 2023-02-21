@@ -20,7 +20,7 @@
 
 {% block content %}
 
-<main style="margin-top: -12px;" class="main">
+<main style="margin-top: -12px; margin-bottom: 0px;" class="main">
   <div class="container-padding">
     <div style="padding: 50px;" class="container">
     <div
@@ -37,6 +37,86 @@
       ></iframe>
     </div>
   </div>
+  </div>
+</main>
+
+<main style="margin-top: 20px; margin-bottom: 80px;" class="main">
+  <div class="container-padding">
+      <!-- Если ответы есть -->
+      <div style="margin-bottom:20px;" class="guid">
+        <div class="guid-left">
+          <p class="guid-p">Получить помощь от искусственного интеллекта</p>
+          <p class="description">Описание Вашем бизнесе</p>
+          <div class="inputs-part__div">
+            <input class="input input-620px input-description" type="text" maxlength="100" placeholder="Введите название компании" required>
+          </div>
+          <p style="margin-left: 34px; margin-bottom: 20px;" class="description-example">Напишите про Вашу компанию. Например, ФРИЛАНСЕР ДИЗАЙНЕР, или ПРЕМИУМ СТУДИЯ ДИЗАЙНА ИНТЕРЬЕРА, или ДИЛЕР ПО ПРОДАЖЕ АВТОМОБИЛЕЙ БМВ, или ТРЕНАЖЕРНЫЙ ЗАЛ БЮДЖЕТНОГО СЕГМЕНТА и так далее</p>
+          <div style="margin-bottom: 28px'" class="line__dashed"></div>
+          <div style="gap:22px;" class="button-choice">
+            <button style="max-width:100%;" class="button" type="submit">
+                <p class="button-p">Товар</p>
+            </button>
+            <button style="max-width:100%;" class="button" type="submit">
+                <p class="button-p">Услуга</p>
+            </button>
+        </div> 
+        </div>
+        <div class="guid-right">
+          <p class="guid-p">Правила использования сервиса</p>
+          <ol class="ol-description">
+            <li class="li-description">Вы можете сделать не более 4 запросов в день, поэтому внимательно заполните поле и не нажимайте на кнопку бездумно;</li>
+            <li class="li-description">Нажмите на 1 кнопку — дождитесь ответа — прочитайте его — нажмите другую кнопку. Как только Вы нажмёте другую кнопку, предыдущий ответ исчезнет;</li>
+            <li class="li-description">Эти советы не панацея, но возможно они смогут натолкнуть Вас на размышления;</li>
+            <li class="li-description">Если Вы совсем не понимаете, как взаимодействовать с платформой и какие кросс-маркетинговые акции можно придумать именно в Вашем случае — напишите нам. Наша команда поможет Вам найти идею.</li>
+          </ol>
+          <div class="button-submit">
+            <button style="max-width:calc(50% - 11px);" class="button" type="submit">
+                <p class="button-p">Создать предложение</p>
+            </button>
+        </div> 
+        </div>
+      </div>
+
+      <div class="guid">
+        <div class="guid-left">
+          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
+          <ol class="ol-description">
+            <li class="li-description">Вы можете сделать не более 4 запросов в день, поэтому внимательно заполните поле и не нажимайте на кнопку бездумно;</li>
+            <li class="li-description">Нажмите на 1 кнопку — дождитесь ответа — прочитайте его — нажмите другую кнопку. Как только Вы нажмёте другую кнопку, предыдущий ответ исчезнет;</li>
+            <li class="li-description">Эти советы не панацея, но возможно они смогут натолкнуть Вас на размышления;</li>
+            <li class="li-description">Если Вы совсем не понимаете, как взаимодействовать с платформой и какие кросс-маркетинговые акции можно придумать именно в Вашем случае — напишите нам. Наша команда поможет Вам найти идею.</li>
+          </ol> 
+        </div>
+        <div class="guid-right">
+          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(EN)</b></em></p>
+          <ol class="ol-description">
+            <li class="li-description">Вы можете сделать не более 4 запросов в день, поэтому внимательно заполните поле и не нажимайте на кнопку бездумно;</li>
+            <li class="li-description">Нажмите на 1 кнопку — дождитесь ответа — прочитайте его — нажмите другую кнопку. Как только Вы нажмёте другую кнопку, предыдущий ответ исчезнет;</li>
+            <li class="li-description">Эти советы не панацея, но возможно они смогут натолкнуть Вас на размышления;</li>
+            <li class="li-description">Если Вы совсем не понимаете, как взаимодействовать с платформой и какие кросс-маркетинговые акции можно придумать именно в Вашем случае — напишите нам. Наша команда поможет Вам найти идею.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;" class="guid">
+        <div class="guid-left">
+          <p class="guid-p">Уточняем!</p>
+          <ol class="ol-description">
+            <li class="li-description">Если Вас совсем не устраивает ответ, то Вы можете попробовать нажать на ту же кнопку еще раз. Это может помочь.</li>
+            <li class="li-description">Все запросы делаются на английском языке, поэтому мы предлагаем Вам 2 варианта — оригинал и перевод на русский язык.</li>
+            <li class="li-description">Вводить данные можно как на русском, так и на английском языках</li>        
+          </ol>          
+        </div>
+      </div>
+
+      <!-- Если нет ответа -->
+      <div style="margin-top:20px;" class="guid">
+        <div class="guid-left">
+          <p style="margin-bottom: 16px;" class="guid-p">Ответ от искуственного интеллекта</p>
+          <p class="no-answer">Вы пока ничего не спросили</p>       
+        </div>
+      </div>
+
   </div>
 </main>
 
