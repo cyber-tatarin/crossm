@@ -29,19 +29,56 @@
     >
       <iframe
         class="iframe"
-        src="https://www.youtube.com/embed/C5q0ULg0nmY"
+        src="https://www.youtube.com/embed/45rhFKOk9JM"
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
       ></iframe>
     </div>
+<!--		<form id="help" method="post">-->
+<!--			<input type="hidden" name="g_type" value="generate_coupon_ideas">-->
+<!--			{% csrf_token %}-->
+<!--			<button type="submit">go</button>-->
+<!--		</form>-->
+
+		<input id="coupon-company" type="text" name="company">
+		<input id="coupon-type" type="hidden" name="g_type" value="generate_coupon_ideas">
+		<button onclick="get_AI_help()">hhh</button>
+
   </div>
   </div>
 </main>
 
     {% include "footer.html" %}
     <!-- <div class="bottom-margin"></div> -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+
+function get_AI_help(){
+
+    let company = document.getElementById('coupon-company').value
+    let g_type = document.getElementById('coupon-type').value
+
+	console.log('{{csrf_token}}')
+
+    $.ajax({
+        url: '{% url "get-ai-help" %}',
+        type: 'GET',
+        data: {
+        'company': company,
+        'g_type': g_type,
+        'lang': 'ru'
+        },
+        success: function (data) {
+
+                    let out = data.text
+                    console.log(out)
+        },
+    });
+};
+  </script>
+
   </body>
 {% endblock %}
 </html>

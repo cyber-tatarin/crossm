@@ -13,7 +13,9 @@
         <title>Компания {{company.title}}</title>
     </head>
     <body>
-
+	{% if owner %}
+        <div class="Test"></div>
+	{% endif %}
     {% include "base.html" %}
 
 {% block content %}
@@ -726,7 +728,6 @@ document.querySelector('.company-delete').addEventListener('click', () => {
     </script>
 
             <script>
-		let owner = {{owner}}
        function check_photo(cmpId){
                $.ajax ({
                 url: '{% url "companies:check-photo" %}',
@@ -737,7 +738,7 @@ document.querySelector('.company-delete').addEventListener('click', () => {
                 dataType: 'json',
                 success: function(data) {
                     console.log(data.image);
-                    if (data.image && owner){
+                    if (data.image){
 
                         document.querySelector('#image').src = data.image;
 

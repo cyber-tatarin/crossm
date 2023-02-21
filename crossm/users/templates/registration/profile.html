@@ -17,7 +17,9 @@
         <title>PMarket | Страница пользователя</title>
     </head>
     <body>
-
+	{% if owner %}
+        <div class="Test"></div>
+	{% endif %}
     {% include "base.html" %}
 
 {% block content %}
