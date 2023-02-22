@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import InstructionView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('companies/', include('companies.urls')),
     path('offers/', include('offers.urls')),
+    path('', InstructionView.as_view(), name='instruction'),
 ]
 
 handler404 = "crossm.views.page_not_found_view"
