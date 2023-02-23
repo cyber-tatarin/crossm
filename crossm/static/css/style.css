@@ -2279,7 +2279,7 @@ box-shadow: none;
 }
 
 .guid-left, .guid-right {
-  flex-basis: 50%;
+  flex-basis: calc(50% - 10px);
   background: #FCFCFC;
   border-radius: 50px;  
   padding: 40px 48px 48px;
@@ -2332,4 +2332,8 @@ box-shadow: none;
 
 .black-underline {
   border-bottom: 1px solid #000000;
+}
+
+.li {
+  list-style: none;
 }
