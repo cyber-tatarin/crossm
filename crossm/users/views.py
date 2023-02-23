@@ -279,4 +279,7 @@ class GetAiHelp(View):
 		lang = request.GET.get('lang')
 		aig = AiGeneratorChooser(g_type=g_type, company=company, lang=lang)
 		return JsonResponse({'text': aig.execute()})
+		# return JsonResponse({'text': {'translated': 'gogo', 'original': 'lokaloka'}})
+		# return JsonResponse({'text': {'error': True}})
+
 

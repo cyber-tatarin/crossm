@@ -180,7 +180,8 @@ input {
 }
 
 .check-text,
-.company-key {
+.company-key,
+.description-example {
   font-weight: 300;
   font-size: 12px;
   line-height: 15px;
@@ -2206,6 +2207,11 @@ box-shadow: none;
 
 .login {
   border-bottom: 3px solid #0500FF;
+  transition: 0.2s ease-out;
+}
+
+.login:hover {
+  border-bottom: 3px solid transparent;
 }
 
 .container-instruction {
@@ -2265,4 +2271,65 @@ box-shadow: none;
 
 .bottom-underline {
   border-bottom: 2px solid #000000;
+}
+
+.guid {
+  display: flex;
+  gap: 20px;
+}
+
+.guid-left, .guid-right {
+  flex-basis: 50%;
+  background: #FCFCFC;
+  border-radius: 50px;  
+  padding: 40px 48px 48px;
+}
+
+.guid-p {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 12px;
+  margin-left: 34px;
+}
+
+.ol-description {
+  margin-left: 20px;
+  margin-bottom: 28px;
+}
+
+.li-description {
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.li-description:last-child{
+  margin-bottom: 0px;
+}
+
+.input-description {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.no-answer {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 48px;
+  color: #D6D6D6;
+}
+
+.black-underline {
+  border-bottom: 1px solid #000000;
 }
