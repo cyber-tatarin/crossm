@@ -1,0 +1,97 @@
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+	  {% include "favicon.html" %}
+    <title>PMarket | Инструкция</title>
+  </head>
+  <body>
+
+  {% include "base.html" %}
+
+    <main class="main">
+      <div class="container-padding">
+        <div class="container-main">
+            <div class="greeting">
+                <h2 class="hello">Добро пожаловать на сайт КроссМ!</h2>
+                <div class="hello-subtitle">
+                    <span>Если Вы на сайте НЕ первый раз, то Вы можете </span>
+                    <a href="{% url 'login' %}" class="login">войти в свой аккаунт здесь</a>
+                </div>
+            </div>
+            <div class="greeting">
+                <h2 class="hello">Для чего этот сайт?</h2>
+                <div class="hello-subtitle">
+                    <span>КроссМ — это платформа для поиска партнеров по кросс-маркетингу. Что такое кросс-маркетинг можно узнать тут. </span>
+                </div>
+            </div>
+            <div class="container-instruction"> 
+                <h2 style="text-align: center; margin-bottom: 20px;" class="hello">Как пользоваться сайтом?</h2>
+                <section class="section-instruction">
+                    <p class="instruction-subtitle">Вариант 1 — найти предложения для увеличения своего среднего чека</p>
+                    <p class="list-title">1.  Перейти</p>
+                    <p class="list-subtitle">Перейти во вкладку каталог в верхнем меню</p>
+                    <image class="instruction-img" src="../../../static/images/Group 35.png"></image>
+                    <p class="list-title">2. Отфильтровать</p>
+                    <p style="max-width: 540px" class="list-subtitle">Отфильтровать предложения компаний по нужным критериям (ниша/цена купона/количество купонов и т.д.)</p>
+                    <image class="instruction-img" src="../../../static/images/image 3 (1).png"></image>
+                    <p class="list-title">3. Изучить</p>
+                    <p style="max-width: 540px" class="list-subtitle">Если Вы нашли интересную компанию в каталоге, Вы можете нажать на нее, чтобы посмотреть полный профиль этой компании</p>
+                    <image class="instruction-img" src="../../../static/images/Group 36 (1).png"></image>
+                    <p class="list-title">4. Связаться</p>
+                    <p style="max-width: 540px" class="list-subtitle">На каждой карточке в каталоге содержится информация о представителе компании и его контактах. Вы можете связаться с представителем и договориться о дальнейшем сотрудничестве.</p>
+                    <image class="instruction-img" src="../../../static/images/Group 37 (1).png"></image>
+                    <p style="color: rgba(0, 0, 0, 0.5);" class="list-title">5. Оставить отзыв — в разработке</p>
+                    <p style="max-width: 650px; color: rgba(0, 0, 0, 0.5);" class="list-subtitle">Если все получилось, и Вы договорились о выгодном сотрудничестве — напишите отзыв о Вашем новом партнере у него в профиле компании. Если компания оказалась недобросовестной — обязательно напишите отзыв у нее в профиле. Это важно для того, чтобы другие предприниматели не теряли время.</p>
+                </section>
+                <section class="section-instruction">
+                  <p class="instruction-subtitle">Вариант 2 — разместить предложение на продукт или услугу, чтобы получить лидов</p>
+                  <p class="list-title">1.  Зарегистрироваться</p>
+                  <p class="list-subtitle">Зарегистрироваться можно по этой ссылке</p>
+                  <image class="instruction-img" src="../../../static/images/image 6 (2).png"></image>
+                  <p class="list-title">2. Заполнить информацию</p>
+                  <p style="max-width: 540px" class="list-subtitle">Заполнить необходимую информацию. Без этого пункта невозможно продолжить</p>
+                  <image class="instruction-img" src="../../../static/images/image 7 (1).png"></image>
+                  <p class="list-title">3. Создать и оформить компанию</p>
+                  <p style="max-width: 540px" class="list-subtitle">После заполнения формы Вы попадёте на страницу создания компании</p>
+                  <image class="instruction-img" src="../../../static/images/image 8 (2).png"></image>
+                  <p class="list-title">4. Создать предложение</p>
+                  <p style="max-width: 540px" class="list-subtitle">После создания компании Вы попадёте на страницу создания предложения от лица только что созданной компании</p>
+                  <image class="instruction-img" src="../../../static/images/image 9 (1).png"></image>
+                  <p class="list-title">5. Ожидать</p>
+                  <p style="max-width: 650px;" class="list-subtitle"><span class="bottom-underline">Теперь Ваше предложение видно всем пользователям платформы.</span> Вы можете увеличить количество откликов, если разрешите отображение номера телефона в профиле. <span class="bottom-underline">Пользователям виден Ваш адрес электронной почты, так что не забывайте ее проверять</span></p>
+              </section>
+              <section class="section-instruction">
+                <p style="max-width: 580px;" class="instruction-subtitle">— Рекомендации для более эффективного использования платформы</p>
+                <p class="list-title">1.  Добавить логотип компании</p>
+                <p class="list-subtitle">Добавить логотип компании можно на странице компании</p>
+                <image style="margin-bottom:8px;" class="instruction-img" src="../../../static/images/Group 38 (1).png"></image>
+                <image class="instruction-img" src="../../../static/images/Group 39 (1).png"></image>
+                <p class="list-title">2.  Поставить свое фото в профиль</p>
+                <p style="max-width: 540px; margin-bottom: 24px;" class="list-subtitle">Поставить свое фото можно в профиле по такому же принципу, как и фото компании (пункт 1)</p>
+                <p class="list-title">3.  Заполнить комментарий в профиле</p>
+                <p style="max-width: 540px" class="list-subtitle">Если Вы не написали комментарий при регистрации, его можно написать в любой момент во вкладке “Редактирование профиля”</p>
+                <image style="margin-bottom:8px;" class="instruction-img" src="../../../static/images/Group 40 (1).png"></image>
+                <image class="instruction-img" src="../../../static/images/Group 41 (1).png"></image>
+                <p class="list-title">4.  Заполнить комментарий в профиле компании</p>
+                <p style="max-width: 630px; max-width: 680px;" class="list-subtitle">Написать комментарий в профиле компании можно по такому же принципу, как и комментарий в личный профиль (инструкиция в 3 пункте)</p>
+            </section>
+            </div>
+        </div>
+      </div>
+    </main>
+    {% include "footer.html" %}
+    <!-- <div class="bottom-margin"></div> -->
+  </body>
+</html>
+
