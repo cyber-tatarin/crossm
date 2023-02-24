@@ -2305,6 +2305,10 @@ box-shadow: none;
   margin-bottom: 28px;
 }
 
+.ol-description-ru, .ol-description-en {
+  margin-left: 0px;
+}
+
 .li-description {
   margin-bottom: 8px;
   font-weight: 500;
@@ -2336,4 +2340,16 @@ box-shadow: none;
 
 .li {
   list-style: none;
+}
+
+.ai-error {
+  min-height: 167px;
+  text-align: left;
+  padding: 40px 48px 48px;
+  border-radius: 50px;
+}
+
+.guid-left-red {
+  border: 2px solid #ff0000;
+  filter: drop-shadow(0px 0px 5px rgba(255, 0, 0, 0.2));
 }

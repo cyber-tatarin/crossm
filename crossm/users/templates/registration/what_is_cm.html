@@ -80,19 +80,58 @@
             <li class="li-description">Если Вы совсем не понимаете, как взаимодействовать с платформой и какие кросс-маркетинговые акции можно придумать именно в Вашем случае — напишите нам. Наша команда поможет Вам найти идею.</li>
           </ol>
           <div class="button-submit">
-            <button style="max-width:calc(50% - 11px);" class="button" type="submit">
+            <button style="max-width:calc(50% - 10px);" class="button" type="submit">
                 <p class="button-p">Написать команде разработчиков</p>
             </button>
         </div> 
         </div>
       </div>
 
-      <div class="guid" id="answers" style="visibility:hidden;">
+      <!-- Error message middle with red border -->
 
+        <!-- <div class="error-item ai-error">
+          <div class="guid-p">
+            Ответ от искуственного интеллекта
+          </div>
+          <div style="margin-left: 0px;" class="description">
+            К сожалению, прямо сейчас мы не можем Вам подсказать.<br>Попробуйте еще раз через несколько минут.
+          </div>
+        </div> -->
+       
+
+      <div style="display: none;" class="guid" id="answers" >
+
+        <div id="guid-left-default" class="guid-left">
+          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
+          <ol class="ol-description ol-description-ru">
+          </ol> 
+        </div>
+        
+        <!-- error message left with red border -->
+
+        <div id="guid-left-red" style="display:none;" class="guid-left guid-left-red">
+          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
+          <div style="margin-left: 0px;" class="description">
+            К сожалению, прямо сейчас мы не можем Вам подсказать.<br>Попробуйте еще раз через несколько минут.
+          </div>
+        </div>
+
+        <div class="guid-right">
+          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(EN)</b></em></p>
+          <ol class="ol-description ol-description-en">
+          </ol>
+        </div>
       </div>
 
-      <div style="visibility:hidden;" class="guid" id="attention">
-
+      <div style="display: none; margin-top:20px;" class="guid" id="attention">
+          <div class="guid-left">
+            <p class="guid-p">Уточняем!</p>
+            <ol class="ol-description">
+              <li class="li-description">Если Вас совсем не устраивает ответ, то Вы можете попробовать нажать на ту же кнопку еще раз. Это может помочь.</li>
+              <li class="li-description">Все запросы делаются на английском языке, поэтому мы предлагаем Вам 2 варианта — оригинал и перевод на русский язык.</li>
+              <li class="li-description">Вводить данные можно как на русском, так и на английском языках</li>        
+            </ol>          
+          </div>
       </div>
 
       <!-- Если нет ответа -->
@@ -130,39 +169,32 @@ function get_AI_help(g_type){
         if (!data.text.error){
 
 					document.getElementById('no-question').style.display = 'none';
+					document.getElementById('answers').style.display = 'flex';
 
-					document.getElementById('answers').style.visibility = 'visible';
-					document.getElementById('answers').innerHTML =
-					`
-					        <div class="guid-left">
-          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
-          <ol class="ol-description">
-           ${data.text['translated']}
-        </div>
+          let textEN = data.text.original;
+          textEN.slice(2).split('\n').forEach((el,index) => {
+            let li = document.createElement('div');
+            li.classList.toggle('li-description');
+            li.classList.toggle('li');
+            li.innerHTML = el
+            document.querySelector('.ol-description-en').append(li)
+          })
 
-        <div class="guid-right">
-          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(EN)</b></em></p>
-          <ol class="ol-description">
-            <li class="li-description">Вы можете сделать не более 4 запросов в день, поэтому внимательно заполните поле и не нажимайте на кнопку бездумно;</li>
-            <li class="li-description">Нажмите на 1 кнопку — дождитесь ответа — прочитайте его — нажмите другую кнопку. Как только Вы нажмёте другую кнопку, предыдущий ответ исчезнет;</li>
-            <li class="li-description">Эти советы не панацея, но возможно они смогут натолкнуть Вас на размышления;</li>
-            <li class="li-description">Если Вы совсем не понимаете, как взаимодействовать с платформой и какие кросс-маркетинговые акции можно придумать именно в Вашем случае — напишите нам. Наша команда поможет Вам найти идею.</li>
-          </ol>
-        </div>
-					`;
-					document.getElementById('attention').style.visibility = 'visible'
-					document.getElementById('attention').innerHTML =
-					`
-					          <div class="guid-left">
-          <p class="guid-p">Уточняем!</p>
-          <ol class="ol-description">
-            <li class="li-description">Если Вас совсем не устраивает ответ, то Вы можете попробовать нажать на ту же кнопку еще раз. Это может помочь.</li>
-            <li class="li-description">Все запросы делаются на английском языке, поэтому мы предлагаем Вам 2 варианта — оригинал и перевод на русский язык.</li>
-            <li class="li-description">Вводить данные можно как на русском, так и на английском языках</li>
-          </ol>
-        </div>
-					`;
+          if(data.text.translated != 'error') {
+            let textRU = data.text.translated;
+            textRU.slice(1).split('\n').forEach((el,index) => {
+              let li = document.createElement('div');
+              li.classList.toggle('li-description');
+              li.classList.toggle('li');
+              li.innerHTML = el
+              document.querySelector('.ol-description-ru').append(li)
+            })
+          } else {
+            document.querySelector('#guid-left-default').display = 'none';
+            document.querySelector('#guid-left-red').display = 'block';
+          }
 
+					document.getElementById('attention').style.display = 'flex';
 					console.log(data.text.error)
 
 }
