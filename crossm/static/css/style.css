@@ -1351,18 +1351,34 @@ button:hover {
   margin-bottom: 28px;
 }
 
+
+.add-offer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 3px;
+  visibility: var(--hiddenVar, hidden);
+  background-color: #fcfcfc;
+}
+
 .add-offer-0500FF {
-  color: #000000;
   border-bottom-color: #0500ff;
 }
+
+/* .offer-transition {
+  transition: 0.3s ease-out;
+} */
 
 .add-offer-transparent {
   border-bottom-color: transparent;
 }
 
-.add-offer-0500FF:hover {
+/* .add-offer-0500FF:hover {
   border-bottom-color: transparent;
-}
+
+} */
 
 .add-offer-no-change {
   display: block;
