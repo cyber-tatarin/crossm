@@ -96,7 +96,8 @@
             Ответ от искуственного интеллекта
           </div>
           <div style="margin-left: 0px;" class="description">
-            К сожалению, прямо сейчас мы не можем Вам подсказать.<br>Попробуйте еще раз через несколько минут.
+            К сожалению, прямо сейчас мы не можем Вам подсказать.<br>Попробуйте еще раз через несколько минут. <br>
+			  Возможно, Вы превысили дневной лимит в 4 запроса :(
           </div>
         </div>
        
@@ -168,8 +169,7 @@ function get_AI_help(g_type){
         'lang': 'ru'
         },
         success: function (data) {
-        if (!data.text.error){
-
+        if (!data.text.error && data.text != 'banned'){
 
 					document.getElementById('no-question').style.display = 'none';
 					document.getElementById('answers').style.display = 'flex';
