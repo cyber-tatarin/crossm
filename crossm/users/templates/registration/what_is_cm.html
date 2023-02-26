@@ -89,14 +89,14 @@
 
       <!-- Error message middle with red border -->
 
-        <!-- <div class="error-item ai-error">
+        <div style="display: none;" class="error-item ai-error">
           <div class="guid-p">
             Ответ от искуственного интеллекта
           </div>
           <div style="margin-left: 0px;" class="description">
             К сожалению, прямо сейчас мы не можем Вам подсказать.<br>Попробуйте еще раз через несколько минут.
           </div>
-        </div> -->
+        </div>
        
 
       <div style="display: none;" class="guid" id="answers" >
@@ -167,11 +167,12 @@ function get_AI_help(g_type){
         },
         success: function (data) {
         if (!data.text.error){
-
+          console.log(data.text)
 					document.getElementById('no-question').style.display = 'none';
 					document.getElementById('answers').style.display = 'flex';
 
           let textEN = data.text.original;
+          console.log(textEN)
           textEN.slice(2).split('\n').forEach((el,index) => {
             let li = document.createElement('div');
             li.classList.toggle('li-description');
@@ -182,6 +183,7 @@ function get_AI_help(g_type){
 
           if(data.text.translated != 'error') {
             let textRU = data.text.translated;
+            console.log(textRU)
             textRU.slice(1).split('\n').forEach((el,index) => {
               let li = document.createElement('div');
               li.classList.toggle('li-description');
@@ -190,8 +192,8 @@ function get_AI_help(g_type){
               document.querySelector('.ol-description-ru').append(li)
             })
           } else {
-            document.querySelector('#guid-left-default').display = 'none';
-            document.querySelector('#guid-left-red').display = 'block';
+            document.querySelector('#guid-left-default').style.display = 'none';
+            document.querySelector('#guid-left-red').style.display = 'block';
           }
 
 					document.getElementById('attention').style.display = 'flex';
@@ -200,7 +202,9 @@ function get_AI_help(g_type){
 }
 
 else { console.log('pizdec') }
-
+document.getElementById('answers').style.display = 'none';
+document.querySelector('.ai-error').style.display = 'block';
+document.querySelector('#no-question').styel.display = 'none';
                     let out = data.text
                     console.log(out)
         },
