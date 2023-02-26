@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 from funcy import omit
 from last_seen.models import LastSeen
 
-import crossm.crossm.settings.settingsa
+import crossm.settings.settingsa
 from .forms import UserCreateForm, UserLoginForm, ProfileInfoForm, ProfileUpdateForm
 from .models import Profile, Cities, User
 from .services import AiGeneratorChooser
@@ -282,8 +282,8 @@ class GetAiHelp(View):
 		lang = request.GET.get('lang')
 		aig = AiGeneratorChooser(g_type=g_type, company=company, lang=lang)
 		return JsonResponse({'text': aig.execute()})
-# return JsonResponse({'text': {'translated': 'gogo', 'original': 'lokaloka'}})
-# return JsonResponse({'text': {'error': True}})
+		# return JsonResponse({'text': {'translated': 'error', 'original': 'lokaloka'}})
+		# return JsonResponse({'text': {'error': True}})
 
 
 class TechnicalHelp(View):

@@ -32,8 +32,9 @@
             <div class="greeting">
                 <h2 class="hello">Для чего этот сайт?</h2>
                 <div class="hello-subtitle">
-                    <span>КроссМ — это платформа для поиска партнеров по кросс-маркетингу. Что такое кросс-маркетинг можно узнать тут. </span>
-                </div>
+                  <span>КроссМ — это платформа для поиска партнеров по кросс-маркетингу. Что такое кросс-маркетинг </span>
+                  <a href="{% url 'what-is-cm' %}" class="login">можно узнать тут</a>
+              </div>
             </div>
             <div class="container-instruction"> 
                 <h2 style="text-align: center; margin-bottom: 20px;" class="hello">Как пользоваться сайтом?</h2>
@@ -57,11 +58,16 @@
                 <section class="section-instruction">
                   <p class="instruction-subtitle">Вариант 2 — разместить предложение на продукт или услугу, чтобы получить лидов</p>
                   <p class="list-title">1.  Зарегистрироваться</p>
-                  <p class="list-subtitle">Зарегистрироваться можно по этой ссылке</p>
+                  <div style="margin-bottom: 12px; text-align: left;" class="hello-subtitle">
+                    <span class="list-subtitle">Зарегистрироваться </span>
+                    <a href="{% url 'register' %}" class="login list-subtitle">можно по этой ссылке</a>
+                  </div>
                   <image class="instruction-img" src="../../../static/images/image 6 (2).png"></image>
                   <p class="list-title">2. Заполнить информацию</p>
-                  <p style="max-width: 540px" class="list-subtitle">Заполнить необходимую информацию. Без этого пункта невозможно продолжить</p>
-                  <image class="instruction-img" src="../../../static/images/image 7 (1).png"></image>
+                  <div style="margin-bottom: 8px; text-align: left; max-width: 700px" class="hello-subtitle">
+                    <span class="list-subtitle">Заполнить необходимую информацию.</span>
+                    <span class="list-subtitle black-underline">Без этого пункта невозможно продолжить</span>
+                  </div>                  <image class="instruction-img" src="../../../static/images/image 7 (1).png"></image>
                   <p class="list-title">3. Создать и оформить компанию</p>
                   <p style="max-width: 540px" class="list-subtitle">После заполнения формы Вы попадёте на страницу создания компании</p>
                   <image class="instruction-img" src="../../../static/images/image 8 (2).png"></image>

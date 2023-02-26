@@ -1351,18 +1351,34 @@ button:hover {
   margin-bottom: 28px;
 }
 
+
+.add-offer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 3px;
+  visibility: var(--hiddenVar, hidden);
+  background-color: #fcfcfc;
+}
+
 .add-offer-0500FF {
-  color: #000000;
   border-bottom-color: #0500ff;
 }
+
+/* .offer-transition {
+  transition: 0.3s ease-out;
+} */
 
 .add-offer-transparent {
   border-bottom-color: transparent;
 }
 
-.add-offer-0500FF:hover {
+/* .add-offer-0500FF:hover {
   border-bottom-color: transparent;
-}
+
+} */
 
 .add-offer-no-change {
   display: block;
@@ -2279,7 +2295,7 @@ box-shadow: none;
 }
 
 .guid-left, .guid-right {
-  flex-basis: 50%;
+  flex-basis: calc(50% - 10px);
   background: #FCFCFC;
   border-radius: 50px;  
   padding: 40px 48px 48px;
@@ -2303,6 +2319,10 @@ box-shadow: none;
 .ol-description {
   margin-left: 20px;
   margin-bottom: 28px;
+}
+
+.ol-description-ru, .ol-description-en {
+  margin-left: 0px;
 }
 
 .li-description {
@@ -2332,4 +2352,20 @@ box-shadow: none;
 
 .black-underline {
   border-bottom: 1px solid #000000;
+}
+
+.li {
+  list-style: none;
+}
+
+.ai-error {
+  min-height: 167px;
+  text-align: left;
+  padding: 40px 48px 48px;
+  border-radius: 50px;
+}
+
+.guid-left-red {
+  border: 2px solid #ff0000;
+  filter: drop-shadow(0px 0px 5px rgba(255, 0, 0, 0.2));
 }

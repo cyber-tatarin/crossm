@@ -66,7 +66,7 @@
             <button style="max-width:100%;" class="button" onclick="get_AI_help('generate_coupon_ideas')">
                 <p class="button-p">Какие купоны я могу предложить?</p>
             </button>
-            <button style="max-width:100%;" class="button" onclick="">
+            <button style="max-width:100%;" class="button" onclick="get_AI_help('generate_possible_partners')">
                 <p class="button-p">Какого партнера мне искать?</p>
             </button>
         </div> 
@@ -80,19 +80,61 @@
             <li class="li-description">Если Вы совсем не понимаете, как взаимодействовать с платформой и какие кросс-маркетинговые акции можно придумать именно в Вашем случае — напишите нам. Наша команда поможет Вам найти идею.</li>
           </ol>
           <div class="button-submit">
-            <button style="max-width:calc(50% - 11px);" class="button" type="submit">
+            <button style="max-width:calc(50% - 10px);" class="button" type="submit">
                 <p class="button-p">Написать команде разработчиков</p>
             </button>
         </div> 
         </div>
       </div>
 
-      <div class="guid" id="answers" style="display:none;">
 
+      <!-- Error message middle with red border -->
+
+
+         <div class="error-item ai-error" style="display:none;">
+          <div class="guid-p">
+            Ответ от искуственного интеллекта
+          </div>
+          <div style="margin-left: 0px;" class="description">
+            К сожалению, прямо сейчас мы не можем Вам подсказать.<br>Попробуйте еще раз через несколько минут.
+          </div>
+        </div>
+       
+
+      <div style="display: none;" class="guid" id="answers" >
+
+        <div id="guid-left-default" class="guid-left">
+          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
+          <ol class="ol-description ol-description-ru">
+          </ol> 
+        </div>
+        
+        <!-- error message left with red border -->
+
+        <div id="guid-left-red" style="display:none;" class="guid-left guid-left-red">
+          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
+          <div style="margin-left: 0px;" class="description">
+            К сожалению, прямо сейчас перевод не доступен.<br>Попробуйте еще раз через несколько минут или переведите самостоятельно.
+          </div>
+        </div>
+
+        <div class="guid-right">
+          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(EN)</b></em></p>
+          <ol class="ol-description ol-description-en">
+          </ol>
+        </div>
       </div>
 
-      <div style="display:none;" class="guid" id="attention">
 
+      <div style="display: none; margin-top:20px;" class="guid" id="attention">
+          <div class="guid-left">
+            <p class="guid-p">Уточняем!</p>
+            <ol class="ol-description">
+              <li class="li-description">Если Вас совсем не устраивает ответ, то Вы можете попробовать нажать на ту же кнопку еще раз. Это может помочь.</li>
+              <li class="li-description">Все запросы делаются на английском языке, поэтому мы предлагаем Вам 2 варианта — оригинал и перевод на русский язык.</li>
+              <li class="li-description">Вводить данные можно как на русском, так и на английском языках</li>        
+            </ol>          
+          </div>
       </div>
 
       <!-- Если нет ответа -->
@@ -116,7 +158,6 @@ function get_AI_help(g_type){
     let company = document.getElementById('coupon-company').value
 <!--    let g_type = document.getElementById('coupon-type').value-->
 
-	console.log('{{csrf_token}}')
 
     $.ajax({
         url: '{% url "get-ai-help" %}',
@@ -129,48 +170,50 @@ function get_AI_help(g_type){
         success: function (data) {
         if (!data.text.error){
 
+
 					document.getElementById('no-question').style.display = 'none';
-
 					document.getElementById('answers').style.display = 'flex';
-					document.getElementById('answers').innerHTML =
-					`
-					        <div class="guid-left">
-          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
-          <ol class="ol-description">
-           ${data.text['translated']}
-        </div>
 
-        <div class="guid-right">
-          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(EN)</b></em></p>
-          <ol class="ol-description">
-            <li class="li-description">Вы можете сделать не более 4 запросов в день, поэтому внимательно заполните поле и не нажимайте на кнопку бездумно;</li>
-            <li class="li-description">Нажмите на 1 кнопку — дождитесь ответа — прочитайте его — нажмите другую кнопку. Как только Вы нажмёте другую кнопку, предыдущий ответ исчезнет;</li>
-            <li class="li-description">Эти советы не панацея, но возможно они смогут натолкнуть Вас на размышления;</li>
-            <li class="li-description">Если Вы совсем не понимаете, как взаимодействовать с платформой и какие кросс-маркетинговые акции можно придумать именно в Вашем случае — напишите нам. Наша команда поможет Вам найти идею.</li>
-          </ol>
-        </div>
-					`;
-					document.getElementById('attention').style.display = 'flex'
-					document.getElementById('attention').innerHTML =
-					`
-					          <div class="guid-left">
-          <p class="guid-p">Уточняем!</p>
-          <ol class="ol-description">
-            <li class="li-description">Если Вас совсем не устраивает ответ, то Вы можете попробовать нажать на ту же кнопку еще раз. Это может помочь.</li>
-            <li class="li-description">Все запросы делаются на английском языке, поэтому мы предлагаем Вам 2 варианта — оригинал и перевод на русский язык.</li>
-            <li class="li-description">Вводить данные можно как на русском, так и на английском языках</li>
-          </ol>
-        </div>
-					`;
+          let textEN = data.text.original;
 
-					console.log(data.text.error)
+          textEN.slice(2).split('\n').forEach((el,index) => {
+            let li = document.createElement('div');
+            li.classList.toggle('li-description');
+            li.classList.toggle('li');
+            li.innerHTML = el
+            document.querySelector('.ol-description-en').append(li)
+          })
+
+          if(data.text.translated != 'error') {
+
+            let textRU = data.text.translated;
+
+            textRU.split('\n').forEach((el,index) => {
+              let li = document.createElement('div');
+              li.classList.toggle('li-description');
+              li.classList.toggle('li');
+              li.innerHTML = el
+              document.querySelector('.ol-description-ru').append(li)
+            })
+          } else {
+
+            document.querySelector('#guid-left-default').style.display = 'none';
+            document.querySelector('#guid-left-red').style.display = 'block';
+          }
+
+
+					document.getElementById('attention').style.display = 'flex';
+
 
 }
 
-else { console.log('pizdec') }
+else {
 
-                    let out = data.text
-                    console.log(out)
+document.getElementById('answers').style.display = 'none';
+document.querySelector('.ai-error').style.display = 'block';
+document.querySelector('#no-question').style.display = 'none';
+
+}
         },
     });
 };

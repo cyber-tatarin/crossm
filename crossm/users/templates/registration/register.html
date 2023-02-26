@@ -110,6 +110,9 @@
                         <a href="{% url 'login' %}" class="a-account">
                             Уже есть аккаунт ?
                         </a>
+                        <a style="margin-left: -16px;" href="{% url 'tech-help' %}" class="a-account">
+                            Написать в техподдержку
+                        </a>
                     </div>
                 </form>
                  {% if form.non_field_errors or form.first_name.errors or form.last_name.errors or form.email.errors or form.password1.errors or form.password2.errors %}

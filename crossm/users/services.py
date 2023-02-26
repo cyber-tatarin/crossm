@@ -45,7 +45,6 @@ class GenerateCrossmAdviceBase:
 
 class GenerateCouponIdeas(GenerateCrossmAdviceBase):
     def generate_prompt(self):
-        print(self.company, 'hoho')
         return f'I own a {self.company} in Belarus. What the most high-margin do I have services, so that ' \
                f'I can issue  cheap coupons for cross-marketing partners? Write 6 options with the word free or ' \
                f'with a discount greater than 90% written in numbers'
@@ -59,7 +58,8 @@ class GenerateCouponIdeas(GenerateCrossmAdviceBase):
 
 class GeneratePossiblePartners(GenerateCrossmAdviceBase):
     def generate_prompt(self):
-        return ''
+        return f'I own a {self.company} in Belarus. What small business partners should I look for cross-marketing, not advertisement? ' \
+               f'Write 6 best options without any description. I want to exchange coupons to increase my average check.'
 
 
 class AiGeneratorChooser:
