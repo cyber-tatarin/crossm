@@ -2,6 +2,7 @@ import os
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.http import JsonResponse, Http404, HttpResponseRedirect
@@ -10,6 +11,8 @@ from django.views import View
 from django.views.generic import TemplateView
 from funcy import omit
 from last_seen.models import LastSeen
+
+import crossm.settings.settingsa
 from .forms import UserCreateForm, UserLoginForm, ProfileInfoForm, ProfileUpdateForm
 from .models import Profile, Cities, User
 from .services import AiGeneratorChooser
@@ -38,16 +41,16 @@ def is_allowed(request):
 
 class RegisterView(View):
 	template_name = 'registration/register.html'
-
+	
 	def get(self, request):
 		context = {
 			'form': UserCreateForm(),
 		}
 		return render(request, self.template_name, context)
-
+	
 	def post(self, request):
 		form = UserCreateForm(request.POST)
-
+		
 		if form.is_valid():
 			form.save()
 			email = form.cleaned_data.get('email')
@@ -55,33 +58,33 @@ class RegisterView(View):
 			user = authenticate(email=email, password=password)
 			login(request, user)
 			return redirect('set-profile-info')
-
+		
 		context = {
 			'form': form,
 		}
-
+		
 		return render(request, self.template_name, context)
 
 
 class SetProfileInfo(LoginRequiredMixin, View):
 	template_name = 'registration/setprofileinfo.html'
-
+	
 	def get(self, request):
 		if request.user.allowed:
 			raise Http404
-
+		
 		context = {
 			'form': ProfileInfoForm(),
 			'profile_ph': get_profile_ph(request),
 		}
 		return render(request, self.template_name, context)
-
+	
 	def post(self, request):
 		if request.user.allowed:
 			raise Http404
-
+		
 		form = ProfileInfoForm(request.POST)
-
+		
 		if form.is_valid():
 			data = form.cleaned_data
 			r_data = omit(data, 'city')
@@ -92,7 +95,7 @@ class SetProfileInfo(LoginRequiredMixin, View):
 			request.user.allowed = 1
 			request.user.save()
 			return redirect('companies:create-company')
-
+		
 		context = {
 			'form': form,
 		}
@@ -101,20 +104,20 @@ class SetProfileInfo(LoginRequiredMixin, View):
 
 class LoginView(View):
 	template_name = 'registration/login.html'
-
+	
 	def get(self, request):
 		context = {
 			'form': UserLoginForm(),
 		}
 		return render(request, self.template_name, context)
-
+	
 	def post(self, request):
 		form = UserLoginForm(request, request.POST)
-
+		
 		if form.is_valid():
 			user = form.get_user()
 			login(request, user)
-
+			
 			nexty = request.POST.get('next')
 			if nexty:
 				try:
@@ -123,62 +126,62 @@ class LoginView(View):
 					raise Http404
 			else:
 				return redirect('offers:catalog')
-
+		
 		context = {
 			'form': form
 		}
-
+		
 		return render(request, self.template_name, context)
 
 
 class ProfileView(LoginRequiredMixin, View):
 	template_name = 'registration/profile.html'
-
+	
 	def get(self, request, **kwargs):
-
+		
 		try:
 			is_allowed(request)
 		except PermissionError:
 			return redirect('set-profile-info')
-
+		
 		owner = 0
 		s_user = kwargs['pk']
 		if request.user.id == s_user:
 			owner = 1
-
+		
 		user = User.objects.filter(id=s_user).prefetch_related('companies_set', 'profile_set').all()
 		# print(user[0].companies_set.all())
-
+		
 		if not user:
 			return redirect('404')
-
+		
 		try:
 			seen = LastSeen.objects.when(user=user[0])
 		except ObjectDoesNotExist:
 			seen = "Давно"
-
+		
 		context = {
 			'user': user[0],
 			'owner': owner,
 			'seen': seen,
 			'profile_ph': get_profile_ph(request),
 		}
-
+		
 		return render(request, self.template_name, context)
 
 
 class ProfileUpdateView(LoginRequiredMixin, View):
 	template_name = 'registration/update_profile.html'
-
+	
 	def get(self, request):
-
+		
 		try:
 			is_allowed(request)
 		except PermissionError:
 			return redirect('set-profile-info')
-
+		
 		profile = get_object_or_404(Profile, user=request.user)
-
+		
 		context = {
 			'form': ProfileUpdateForm(request.user.id, initial={
 				'phone_num': profile.phone_num,
@@ -190,18 +193,18 @@ class ProfileUpdateView(LoginRequiredMixin, View):
 			}),
 			'profile_ph': get_profile_ph(request),
 		}
-
+		
 		return render(request, self.template_name, context)
-
+	
 	def post(self, request):
-
+		
 		try:
 			is_allowed(request)
 		except PermissionError:
 			return redirect('set-profile-info')
-
+		
 		form = ProfileUpdateForm(request.user.id, request.POST)
-
+		
 		if form.is_valid():
 			data = form.cleaned_data
 			obj = get_object_or_404(Profile, user=request.user)
@@ -213,7 +216,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
 			obj.bio = data['bio']
 			obj.save()
 			return redirect(reverse('view-profile', kwargs={'pk': request.user.id}))
-
+		
 		context = {
 			'form': form,
 			'profile_ph': get_profile_ph(request),
@@ -222,7 +225,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
 
 
 class ProfilePhotoUpload(LoginRequiredMixin, View):
-
+	
 	def post(self, request, **kwargs):
 		obj = get_object_or_404(Profile, user=request.user)
 		obj.photo = request.FILES.get('image')
@@ -231,7 +234,7 @@ class ProfilePhotoUpload(LoginRequiredMixin, View):
 
 
 class DeletePhotoView(LoginRequiredMixin, View):
-
+	
 	def post(self, request, **kwargs):
 		obj = get_object_or_404(Profile, user=request.POST.get('id'))
 		obj.photo = None
@@ -257,7 +260,7 @@ def pre_save_image(sender, instance, *args, **kwargs):
 
 class WhatisCMView(TemplateView):
 	template_name = 'registration/what_is_cm.html'
-
+	
 	def get_context_data(self, **kwargs):
 		return {'profile_ph': get_profile_ph(self.request)}
 
@@ -279,7 +282,31 @@ class GetAiHelp(View):
 		lang = request.GET.get('lang')
 		aig = AiGeneratorChooser(g_type=g_type, company=company, lang=lang)
 		return JsonResponse({'text': aig.execute()})
-		# return JsonResponse({'text': {'translated': 'gogo', 'original': 'lokaloka'}})
+		# return JsonResponse({'text': {'translated': 'error', 'original': 'lokaloka'}})
 		# return JsonResponse({'text': {'error': True}})
 
 
+class TechnicalHelp(View):
+	template_name = 'registration/tech_help.html'
+	
+	def get(self, request, *args, **kwargs):
+		return render(request, self.template_name, {})
+	
+	def post(self, request, *args, **kwargs):
+		message = request.POST.get('message')
+		contact = request.POST.get('contact')
+		if request.user.is_authenticated():
+			user_email = request.user.email
+		else:
+			user_email = 'нет адреса'
+		send_mail('Кроссм — сообщение от юзера',
+		          f'{message} \n, Контакт: {contact} \n Email: {user_email}',
+		          crossm.crossm.settings.settingsa.EMAIL_HOST_USER,
+		          ['dmitriyseur@gmail.com']
+		          )
+		return redirect('catalog')
+
+
+class CrossMHelp(TechnicalHelp):
+	template_name = 'registration/crossm_help.html'
+ 

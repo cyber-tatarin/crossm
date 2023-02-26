@@ -66,7 +66,7 @@
             <button style="max-width:100%;" class="button" onclick="get_AI_help('generate_coupon_ideas')">
                 <p class="button-p">Какие купоны я могу предложить?</p>
             </button>
-            <button style="max-width:100%;" class="button" onclick="">
+            <button style="max-width:100%;" class="button" onclick="get_AI_help('generate_possible_partners')">
                 <p class="button-p">Какого партнера мне искать?</p>
             </button>
         </div> 
@@ -87,9 +87,15 @@
         </div>
       </div>
 
+
       <!-- Error message middle with red border -->
 
+<<<<<<< HEAD
         <div style="display: none;" class="error-item ai-error">
+=======
+
+         <div class="error-item ai-error" style="display:none;">
+>>>>>>> db37f5ef3d90326a8ae0bc4899f783491cb1d817
           <div class="guid-p">
             Ответ от искуственного интеллекта
           </div>
@@ -112,7 +118,7 @@
         <div id="guid-left-red" style="display:none;" class="guid-left guid-left-red">
           <p class="guid-p">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
           <div style="margin-left: 0px;" class="description">
-            К сожалению, прямо сейчас мы не можем Вам подсказать.<br>Попробуйте еще раз через несколько минут.
+            К сожалению, прямо сейчас перевод не доступен.<br>Попробуйте еще раз через несколько минут или переведите самостоятельно.
           </div>
         </div>
 
@@ -122,6 +128,7 @@
           </ol>
         </div>
       </div>
+
 
       <div style="display: none; margin-top:20px;" class="guid" id="attention">
           <div class="guid-left">
@@ -155,7 +162,6 @@ function get_AI_help(g_type){
     let company = document.getElementById('coupon-company').value
 <!--    let g_type = document.getElementById('coupon-type').value-->
 
-	console.log('{{csrf_token}}')
 
     $.ajax({
         url: '{% url "get-ai-help" %}',
@@ -167,12 +173,12 @@ function get_AI_help(g_type){
         },
         success: function (data) {
         if (!data.text.error){
-          console.log(data.text)
+
+
 					document.getElementById('no-question').style.display = 'none';
 					document.getElementById('answers').style.display = 'flex';
 
           let textEN = data.text.original;
-          console.log(textEN)
           textEN.slice(2).split('\n').forEach((el,index) => {
             let li = document.createElement('div');
             li.classList.toggle('li-description');
@@ -182,6 +188,7 @@ function get_AI_help(g_type){
           })
 
           if(data.text.translated != 'error') {
+
             let textRU = data.text.translated;
             console.log(textRU)
             textRU.slice(1).split('\n').forEach((el,index) => {
@@ -196,8 +203,9 @@ function get_AI_help(g_type){
             document.querySelector('#guid-left-red').style.display = 'block';
           }
 
+
 					document.getElementById('attention').style.display = 'flex';
-					console.log(data.text.error)
+
 
 }
 
