@@ -87,11 +87,11 @@
         </div>
       </div>
 
-      <div class="guid" id="answers" style="visibility:hidden;">
+      <div class="guid" id="answers" style="display:none;">
 
       </div>
 
-      <div style="visibility:hidden;" class="guid" id="attention">
+      <div style="display:none;" class="guid" id="attention">
 
       </div>
 
@@ -131,7 +131,7 @@ function get_AI_help(g_type){
 
 					document.getElementById('no-question').style.display = 'none';
 
-					document.getElementById('answers').style.visibility = 'visible';
+					document.getElementById('answers').style.display = 'flex';
 					document.getElementById('answers').innerHTML =
 					`
 					        <div class="guid-left">
@@ -150,7 +150,7 @@ function get_AI_help(g_type){
           </ol>
         </div>
 					`;
-					document.getElementById('attention').style.visibility = 'visible'
+					document.getElementById('attention').style.display = 'flex'
 					document.getElementById('attention').innerHTML =
 					`
 					          <div class="guid-left">
