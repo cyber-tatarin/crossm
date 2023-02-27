@@ -90,12 +90,7 @@
 
       <!-- Error message middle with red border -->
 
-<<<<<<< HEAD
-        <div style="display: none;" class="error-item ai-error">
-=======
-
          <div class="error-item ai-error" style="display:none;">
->>>>>>> db37f5ef3d90326a8ae0bc4899f783491cb1d817
           <div class="guid-p">
             Ответ от искуственного интеллекта
           </div>
@@ -157,6 +152,11 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
 
+if (document.URL.includes('whatis')) {
+  
+            document.querySelector('#KM').classList.toggle('nav-menu__title__active')
+        }
+
 function get_AI_help(g_type){
 
     let company = document.getElementById('coupon-company').value
@@ -177,6 +177,16 @@ function get_AI_help(g_type){
 
 					document.getElementById('no-question').style.display = 'none';
 					document.getElementById('answers').style.display = 'flex';
+
+          let deleteElementsEN = document.querySelector('.ol-description-en');
+          while (deleteElementsEN.firstChild) {
+            deleteElementsEN.removeChild(deleteElementsEN.firstChild);
+          }
+
+          let deleteElementsRU = document.querySelector('.ol-description-ru');
+          while (deleteElementsRU.firstChild) {
+            deleteElementsRU.removeChild(deleteElementsRU.firstChild);
+          }
 
           let textEN = data.text.original;
           textEN.slice(2).split('\n').forEach((el,index) => {
