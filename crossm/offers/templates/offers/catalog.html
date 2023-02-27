@@ -280,6 +280,11 @@
         
         <script src="{% static 'js/catalog.js' %}"></script>
         <script>
+
+        if (document.URL.includes('catalog')) {
+     
+            document.querySelector('#CATALOG').classList.toggle('nav-menu__title__active')
+        }
             
         document.querySelector('.test-filter').addEventListener('click', () => {  
             if (document.querySelector('.filters-container').style.visibility === 'visible') {
@@ -376,6 +381,7 @@ function getImages(id, el)
 
 
         </script>
+        
     </body>
 {% endblock %}
 </html>

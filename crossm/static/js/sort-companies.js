@@ -16,6 +16,7 @@ allCopmanies.forEach((el, index) => {
 const allCopmaniesClick = allCopmanies.forEach((el) => {
 
     el.addEventListener('click', () => {
+        document.querySelector('.add-offer').style.setProperty('--hiddenVar', 'hidden')
         document.querySelector('.add-offer').style.transition = 'none';
         document.querySelector('.pop-up').style.opacity = '0'
         document.querySelector('.pop-up').style.visibility = 'hidden'

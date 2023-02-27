@@ -1,10 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
+		<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <title>Pmarket | Техподдержка</title>
+    </head>
+    <body>
+		{% include "base.html" %}    
 
-</body>
+        <main>
+            <div class="container-padding">
+            <div class="container">
+                <h2 class="main-title">
+                    Техподдержка
+                </h2>
+                <hr class="hr-solid">
+                <form action="">
+                    <div style="display:block;" class="inputs">
+                             
+                        <div class="inputs-part inputs-part__double">
+                            <div class="book-attributes">
+                                <p class="inputs-part__title">Сообщение</p>
+                                <div class="add-book-description">
+                                    <textarea class="input-textarea" wrap="soft" type="text" maxlength="500" placeholder="Напишите о проблеме"></textarea>
+                                </div>
+                                <p class="input__comment">Напишите, пожалуйста, что пошло не так. По возможности, укажите <br>ссылку на страницу, с которой возникли проблемы</p>
+                            </div>
+                        </div>      
+                    </div>
+                    <div class="line">
+                        <hr class="line__dashed line__dashed-620">
+                        
+                    </div>
+                    <div style="display:block;" class="inputs">
+                             
+                        <div class="inputs-part inputs-part__double">
+                            <div class="book-attributes">
+                                <p class="inputs-part__title">Сообщение</p>
+                                <div style="margin-bottom:16px;" class="add-book-description">
+                                    <input class="input input-367px" type="text" maxlength="100" placeholder="Введите телефон" required>
+
+                                </div>
+                                <p class="input__comment">Напишите, пожалуйста, что пошло не так. По возможности, укажите <br>ссылку на страницу, с которой возникли проблемы</p>
+                            </div>
+                        </div>      
+                    </div>
+                    <div class="line line__bottom-12px">
+                        <hr class="line__dashed line__dashed-620">
+                        
+                    </div>
+                    <div class="phone-input__right margin-bottom-40px">
+                        <label class="label">
+                            <input class="check-box" type="checkbox" required>
+                            <span class="check-style"></span>
+                            <span class="check-text">Нажимая на кнопку Вы соглашаетесь с политикой конфиденциальности</span> 
+                        </label>  
+                    </div>
+                    <div class="button-submit">
+                        <button class="button" type="submit">
+                            <p class="button-p">Зарегистрироваться</p>
+                        </button>
+                        
+                    </div>   
+                </form>
+            </div>     
+        </div>
+        </main>
+        <!-- <div class="bottom-margin"></div> -->
+        <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+        <script src="../js/main.js"></script>
+    </body>
+
+
 </html>

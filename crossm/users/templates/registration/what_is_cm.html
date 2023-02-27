@@ -90,7 +90,6 @@
 
       <!-- Error message middle with red border -->
 
-
          <div class="error-item ai-error" style="display:none;">
           <div class="guid-p">
             Ответ от искуственного интеллекта
@@ -154,6 +153,11 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
 
+if (document.URL.includes('whatis')) {
+  
+            document.querySelector('#KM').classList.toggle('nav-menu__title__active')
+        }
+
 function get_AI_help(g_type){
 
     let company = document.getElementById('coupon-company').value
@@ -174,8 +178,17 @@ function get_AI_help(g_type){
 					document.getElementById('no-question').style.display = 'none';
 					document.getElementById('answers').style.display = 'flex';
 
-          let textEN = data.text.original;
+          let deleteElementsEN = document.querySelector('.ol-description-en');
+          while (deleteElementsEN.firstChild) {
+            deleteElementsEN.removeChild(deleteElementsEN.firstChild);
+          }
 
+          let deleteElementsRU = document.querySelector('.ol-description-ru');
+          while (deleteElementsRU.firstChild) {
+            deleteElementsRU.removeChild(deleteElementsRU.firstChild);
+          }
+
+          let textEN = data.text.original;
           textEN.slice(2).split('\n').forEach((el,index) => {
             let li = document.createElement('div');
             li.classList.toggle('li-description');
@@ -187,8 +200,8 @@ function get_AI_help(g_type){
           if(data.text.translated != 'error') {
 
             let textRU = data.text.translated;
-
-            textRU.split('\n').forEach((el,index) => {
+            console.log(textRU)
+            textRU.slice(1).split('\n').forEach((el,index) => {
               let li = document.createElement('div');
               li.classList.toggle('li-description');
               li.classList.toggle('li');
@@ -196,7 +209,6 @@ function get_AI_help(g_type){
               document.querySelector('.ol-description-ru').append(li)
             })
           } else {
-
             document.querySelector('#guid-left-default').style.display = 'none';
             document.querySelector('#guid-left-red').style.display = 'block';
           }
@@ -207,13 +219,12 @@ function get_AI_help(g_type){
 
 }
 
-else {
-
+else { console.log('pizdec') }
 document.getElementById('answers').style.display = 'none';
 document.querySelector('.ai-error').style.display = 'block';
-document.querySelector('#no-question').style.display = 'none';
-
-}
+document.querySelector('#no-question').styel.display = 'none';
+                    let out = data.text
+                    console.log(out)
         },
     });
 };
