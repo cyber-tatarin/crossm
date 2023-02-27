@@ -24,7 +24,6 @@ class GenerateCrossmAdviceBase:
         querystring = {"langpair": f"en|{self.lang}", "q": response, "mt": "1"}
         translated_response = requests.request("GET", url, headers=headers, params=querystring)
         return translated_response.json()['responseData']['translatedText']
-
     def get_ai_response(self):
         try:
             response = openai.Completion.create(
@@ -47,7 +46,7 @@ class GenerateCouponIdeas(GenerateCrossmAdviceBase):
     def generate_prompt(self):
         return f'I own a {self.company} in Belarus. What the most high-margin do I have services, so that ' \
                f'I can issue  cheap coupons for cross-marketing partners? Write 6 options with the word free or ' \
-               f'with a discount greater than 90% written in numbers'
+               f'with a discount greater than 90% written in numbers. In less than 499 characters'
 
     # return f'Я владею {self.company}. Какие у меня могут быть самые ' \
     # 	   f'высокомаржинальные услуги, чтобы я выдал на них ' \
@@ -59,7 +58,7 @@ class GenerateCouponIdeas(GenerateCrossmAdviceBase):
 class GeneratePossiblePartners(GenerateCrossmAdviceBase):
     def generate_prompt(self):
         return f'I own a {self.company} in Belarus. What small business partners should I look for cross-marketing, not advertisement? ' \
-               f'Write 6 best options without any description. I want to exchange coupons to increase my average check.'
+               f'Write 6 best options without any description in less than 499 characters. I want to exchange coupons to increase my average check. '
 
 
 class AiGeneratorChooser:

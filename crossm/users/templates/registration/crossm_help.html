@@ -1,4 +1,6 @@
+
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -20,7 +22,7 @@
                     Помощь от разработчиков
                 </h2>
                 <hr class="hr-solid">
-                <form action="">
+                <form method="post">
                     <div style="display:block;" class="inputs">
                         <div style="max-width:580px;" class="inputs-part inputs-part__double">
                             
@@ -37,7 +39,7 @@
                             <div class="book-attributes">
                                 <p class="inputs-part__title">Сообщение</p>
                                 <div class="add-book-description">
-                                    <textarea class="input-textarea" wrap="soft" type="text" maxlength="500" placeholder="Введите сообщение"></textarea>
+                                    <textarea name="message" class="input-textarea" wrap="soft" type="text" maxlength="500" placeholder="Введите сообщение"></textarea>
                                 </div>
                                 <!-- <p class="input__comment">Здесь Вы можете написать предпочтительное время для связи. Можете так же указать удобный мессенджер или написать что-то полезное или смешное :)</p> -->
                             </div>
@@ -49,14 +51,14 @@
                     </div>
                     <div class="phone-input__right margin-bottom-40px">
                         <label class="label">
-                            <input class="check-box" type="checkbox" required>
+                            <input name="contact" class="check-box" type="checkbox" required>
                             <span class="check-style"></span>
                             <span class="check-text">Нажимая на кнопку Вы соглашаетесь с политикой конфиденциальности</span> 
                         </label>  
                     </div>
                     <div class="button-submit">
                         <button class="button" type="submit">
-                            <p class="button-p">Зарегистрироваться</p>
+                            <p class="button-p">Отправить</p>
                         </button>
                         
                     </div>   

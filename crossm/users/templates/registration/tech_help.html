@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -21,14 +22,16 @@
                     Техподдержка
                 </h2>
                 <hr class="hr-solid">
-                <form action="">
+                <form method="post">
+
+					{% csrf_token %}
                     <div style="display:block;" class="inputs">
                              
                         <div class="inputs-part inputs-part__double">
                             <div class="book-attributes">
                                 <p class="inputs-part__title">Сообщение</p>
                                 <div class="add-book-description">
-                                    <textarea class="input-textarea" wrap="soft" type="text" maxlength="500" placeholder="Напишите о проблеме"></textarea>
+                                    <textarea name="message" class="input-textarea" wrap="soft" type="text" maxlength="500" placeholder="Напишите о проблеме"></textarea>
                                 </div>
                                 <p class="input__comment">Напишите, пожалуйста, что пошло не так. По возможности, укажите <br>ссылку на страницу, с которой возникли проблемы</p>
                             </div>
@@ -44,7 +47,7 @@
                             <div class="book-attributes">
                                 <p class="inputs-part__title">Сообщение</p>
                                 <div style="margin-bottom:16px;" class="add-book-description">
-                                    <input class="input input-367px" type="text" maxlength="100" placeholder="Введите телефон" required>
+                                    <input name="contact" class="input input-367px" type="text" maxlength="100" placeholder="Введите телефон" required>
 
                                 </div>
                                 <p class="input__comment">Напишите, пожалуйста, что пошло не так. По возможности, укажите <br>ссылку на страницу, с которой возникли проблемы</p>
@@ -64,7 +67,7 @@
                     </div>
                     <div class="button-submit">
                         <button class="button" type="submit">
-                            <p class="button-p">Зарегистрироваться</p>
+                            <p class="button-p">Отправить</p>
                         </button>
                         
                     </div>   
@@ -73,8 +76,8 @@
         </div>
         </main>
         <!-- <div class="bottom-margin"></div> -->
-        <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
-        <script src="../js/main.js"></script>
+<!--        <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>-->
+<!--        <script src="../js/main.js"></script>-->
     </body>
 
 

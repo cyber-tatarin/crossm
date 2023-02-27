@@ -295,13 +295,13 @@ class TechnicalHelp(View):
 	def post(self, request, *args, **kwargs):
 		message = request.POST.get('message')
 		contact = request.POST.get('contact')
-		if request.user.is_authenticated():
+		if request.user.is_authenticated:
 			user_email = request.user.email
 		else:
 			user_email = 'нет адреса'
 		send_mail('Кроссм — сообщение от юзера',
-		          f'{message} \n, Контакт: {contact} \n Email: {user_email}',
-		          crossm.crossm.settings.settingsa.EMAIL_HOST_USER,
+		          f'Сообщение: {message} \nКонтакт: {contact} \n Email: {user_email}',
+		          crossm.settings.settingsa.EMAIL_HOST_USER,
 		          ['dmitriyseur@gmail.com']
 		          )
 		return redirect('catalog')

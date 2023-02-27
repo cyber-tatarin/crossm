@@ -73,14 +73,14 @@
         </div>
         <div class="guid-right">
           <p class="guid-p">Правила использования сервиса</p>
-          <ol class="ol-description">
+          <ol class="ol-description" style="margin-bottom:20px;">
             <li class="li-description">Вы можете сделать не более 4 запросов в день, поэтому внимательно заполните поле и не нажимайте на кнопку бездумно;</li>
             <li class="li-description">Нажмите на 1 кнопку — дождитесь ответа — прочитайте его — нажмите другую кнопку. Как только Вы нажмёте другую кнопку, предыдущий ответ исчезнет;</li>
             <li class="li-description">Эти советы не панацея, но возможно они смогут натолкнуть Вас на размышления;</li>
             <li class="li-description">Если Вы совсем не понимаете, как взаимодействовать с платформой и какие кросс-маркетинговые акции можно придумать именно в Вашем случае — напишите нам. Наша команда поможет Вам найти идею.</li>
           </ol>
           <div class="button-submit">
-            <button style="max-width:calc(50% - 10px);" class="button" type="submit">
+            <button style="max-width:calc(50% - 10px);" class="button" type="submit" onclick="window.location.href = '{% url 'crossm-help' %}'">
                 <p class="button-p">Написать команде разработчиков</p>
             </button>
         </div> 
@@ -219,12 +219,13 @@ function get_AI_help(g_type){
 
 }
 
-else { console.log('pizdec') }
+else {
 document.getElementById('answers').style.display = 'none';
 document.querySelector('.ai-error').style.display = 'block';
-document.querySelector('#no-question').styel.display = 'none';
+document.querySelector('#no-question').style.display = 'none';
                     let out = data.text
                     console.log(out)
+                    }
         },
     });
 };
