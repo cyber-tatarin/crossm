@@ -178,7 +178,7 @@
                                 {% if company.photo %}
                                 <img class="profile-user__img" src="{{company.photo.url}}">
                                 {% else %}
-								<img  id="image" class="profile-user__img" src="/media/images/upload_photo.jpg">
+								<img  id="image" class="profile-user__img" src="/media/images/no_company_logo.png">
                                 {% endif %}
                             </div>
                         </div>
@@ -192,7 +192,7 @@
 
                                 <div class="owner-info-item">
                                     <span class="profile-user__city">УНП:&nbsp</span>
-                                    <span class="profile-user__city__name">{% if company.status %} {{company.status}} {% else %} Не проверен {%endif %}</span>
+                                    <span class="profile-user__city__name">{% if company.status %} {{company.status}} {% else %} Не проверен {% endif %}</span>
                                 </div>
 
                                 <div class="owner-info-item">
