@@ -919,6 +919,7 @@ button:hover {
   font-size: 18px;
   line-height: 22px;
   margin-bottom: 4px;
+  pointer: cursor;
 }
 
 .profile-user__city,
