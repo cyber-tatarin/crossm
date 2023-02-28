@@ -300,11 +300,11 @@ class TechnicalHelp(View):
 		else:
 			user_email = 'нет адреса'
 		send_mail('Кроссм — сообщение от юзера',
-		          f'Сообщение: {message} \nКонтакт: {contact} \n Email: {user_email}',
+		          f'Сообщение: {message} \nКонтакт: {contact} \nEmail: {user_email}',
 		          crossm.settings.settingsa.EMAIL_HOST_USER,
 		          ['dmitriyseur@gmail.com']
 		          )
-		return redirect('catalog')
+		return redirect('what-is-cm')
 
 
 class CrossMHelp(TechnicalHelp):

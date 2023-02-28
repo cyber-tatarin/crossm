@@ -67,7 +67,6 @@ class AiGeneratorChooser:
               }
 
     def __init__(self, *args, g_type, company, lang):
-        print(g_type)
         self.g_class = self.g_dict[g_type]
         self.g_instance = self.g_class(company=company, lang=lang)
 

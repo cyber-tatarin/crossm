@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
 		<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+		{% include "favicon.html" %}
         <title>Pmarket | Помощь от разработчиков</title>
     </head>
     <body>
@@ -23,6 +24,7 @@
                 </h2>
                 <hr class="hr-solid">
                 <form method="post">
+					{% csrf_token %}
                     <div style="display:block;" class="inputs">
                         <div style="max-width:580px;" class="inputs-part inputs-part__double">
                             
@@ -70,7 +72,6 @@
        
         <!-- <div class="bottom-margin"></div> -->
         <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
-        <script src="../js/main.js"></script>
     </body>
 
 

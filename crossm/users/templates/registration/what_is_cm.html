@@ -389,11 +389,11 @@ function get_AI_help(g_type){
             document.querySelector('.ol-description-en').append(li)
           })
 
-          if(data.text.translated != 'error') {
+          if(data.text.translated != 'error' && data.text.translated != '') {
 
             let textRU = data.text.translated;
             console.log(textRU)
-            textRU.slice(1).split('\n').forEach((el,index) => {
+            textRU.split('\n').forEach((el,index) => {
               let li = document.createElement('div');
               li.classList.toggle('li-description');
               li.classList.toggle('li');
@@ -417,8 +417,6 @@ else {
 document.getElementById('answers').style.display = 'none';
 document.querySelector('.ai-error').style.display = 'block';
 document.querySelector('#no-question').style.display = 'none';
-                    let out = data.text
-                    console.log(out)
                     }
         },
     });
