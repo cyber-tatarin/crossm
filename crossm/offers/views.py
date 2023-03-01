@@ -190,7 +190,7 @@ class MyOffersPageView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
-class SendImagesView(LoginRequiredMixin, View):
+class SendImagesView(View):
     def get(self, request, **kwargs):
         images = OffersImages.objects.filter(offer=request.GET.get('id')).all()
         res = []
