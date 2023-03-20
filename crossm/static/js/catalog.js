@@ -129,14 +129,21 @@ sortButton.addEventListener("click", (btn) => {
       t += 1;
     }
   });
-  if (t === 0) {
-    document.querySelector(".message-error").innerHTML = "Ничего не найдено";
-  } else {
-    document.querySelector(".message-error").innerHTML = "";
-  }
+  // if (t === 0) {
+  //   document.querySelector(".message-error").innerHTML = "Ничего не найдено";
+  // } else {
+  //   document.querySelector(".message-error").innerHTML = "";
+  // }
 });
 
-document.querySelector(".search-input").oninput = function () {
+let currentSearch
+
+window.getComputedStyle(document.querySelector('.search-pc')).display === 'none' ?
+  currentSearch = '.search-input-mobile' : currentSearch = '.search-input-pc'
+
+
+document.querySelector(currentSearch).oninput = function () {
+  console.log('click')
   let val = this.value.trim();
   let companies = document.querySelectorAll(".company-card");
   if (val != "") {
@@ -177,9 +184,9 @@ document.querySelector(".search-input").oninput = function () {
       total += 1;
     }
   });
-  if (total === 0) {
-    document.querySelector(".message-error").innerHTML = "Ничего не найдено";
-  } else {
-    document.querySelector(".message-error").innerHTML = "";
-  }
+  // if (total === 0) {
+  //   document.querySelector(".message-error").innerHTML = "Ничего не найдено";
+  // } else {
+  //   document.querySelector(".message-error").innerHTML = "";
+  // }
 };

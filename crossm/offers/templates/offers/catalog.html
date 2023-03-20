@@ -23,7 +23,7 @@
         <main class="main">
             <div class="container-padding">
                 
-                <div class="search">
+                <div class="search search-pc">
                     
                 <div class="footer-arrow">
                     <div class="test-arrow">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="div-search">
-                    <input type="text" class="search-input" placeholder="Поиск...">
+                    <input type="text" class="search-input search-input-pc" placeholder="Поиск...">
                 </div>
                 </div>
             <div class="flex catalog-filters-container">
@@ -135,8 +135,8 @@
                             <div class="pop-up-exit">
     
                             </div>
-                            <div style="margin-bottom: 32px;" class="flex">
-                            <p class="pop-up-images-title"></p>
+                            <div style="margin-bottom: 12px; margin-right: 36px;" class="flex card-pop-up-mobile">
+                            <p class="pop-up-images-title no-pointer"></p>
                             <div style="margin-right: 16px;" class="">
                                 <span class="profile-user__city">Услуга:&nbsp</span>
                                 <span class="profile-user__city__name pop-up-input-title"></span>
@@ -156,12 +156,22 @@
 
             
             <div class="card-container">
-                <div class="flex">
-                <h2 class="main-title">
+                <div class="flex margin-left-mobile">
+                <h2 class="main-title main-title-pc">
                     Предложения
                 </h2>
-                    <p style="margin-bottom: 28px; margin-top: 3px; cursor: pointer; height: auto;" class="add-something test-filter">Фильтры</p>
+                <h2 class="main-title main-title-mobile">
+                    Каталог
+                </h2>
+                    <p class="add-something test-filter p-filters-pc">Фильтры</p>
+                    
                 </div>
+
+
+                <div class="div-search search-mobile">
+                        <input type="text" class="search-input search-input-mobile" placeholder="Поиск...">
+                </div>
+
 
                 <div class="grid">
                     <div class="grid-sizer"></div>
@@ -186,54 +196,61 @@
                                 <div class="">
                                     <p class="company-key">Ниша</p>
                                     <p class="company-value nisha">{{offer.company.niche}}</p>
-                                    <p class="company-key">Услуга</p>
+                                    <hr class="mobile-card-dashed">
+                                    <p class="company-key type-service">Услуга</p>
                                     <p class="company-value usluga no-bottom">{{offer.title}}</p>
-                                
+                                    <hr class="mobile-card-dashed">
+
                                 </div>
                             </div>
                             <!-- <div class="hr-solid-vertical"></div> -->
                             <div class="company-content-right">
-                                <div class="flex-content-no-gap">
+                                <div class="flex-content-no-gap mobile-flex-reverse">
                                     <div class="">
                                         <p class="company-key">Количество купонов</p>
                                         <p class="company-value coupon-count">От {{offer.amount_min}} до {{offer.amount_max}}</p>
+                                        <hr class="mobile-card-dashed">
+
                                     </div>
                                     <div class="">
                                         <p class="company-key">Розничная цена</p>
                                         <p class="company-value no-bottom retail-price">{{offer.retail_price}} {{offer.currency}}</p>
+                                        <hr class="card-hr-solid hr-to-show">
+
                                     </div>    
                                 </div>
                             </div> 
                         </div>
     
-                        <hr class="card-hr-solid">
+                        <hr class="card-hr-solid hr-to-hide">
     
                         <div class="company-card-main company-card-main-bottom"> 
                             <div class="company-content-left">
                                 <div class=>
                                     <p class="company-key">Цена купона</p>
                                     <p class="company-value no-bottom coupon-price">{{offer.coupon_price}} {{offer.currency}}</p>
-                                
+                                    <hr class="card-hr-solid hr-to-show">
+
                                 </div>
                             </div>
                             <!-- <div class="hr-solid-vertical"></div> -->
                             <div class="company-content-right">
                                 <div class="flex-content-no-gap">
                                     {% if offer.has_photo %}
-                                    <button id="{{offer.id}}" style="margin-top: -2px; max-width: 150px;" class="button check-pop-up">
+                                    <button id="{{offer.id}}" style="margin-top: -2px; max-width: 150px;" class="button check-pop-up button-to-hide">
                                         <p class="button-p">Посмотреть вложения</p>
                                     </button>
                                     {% else %}
-                                     <button style="margin-top: -2px; max-width: 150px;" class="button button-ynp">
+                                     <button style="margin-top: -2px; max-width: 150px;" class="button button-ynp button-to-hide">
                                     <p class="button-p">Посмотреть вложения</p>
-                                </button>
+                                    </button>
                                     {% endif %}
                                 </div>
                             </div>
                             
                         </div>
     
-                        <hr class="card-hr-solid ">
+                        <hr class="card-hr-solid hr-to-hide">
     
                         <div class="company-card-main"> 
                             <div class="company-content-left">
@@ -245,6 +262,8 @@
                                         <p class="contacts-phone">{{offer.company.owner.profile_set.all.0.phone_num}}</p>
                                         {% endif %}
                                     </div>
+                                    <hr class="mobile-card-dashed">
+
                                 
                                 </div>
                             </div>
@@ -258,7 +277,17 @@
                                 </div>
                             </div> 
                         </div>
-                        <hr style = "margin-bottom: 4px" class="hr-solid">
+                        <hr style = "margin-bottom: 4px" class="hr-solid hr-to-hide">
+                        <hr class="card-hr-solid hr-to-show">
+                        {% if offer.has_photo %}
+                        <button id="{{offer.id}}" style="margin-top: 4px;" class="button check-pop-up button-to-show">
+                            <p class="button-p">Посмотреть вложения</p>
+                        </button>
+                        {% else %}
+                        <button style="margin-top: 4px;" class="button button-ynp button-to-show">
+                            <p class="button-p">Посмотреть вложения</p>
+                        </button>
+                        {% endif %}
 
                     </div>
 
@@ -272,6 +301,9 @@
             </div>
         </div>
         </main>
+
+        {% include "footer-mobile.html" %}
+
 
 
         <div class="loading">
@@ -463,6 +495,8 @@
         if (document.URL.includes('catalog')) {
      
             document.querySelector('#CATALOG').classList.toggle('nav-menu__title__active')
+            document.querySelector('#CATALOG_MOBILE').classList.toggle('nav-menu__title__active')
+
         }
             
         document.querySelector('.test-filter').addEventListener('click', () => {  
@@ -510,12 +544,14 @@
 
         document.querySelectorAll('.check-pop-up').forEach((el) => {
             el.addEventListener('click', () => {
+                document.querySelector('body').style.overflow = 'hidden';
                 getImages(parseInt(el.id.replace(/[^\d]/g, '')), el);
             })
         })  
 
         document.querySelector('.pop-up-exit').addEventListener('click', () => {
             document.querySelector('.pop-up-images').classList.remove('pop-up-delete-active');
+            document.querySelector('body').style.overflow = 'auto';
         })
 
 
@@ -549,9 +585,17 @@ function getImages(id, el)
                  console.log(images);
                  output.innerHTML = images;
                  setTimeout(() => {}, "500")
-                document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[0].children[1].innerHTML
-                document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].children[3].innerHTML
-                document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.children[0].children[0].children[1].innerHTML
+                //  if(document.querySelector('header').style.display === 'none') {
+                if (window.getComputedStyle(document.querySelector('.header')).display === 'none') {
+                    document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.querySelector('.company-card-name').innerHTML
+                    document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.querySelector('.type-service').innerHTML
+                    document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.querySelector('.coupon-price').innerHTML
+                } else {
+                    document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[0].children[1].innerHTML
+                    document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].children[3].innerHTML
+                    document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.children[0].children[0].children[1].innerHTML
+                }
+                
                 document.querySelector('.pop-up-images').classList.toggle('pop-up-delete-active');
         },
         type: "GET",

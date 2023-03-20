@@ -34,7 +34,14 @@
                 <h2 class="main-title">
                     Вход
                 </h2>
-                <hr class="hr-solid">
+                <hr class="hr-solid header-hr">
+
+                <a href="{% url 'login' %}" class="a-account a-mobile">
+                    Нет аккаунта? Зарегистрируйтесь!
+                </a>
+                <a style="margin-bottom:24px;" href="{% url 'tech-help' %}" class="a-account a-mobile">
+                    Написать в техподдержку
+                </a>                
                 <form method="post">
                     {% csrf_token %}
                     <div class="inputs inputs-20">
@@ -60,14 +67,14 @@
                         <hr class="line__dashed line__dashed-620">
                     </div>
                     <div class="button-submit">
-                        <button class="button" type="submit" name="next" value="{{ request.GET.next }}">
+                        <button class="button button-bottom button-240px" type="submit" name="next" value="{{ request.GET.next }}">
                             <p class="button-p">Войти</p>
                         </button>
-                        <a href="{% url 'register' %}" class="a-account">
+                        <a href="{% url 'register' %}" class="a-account bottom-a">
                             Нет аккаунта? Зарегистрируйтесь!
                         </a>
 
-						<a style="margin-left:-16px;" href="{% url 'tech-help' %}" class="a-account">
+						<a style="margin-left:-16px;" href="{% url 'tech-help' %}" class="a-account bottom-a">
                             Написать в техподдержку
                         </a>
                     </div>
@@ -98,6 +105,8 @@
             </div>
         </div>
         </main>
+        {% include "footer-mobile.html" %}
+
         <!-- <div class="bottom-margin"></div> -->
     </body>
 {% endblock %}

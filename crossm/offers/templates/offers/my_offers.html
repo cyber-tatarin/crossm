@@ -74,7 +74,7 @@
                             <div class="pop-up-exit">
 
                             </div>
-                            <div style="margin-bottom: 32px;" class="flex">
+                            <div style="margin-bottom: 32px; margin-right: 36px;" class="flex card-pop-up-mobile">
                             <p class="pop-up-images-title"></p>
                             <div style="margin-right: 16px;" class="">
                                 <span class="profile-user__city">Услуга:&nbsp</span>
@@ -96,6 +96,7 @@
 
 
             <div class="card-container">
+                <p class="offers-mobile">Мои предложения</p>
                     {% if objects %}
                 <div class="all-companies">
                     {% for company in objects %}
@@ -142,45 +143,49 @@
                             <div class="">
                                 <p class="company-key">Ниша</p>
                                 <p class="company-value">{{offer.company.niche}}</p>
-                                <p class="company-key">Услуга</p>
+                                <hr class="mobile-card-dashed">
+                                <p class="company-key type-service">Услуга</p>
                                 <p class="company-value no-bottom">{{offer.title}}</p>
+                                <hr class="mobile-card-dashed">
 
                             </div>
                         </div>
                         <!-- <div class="hr-solid-vertical"></div> -->
                         <div class="company-content-right">
-                            <div class="flex-content-no-gap">
+                            <div class="flex-content-no-gap mobile-flex-reverse">
                                 <div class="">
                                 <p class="company-key">Количество купонов</p>
                                 <p class="company-value">От {{offer.amount_min}} до {{offer.amount_max}}</p>
+                                <hr class="mobile-card-dashed">
                                 </div>
                                 <div class="">
                                 <p class="company-key">Розничная цена</p>
                                 <p class="company-value no-bottom">{{offer.retail_price}} {{offer.currency}}</p>
+                                <hr class="card-hr-solid hr-to-show">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <hr class="card-hr-solid">
+                    <hr class="card-hr-solid hr-to-hide">
 
                     <div class="company-card-main company-card-main-bottom">
                         <div class="company-content-left">
                             <div class=>
                                 <p class="company-key">Цена купона</p>
-                                <p class="company-value no-bottom">{{offer.coupon_price}} {{offer.currency}}</p>
-
+                                <p class="company-value no-bottom coupon-price">{{offer.coupon_price}} {{offer.currency}}</p>
+                                <hr class="card-hr-solid hr-to-show">
                             </div>
                         </div>
                         <!-- <div class="hr-solid-vertical"></div> -->
                         <div class="company-content-right">
                             <div class="flex-content-no-gap">
                                 {% if offer.has_photo %}
-                                <button id="img-{{offer.id}}" style="margin-top: -2px; max-width: 150px;" class="button check-pop-up">
+                                <button id="img-{{offer.id}}" style="margin-top: -2px; max-width: 150px;" class="button check-pop-up button-to-hide">
                                     <p class="button-p">Посмотреть вложения</p>
                                 </button>
                                 {% else %}
-                                <button style="margin-top: -2px; max-width: 150px;" class="button button-ynp">
+                                <button style="margin-top: -2px; max-width: 150px;" class="button button-ynp button-to-hide">
                                     <p class="button-p">Посмотреть вложения</p>
                                 </button>
                                 {% endif %}
@@ -189,7 +194,7 @@
 
                     </div>
 
-                    <hr class="card-hr-solid ">
+                    <hr class="card-hr-solid hr-to-hide">
 
                     <div class="company-card-main">
                         <div class="company-content-left">
@@ -215,8 +220,25 @@
                         </div>
                     </div>
 
-                    <hr class="hr-solid">
+                    <hr style = "margin-bottom: 32px" class="hr-solid hr-to-hide">
+                        <hr style="margin-bottom: 32px;" class="card-hr-solid hr-to-show">
+
+                    <!-- <hr class="hr-solid"> -->
+                    {% if offer.has_photo %}
+                        <button id="{{offer.id}}" style="margin-top: 4px; margin-bottom: 8px;" class="button check-pop-up button-to-show">
+                            <p class="button-p">Посмотреть вложения</p>
+                        </button>
+                        {% else %}
+                        <button style="margin-top: 4px; margin-bottom: 8px;" class="button button-ynp button-to-show">
+                            <p class="button-p">Посмотреть вложения</p>
+                        </button>
+                        {% endif %}
                     <div class="company-card-buttons">
+
+
+                        
+
+
                         <button class="button button-282px" onclick="window.location.href = '{% url 'offers:update-offer' offer.id %}'">
                             <p class="button-p">Редактировать предложение</p>
                         </button>
@@ -244,6 +266,9 @@
             </div>
         </div>
         </main>
+        
+        {% include "footer-mobile.html" %}
+
 
 
         <div class="loading">
@@ -435,6 +460,8 @@
 if (document.URL.includes('myoffers')) {
            
             document.querySelector('#OFFERS').classList.toggle('nav-menu__title__active')
+            document.querySelector('#OFFERS_MOBILE').classList.toggle('nav-menu__title__active')
+
         }
 
 let cardId;
@@ -490,10 +517,12 @@ document.querySelector('.pop-up-button-confirm').addEventListener('click', () =>
 
 document.querySelectorAll('.check-pop-up').forEach((el) => {
             el.addEventListener('click', () => {
+                document.querySelector('body').style.overflow = 'hidden';
                 getImages(parseInt(el.id.replace(/[^\d]/g, '')), el);
             })
         })
          document.querySelector('.pop-up-exit').addEventListener('click', () => {
+            document.querySelector('body').style.overflow = 'auto';
             document.querySelector('.pop-up-images').classList.remove('pop-up-delete-active');
         })
 
@@ -527,9 +556,16 @@ function getImages(id, el)
                  console.log(images);
                  output.innerHTML = images;
                  setTimeout(() => {}, "500")
-                document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[0].children[1].innerHTML
-                document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].children[3].innerHTML
-                document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.children[0].children[0].children[1].innerHTML
+                 if (window.getComputedStyle(document.querySelector('.header')).display === 'none') {
+                    document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.querySelector('.company-card-name').innerHTML
+                    document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.querySelector('.type-service').innerHTML
+                    document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.querySelector('.coupon-price').innerHTML
+                } else {
+                    document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[0].children[1].innerHTML
+                    document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].children[3].innerHTML
+                    document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.children[0].children[0].children[1].innerHTML
+                }
+                
                 document.querySelector('.pop-up-images').classList.toggle('pop-up-delete-active');
         },
         type: "GET",

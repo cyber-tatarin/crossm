@@ -25,11 +25,16 @@
 {% block content %}
 {% if owner %}
 
-        <main class="main">
+        <main class="mg-bottom-28px">
             <div class="container-padding">
             <div class="container-main">
-                <div class="profile"  style="align-items:unset; height:auto;">
-                    <div class="profile-user" style="height:auto;">
+                <div class="profile">
+                    <h1 class="profile-user__name name-to-show">{{user.first_name}}<br>{{user.last_name}}</h1>
+
+                    <!-- <div class="profile-user" 
+                    style="height:auto;"
+                    > -->
+                    <div class="profile-user">
                         <div class="profile-user-left">
 
                             <div class="profile-user__logo">
@@ -52,10 +57,10 @@
                             </div>
                         </div>
                         <div class="profile-user-right">
-                            <h1 class="profile-user__name">{{user.first_name}} {{user.last_name}}</h1>
+                            <h1 class="profile-user__name name-to-hide">{{user.first_name}} {{user.last_name}}</h1>
                             <div class="city-info">
-                                <span class="profile-user__city">Город:&nbsp</span>
-                                <span class="profile-user__city__name">
+                                <span class="profile-user__city mobile-block">Город:&nbsp</span>
+                                <span class="profile-user__city__name mobile-block">
                                     {% if user.profile_set.all.0.city.city %}
                                     {{user.profile_set.all.0.city.city}}
                                     {% else %}
@@ -63,35 +68,42 @@
                                     {% endif %}
                                 </span>
                                 <div class="">
-                                <span class="profile-user__city">Последний раз был:&nbsp</span>
-                                <span class="profile-user__city__name">{{seen}}</span>
+                                <span class="profile-user__city mobile-block">Последний раз был:&nbsp</span>
+                                <span class="profile-user__city__name mobile-block">{{seen}}</span>
                             </div>
                             </div>
                             <div class="profile-user__buttons">
-                                <div class="button-240px">
+                                <div class="button-240px button-to-hide">
                                     <button class="button" onclick="window.location.href = '{% url 'update-profile' %}'">
                                         <p class="button-p">Редактировать профиль</p>
                                     </button>
                                 </div>
-                                <div class="button-240px">
+                                <!-- <div class="button-240px">
                                     <button class="button" type="submit">
                                         <p class="button-p">Настройки</p>
                                     </button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
-                    <div class="profile-contacts" style="height: auto;">
+                    <div class="profile-contacts">
                         <h2 class="profile-contacts__title">Контакты</h2>
                         <div class="profile-user__mail">
                             <p class="user__mail">{{user.email}}</p>
                         </div>
                         {% if user.profile_set.all.0.phone_num_show %}
+                        <hr style="margin:0px 0px 4px;" class="mobile-card-dashed">
+
                         <div class="profile-user__phone">
                             <p class="user__phone">{{user.profile_set.all.0.phone_num}}</p>
 <!--                            <div class="user__phone__logo"></div>-->
                         </div>
                         {% endif %}
+                    </div>
+                    <div style="padding: 0px 13px;" class="button-240px button-to-show">
+                        <button class="button" onclick="window.location.href = '{% url 'update-profile' %}'">
+                            <p class="button-p">Редактировать профиль</p>
+                        </button>
                     </div>
                 </div>
 
@@ -146,11 +158,11 @@
                                 </div>
                                 <div class="card__info">
                                     <h3 onclick="window.location.href = '{% url 'companies:company-page' company.id %}'" class="company-name">{{company.title}}</h3>
-                                    <div class="company-title">
+                                    <div class="company-title to-hide-500px">
                                         <span class="company-sphere">Ниша:&nbsp</span>
                                         <span class="company-sphere-name">{{company.niche}}</span>
                                     </div>
-                                    <div class="company-title company-title-12px">
+                                    <div class="company-title company-title-12px to-hide-500px">
                                         <span class="company-position">Должность в компании:&nbsp</span>
                                         {% if company.role %}
                                         <span class="company-position-name">{{company.role}}</span>
@@ -160,12 +172,29 @@
                                     </div>
 
                                     {% if company.link %}
-                                    <a style="margin-bottom: 24px;" href="{{company.link}}" class="company-link">{{company.link}}</a>
+                                    <a style="margin-bottom: 24px;" href="{{company.link}}" class="company-link to-hide-500px">{{company.link}}</a>
                                     {% else %}
-                                    <a style="margin-bottom: 24px;" href="{% url 'companies:company-page' company.id %}" class="company-link">{% url 'companies:company-page' company.id %}</a>
+                                    <a style="margin-bottom: 24px;" href="{% url 'companies:company-page' company.id %}" class="company-link to-hide-500px">{% url 'companies:company-page' company.id %}</a>
                                     {% endif %}
 
                                 </div>
+                                
+
+
+                                <div class="company-title to-show-500px">
+                                    <span class="company-sphere">Ниша:&nbsp</span>
+                                    <span class="company-sphere-name">{{company.niche}}</span>
+                                </div>
+                                <div class="company-title company-title-12px to-show-500px">
+                                    <span class="company-position">Должность в компании:&nbsp</span>
+                                    {% if company.role %}
+                                    <span class="company-position-name">{{company.role}}</span>
+                                    {% else %}
+                                    <span class="company-position-name">-</span>
+                                    {% endif %}
+                                </div>
+
+                           
 <!--                                <div class="card-reviews">-->
 <!--                                    <span class="reviews-count">Отзывы(7)</span>-->
 <!--                                    <div class="rating-mini">-->
@@ -177,14 +206,18 @@
 <!--                                    </div>-->
 <!--                                </div>-->
                             </div>
+
+                            <hr class="card-hr-solid hr-to-show">
+
+
                             <div class="profile-user__buttons profile-user__buttons__gap-12px">
                             <div class="button-278px">
-                                <button class="button button-long" onclick="window.location.href = '{% url 'companies:update-company' company.id %}?next={{ request.path|urlencode }}'">
+                                <button class="button" onclick="window.location.href = '{% url 'companies:update-company' company.id %}?next={{ request.path|urlencode }}'">
                                     <p class="button-p">Редактировать компанию</p>
                                 </button>
                             </div>
                             <div class="button-278px">
-                                <button id="{{company.id}}" class="button button-long button-for-pop-up">
+                                <button id="{{company.id}}" class="button button-for-pop-up">
                                     <p class="button-p">Удалить компанию</p>
                                 </button>
                             </div>
@@ -283,11 +316,11 @@
                                 </div>
                                 <div class="card__info">
                                     <h3 onclick="window.location.href = '{% url 'companies:company-page' company.id %}'" class="company-name">{{company.title}}”</h3>
-                                    <div class="company-title">
+                                    <div class="company-title to-hide-500px">
                                         <span class="company-sphere">Ниша:&nbsp</span>
                                         <span class="company-sphere-name">{{company.niche}}</span>
                                     </div>
-                                    <div class="company-title company-title-12px">
+                                    <div class="company-title company-title-12px to-hide-500px">
                                         <span class="company-position">Должность в компании:&nbsp</span>
                                         {% if company.role %}
                                         <span class="company-position-name">{{company.role}}</span>
@@ -296,11 +329,27 @@
                                         {% endif %}
                                     </div>
                                     {% if company.link %}
-                                    <a href="{{company.link}}" class="company-link">{{company.link}}</a>
+                                    <a href="{{company.link}}" class="company-link to-hide-500px">{{company.link}}</a>
                                     {% else %}
-                                    <a href="{% url 'companies:company-page' company.id %}" class="company-link">{% url 'companies:company-page' company.id %}</a>
+                                    <a href="{% url 'companies:company-page' company.id %}" class="company-link to-hide-500px">{% url 'companies:company-page' company.id %}</a>
                                     {% endif %}
                                 </div>
+
+
+
+                                <div class="company-title to-show-500px">
+                                    <span class="company-sphere">Ниша:&nbsp</span>
+                                    <span class="company-sphere-name">{{company.niche}}</span>
+                                </div>
+                                <div class="company-title company-title-12px to-show-500px">
+                                    <span class="company-position">Должность в компании:&nbsp</span>
+                                    {% if company.role %}
+                                    <span class="company-position-name">{{company.role}}</span>
+                                    {% else %}
+                                    <span class="company-position-name">-</span>
+                                    {% endif %}
+                                </div>
+                              
 <!--                                <div class="card-reviews">-->
 <!--                                    <span class="reviews-count">Отзывы(7)</span>-->
 <!--                                    <div class="rating-mini">-->
@@ -312,6 +361,10 @@
 <!--                                    </div>-->
 <!--                                </div>-->
                             </div>
+
+                            <hr class="card-hr-solid hr-to-show">
+
+
                         </div>
 
                             {% endfor %}
@@ -324,10 +377,12 @@
             </div>
             </div>
         </main>
+        
+
         <!-- <div class="bottom-margin"></div> -->
 
     {% endif %}
-
+        {% include "footer-mobile.html" %}
         {% include "footer.html" %}
         <!-- <div class="bottom-margin"></div> -->
 

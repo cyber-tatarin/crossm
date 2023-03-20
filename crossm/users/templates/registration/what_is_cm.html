@@ -23,7 +23,7 @@
 
 <main style="margin-top: -12px; margin-bottom: 0px;" class="main">
   <div class="container-padding">
-    <div style="padding: 50px;" class="container">
+    <div class="container container-is">
     <div
       style="position: relative; padding-bottom: 50%"
       class="container-main"
@@ -55,16 +55,17 @@
   <div class="container-padding">
     <div style=" max-width: 1380px; margin: 0 auto;" class="instruction-container">
       <!-- Если ответы есть -->
-      <div style="margin-bottom:20px;" class="guid">
+      <div style="margin-bottom:20px;" class="guid guid-is">
         <div class="guid-left">
-          <p class="guid-p">Получить помощь от искусственного интеллекта</p>
+          <p class="guid-p to-hide">Получить помощь от искусственного интеллекта</p>
+          <!-- <p class="guid-p to-hide">Правила использования сервиса</p> -->
           <p class="description">Описание Вашем бизнесе</p>
           <div class="inputs-part__div">
             <input class="input input-620px input-description" id="coupon-company" type="text" name="company" maxlength="100" placeholder="Введите название компании" required>
           </div>
-          <p style="margin-left: 34px; margin-bottom: 20px;" class="description-example">Напишите про Вашу компанию. Например, ФРИЛАНСЕР ДИЗАЙНЕР, или ПРЕМИУМ СТУДИЯ ДИЗАЙНА ИНТЕРЬЕРА, или ДИЛЕР ПО ПРОДАЖЕ АВТОМОБИЛЕЙ БМВ, или ТРЕНАЖЕРНЫЙ ЗАЛ БЮДЖЕТНОГО СЕГМЕНТА и так далее</p>
+          <p class="description-example">Напишите про Вашу компанию. Например, ФРИЛАНСЕР ДИЗАЙНЕР, или ПРЕМИУМ СТУДИЯ ДИЗАЙНА ИНТЕРЬЕРА, или ДИЛЕР ПО ПРОДАЖЕ АВТОМОБИЛЕЙ БМВ, или ТРЕНАЖЕРНЫЙ ЗАЛ БЮДЖЕТНОГО СЕГМЕНТА и так далее</p>
           <div style="margin-bottom: 28px'" class="line__dashed"></div>
-          <div style="gap:22px;" class="button-choice">
+          <div class="button-choice">
             <button style="max-width:100%;" class="button" onclick="get_AI_help('generate_coupon_ideas')">
                 <p class="button-p">Какие купоны я могу предложить?</p>
             </button>
@@ -74,15 +75,20 @@
         </div> 
         </div>
         <div class="guid-right">
-          <p class="guid-p">Правила использования сервиса</p>
-          <ol class="ol-description" style="margin-bottom:20px;">
-            <li class="li-description">Вы можете сделать не более 4 запросов в день, поэтому внимательно заполните поле и не нажимайте на кнопку бездумно;</li>
-            <li class="li-description">Нажмите на 1 кнопку — дождитесь ответа — прочитайте его — нажмите другую кнопку. Как только Вы нажмёте другую кнопку, предыдущий ответ исчезнет;</li>
-            <li class="li-description">Эти советы не панацея, но возможно они смогут натолкнуть Вас на размышления;</li>
-            <li class="li-description">Если Вы совсем не понимаете, как взаимодействовать с платформой и какие кросс-маркетинговые акции можно придумать именно в Вашем случае — напишите нам. Наша команда поможет Вам найти идею.</li>
-          </ol>
-          <div class="button-submit">
-            <button style="max-width:calc(50% - 10px);" class="button" type="submit" onclick="window.location.href = '{% url 'crossm-help' %}'">
+          <p class="guid-p to-hide">Правила использования сервиса</p>
+          <p class="guid-p to-show">Получить помощь от искусственного интеллекта</p>
+          <div class="flex flex-ol">
+            <div class="ol-border-left"></div>
+            <ol class="ol-description">
+              <li class="li-description">Вы можете сделать не более 4 запросов в день, поэтому внимательно заполните поле и не нажимайте на кнопку бездумно;</li>
+              <li class="li-description">Нажмите на 1 кнопку — дождитесь ответа — прочитайте его — нажмите другую кнопку. Как только Вы нажмёте другую кнопку, предыдущий ответ исчезнет;</li>
+              <li class="li-description">Эти советы не панацея, но возможно они смогут натолкнуть Вас на размышления;</li>
+              <li class="li-description">Если Вы совсем не понимаете, как взаимодействовать с платформой и какие кросс-маркетинговые акции можно придумать именно в Вашем случае — напишите нам. Наша команда поможет Вам найти идею.</li>
+            </ol>
+          </div>
+          
+          <div class="button-submit below-ol">
+            <button class="button button-is-single" type="submit" onclick="window.location.href = '{% url 'crossm-help' %}'">
                 <p class="button-p">Написать команде разработчиков</p>
             </button>
         </div> 
@@ -93,10 +99,10 @@
       <!-- Error message middle with red border -->
 
          <div class="error-item ai-error" style="display:none;">
-          <div class="guid-p">
+          <div class="guid-p error-p-to-hide">
             Ответ от искуственного интеллекта
           </div>
-          <div style="margin-left: 0px;" class="description">
+          <div style="margin-left: 0px;" class="description clear-margin-bottom">
             К сожалению, прямо сейчас мы не можем Вам подсказать.<br>Попробуйте еще раз через несколько минут. <br>
 			  Возможно, Вы превысили дневной лимит в 4 запроса :(
           </div>
@@ -141,7 +147,7 @@
 
       <!-- Если нет ответа -->
       <div style="margin-top:20px;" class="guid" id="no-question">
-        <div class="guid-left">
+        <div class="guid-left nothing-asked">
           <p style="margin-bottom: 16px;" class="guid-p">Ответ от искуственного интеллекта</p>
           <p class="no-answer">Вы пока ничего не спросили</p>       
         </div>
@@ -149,6 +155,9 @@
     </div>
   </div>
 </main>
+
+{% include "footer-mobile.html" %}
+
 
 
 
@@ -343,6 +352,8 @@
 if (document.URL.includes('whatis')) {
   
             document.querySelector('#KM').classList.toggle('nav-menu__title__active')
+            document.querySelector('#KM_MOBILE').classList.toggle('nav-menu__title__active')
+
         }
 
 function get_AI_help(g_type){

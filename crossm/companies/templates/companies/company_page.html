@@ -71,11 +71,11 @@
 
                 <div class="pop-up-images">
                     <div class="pop-up-container">
-                        <div class="pop-up-images-body">
+                        <div class="pop-up-images-body images-body">
                             <div class="pop-up-exit">
 
                             </div>
-                            <div style="margin-bottom: 32px;" class="flex">
+                            <div style="margin-bottom: 12px; margin-right: 36px;" class="flex card-pop-up-mobile">
                             <p class="pop-up-images-title"></p>
                             <div style="margin-right: 16px;" class="">
                                 <span class="profile-user__city">Услуга:&nbsp</span>
@@ -551,6 +551,8 @@
             </div>
         </div>
         </main>
+        {% include "footer-mobile.html" %}
+
 
         <div class="loading">
             <div class="cont">
@@ -844,12 +846,14 @@ $("form#files").submit(function(){
 
 document.querySelectorAll('.company-del-button').forEach((el) => {
     el.addEventListener('click', () => {
+        document.querySelector('body').style.overflow = 'hidden';
         document.querySelector('.pop-up-delete-company').classList.toggle('pop-up-delete-company-active');
         cmpId = parseInt(el.id.replace(/[^\d]/g, ''))
         })
 })
 
 document.querySelector('.company-cancel').addEventListener('click', () => {
+    document.querySelector('body').style.overflow = 'auto';
     document.querySelector('.pop-up-delete-company').classList.remove('pop-up-delete-company-active');
 })
 

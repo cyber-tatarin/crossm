@@ -41,7 +41,15 @@
                 <h2 class="main-title">
                     Регистрация
                 </h2>
-                <hr class="hr-solid">
+                <hr class="hr-solid header-hr">
+
+                <a href="{% url 'login' %}" class="a-account a-mobile">
+                    Уже есть аккаунт ?
+                </a>
+                <a style="margin-bottom:24px;" href="{% url 'tech-help' %}" class="a-account a-mobile">
+                    Написать в техподдержку
+                </a>
+
                 <form method="post">
                     {% csrf_token %}
                     <div class="inputs">
@@ -53,6 +61,7 @@
 
                             <p class="input__comment">Имя будет отображаться в профиле. Его будут видеть все пользователи
                         </div>
+                        <hr class="line__dashed-small">
 
                         <div class="inputs-part inputs-part__double">
                             <h3 class="inputs-part__title">Фамилия</h3>
@@ -62,6 +71,7 @@
 
                             <p class="input__comment">Фамилия так же отображается в профиле
                         </div>
+                        <hr class="line__dashed-small">
 
                     </div>
                     <div class="line">
@@ -77,9 +87,10 @@
                             </div>
 
                 <p class="input__comment">Этот адрес Вы будете использовать
-                                <br>для входа в учетную запись
+                                <br class="text-move">>для входа в учетную запись
 
                         </div>
+                        <hr class="line__dashed-small">
                         <div class="inputs-part inputs-part__center">
                             <h3 class="inputs-part__title">Пароль</h3>
                             <div class="inputs-part__div">
@@ -87,9 +98,10 @@
                             </div>
 
                             <p class="input__comment">Пароль должен содержать минимум 1 заглавную
-                                <br>букву, 1 число и 1 специальный символ
+                                <br class="text-move">букву, 1 число и 1 специальный символ
 
                         </div>
+                        <hr class="line__dashed-small">
                         <div class="inputs-part inputs-part__right">
                             <h3 class="inputs-part__title">Повторите пароль</h3>
                             <div class="inputs-part__div">
@@ -97,6 +109,7 @@
                             </div>
 
                         </div>
+                        <hr class="line__dashed-small">
                     </div>
                     <div class="line line__bottom">
                         <hr class="line__dashed line__dashed-460">
@@ -104,13 +117,13 @@
                         <hr class="line__dashed line__dashed-400">
                     </div>
                     <div class="button-submit">
-                        <button class="button" type="submit">
+                        <button class="button button-bottom button-240px" type="submit">
                             <p class="button-p">Зарегистрироваться</p>
                         </button>
-                        <a href="{% url 'login' %}" class="a-account">
+                        <a href="{% url 'login' %}" class="a-account bottom-a">
                             Уже есть аккаунт ?
                         </a>
-                        <a style="margin-left: -16px;" href="{% url 'tech-help' %}" class="a-account">
+                        <a style="margin-left: -16px;" href="{% url 'tech-help' %}" class="a-account bottom-a">
                             Написать в техподдержку
                         </a>
                     </div>
@@ -159,6 +172,8 @@
             </div>
         </div>
         </main>
+        {% include "footer-mobile.html" %}
+
         <!-- <div class="bottom-margin"></div> -->
     {% endblock %}
     </body>
