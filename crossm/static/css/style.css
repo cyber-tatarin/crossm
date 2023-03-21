@@ -1568,6 +1568,7 @@ button:hover {
 }
 
 .company-content-left {
+  margin-right: -6px;
   width: 100%;
   border-right: 4px dashed rgba(0, 0, 0, 0.1);
   padding: 20px 5px 20px 0px;
@@ -1879,7 +1880,7 @@ input[type="number"] {
   /* min-width: 500px; */
   position: relative;
   padding: 64px 52px 104px;
-  margin: auto;
+  margin: auto 16px;
   width: 100%;
   max-width: 1200px;
   height: 90%;
@@ -2614,6 +2615,14 @@ p.ot {
 }
 
 @media (max-width: 768px) {
+  .mobile-not-flex {
+    display: block;
+  }
+  .support-mobile {
+    margin-top: 12px;
+    display: block;
+    text-align: center;
+  }
   .card {
     background-color: #fcfcfc;
   }
@@ -2663,6 +2672,7 @@ p.ot {
     max-width: 100%;
   }
   .images-container {
+    row-gap: 12px;
     border-radius: 24px;
   }
   .pop-up-img {
@@ -2831,7 +2841,7 @@ p.ot {
     border-radius: 16px;
   }
   .images-body {
-    padding: 20px 12px 73px;
+    padding: 20px 20px 80px;
   }
 }
 
