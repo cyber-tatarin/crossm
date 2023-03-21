@@ -15,29 +15,48 @@ class GenerateCrossmAdviceBase:
     def __init__(self, *args, company, lang):
         self.company = company
         self.lang = lang
-
+    
     @abstractmethod
     def generate_prompt(self):
         pass
-
+    
     def translate(self, response):
         querystring = {"langpair": f"en|{self.lang}", "q": response, "mt": "1"}
         translated_response = requests.request("GET", url, headers=headers, params=querystring)
         return translated_response.json()['responseData']['translatedText']
+    
     def get_ai_response(self):
         try:
-            response = openai.Completion.create(
-                model="text-davinci-003",
-                prompt=self.generate_prompt(),
-                temperature=1,
-                max_tokens=300,
-                top_p=0,
-                frequency_penalty=1.2,
-                presence_penalty=1.2,
-            )
+            headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + os.getenv('OPENAI_API_KEY', ''),
+            }
+            
+            json_data = {
+                'model': 'gpt-3.5-turbo',
+                'messages': [
+                    {
+                        'role': 'user',
+                        'content': self.generate_prompt(),
+                    },
+                ],
+                'temperature': 0.7,
+            }
+            
+            response = requests.post('https://api.openai.com/v1/chat/completions', headers=headers, json=json_data)
+        # response = openai.Completion.create(
+        # 	model="text-davinci-003",
+        # 	prompt=self.generate_prompt(),
+        # 	temperature=1,
+        # 	max_tokens=300,
+        # 	top_p=0,
+        # 	frequency_penalty=1.2,
+        # 	presence_penalty=1.2,
+        # )
+        
         except:
             return {'error': True}
-        text_from_response = response['choices'][0]['text']
+        text_from_response = response.json()['choices'][0]['message']['content']
         result = {'translated': self.translate(response=text_from_response), 'original': text_from_response}
         return result
 
@@ -48,11 +67,11 @@ class GenerateCouponIdeas(GenerateCrossmAdviceBase):
                f'I can issue  cheap coupons for cross-marketing partners? Write 6 options with the word free or ' \
                f'with a discount greater than 90% written in numbers. In less than 499 characters'
 
-    # return f'Я владею {self.company}. Какие у меня могут быть самые ' \
-    # 	   f'высокомаржинальные услуги, чтобы я выдал на них ' \
-    # 	   f'дешевые купоны партнерам по кросс-макетингу? Я живу в Беларуси, тут ' \
-    # 	   f'людей интересуют только бесплатные или очень дешевые вещи. Напиши 6 вариантов ' \
-    # 	   f'со словом бесплатно или с очень большой скидкой, написанной числами'
+# return f'Я владею {self.company}. Какие у меня могут быть самые ' \
+# 	   f'высокомаржинальные услуги, чтобы я выдал на них ' \
+# 	   f'дешевые купоны партнерам по кросс-макетингу? Я живу в Беларуси, тут ' \
+# 	   f'людей интересуют только бесплатные или очень дешевые вещи. Напиши 6 вариантов ' \
+# 	   f'со словом бесплатно или с очень большой скидкой, написанной числами'
 
 
 class GeneratePossiblePartners(GenerateCrossmAdviceBase):
@@ -65,10 +84,10 @@ class AiGeneratorChooser:
     g_dict = {'generate_coupon_ideas': GenerateCouponIdeas,
               'generate_possible_partners': GeneratePossiblePartners,
               }
-
+    
     def __init__(self, *args, g_type, company, lang):
         self.g_class = self.g_dict[g_type]
         self.g_instance = self.g_class(company=company, lang=lang)
-
+    
     def execute(self):
         return self.g_instance.get_ai_response()

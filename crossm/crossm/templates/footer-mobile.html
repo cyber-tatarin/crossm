@@ -18,10 +18,17 @@
                     <img src="../../../static/images/my-offers-icon.svg" class="footer-item__img">
                     <p id="OFFERS_MOBILE" class="footer-item__text">предло<br>жения</p>
                 </a>
-                <a href="#" class="footer-item">
+				{% if request.user.is_authenticated %}
+                <a href="{% url 'view-profile' request.user.id %}" class="footer-item">
                     <img style="margin-bottom: 2px; margin-top: -2px;   border-radius: 50%;" src="../../../static/images/Dima.jpg" class="footer-item__img">
                     <p class="footer-item__text">профиль</p>
                 </a>
+				{% else %}
+				<a href="{% url 'login' %}" class="footer-item">
+                    <img style="margin-bottom: 2px; margin-top: -2px;   border-radius: 50%;" src="/media/images/no_company_logo.png" class="footer-item__img">
+                    <p class="footer-item__text">вход</p>
+                </a>
+				{% endif %}
             </div>
         </div>
 

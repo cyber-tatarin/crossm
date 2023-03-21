@@ -215,6 +215,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
 			obj.phone_num_show = data['phone_num_show']
 			obj.bio = data['bio']
 			obj.save()
+			obj.user.save()
 			return redirect(reverse('view-profile', kwargs={'pk': request.user.id}))
 		
 		context = {
