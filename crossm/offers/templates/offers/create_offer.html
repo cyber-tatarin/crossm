@@ -50,7 +50,7 @@
                                 {{form.title|attr:"maxlength:80"}}
                             </div>
                             <p class="input__comment">Напишите название услуги.
-                            <br>Максимальное количество символов —
+                            <br class="br-to-hide">Максимальное количество символов —
 
                         </div>
 
@@ -150,7 +150,7 @@
                             </div>
                             <div class="bottom-16px"></div>
                             <p class="input__comment">Выберите нишу Вашей компании. Если в списке нет того, что Вам
-                            <br>нужно, выберите наиболее подходящую
+                            <br class="br-to-hide">нужно, выберите наиболее подходящую
                         </div>
                     </div>
                     <div class="line">
@@ -296,7 +296,15 @@
         }
 
         input.files = dt.files; // Assign the updates list
+
+        if (imagesArray.length -1 === 0) {
+            // document.querySelector('#test').style.float = 'left';
+            document.querySelector('.button-file').innerText = 'Выбрать файлы';
+            // document.querySelector('.choose-file-button').style.backgroundColor = '#000000';
+        }
+
         imagesArray.splice(index, 1);
+        
         // displayImages();
       }
 

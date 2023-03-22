@@ -48,7 +48,7 @@
                                 {{form.title|attr:"maxlength:28"}}
                             </div>
                             <p class="input__comment">Напишите, как называется Ваша компания. Пользователям будет удобно,
-                            <br>если Вы укажете тип Вашего юридического лица в начале
+                            <br class="br-to-hide">если Вы укажете тип Вашего юридического лица в начале
 
                         </div>
                         <div class="inputs-part inputs-part__double">
@@ -58,7 +58,7 @@
                             </div>
                             <div class="bottom-16px"></div>
                             <p class="input__comment">Выберите нишу Вашей компании. Если в списке нет того, что Вам
-                            <br>нужно, выберите наиболее подходящую
+                            <br class="br-to-hide">нужно, выберите наиболее подходящую
                         </div>
                     </div>
                     <div class="line">
@@ -76,7 +76,7 @@
                             </div>
                             <div class="bottom-16px"></div>
                             <p class="input__comment">Выберите страну, в которой
-                                <br>зарегистрирована Ваша компания
+                                <b class="br-to-hide"r>зарегистрирована Ваша компания
                             </div>
                             <div class="inputs-part inputs-part__right40">
                                 <h3 class="inputs-part__title">Ваша должность</h3>
@@ -84,7 +84,7 @@
                                     {{form.role|attr:"maxlength:20"}}
                                 </div>
                                 <p class="input__comment">Укажите Вашу должность в компании.
-                                    <br>Позже это можно редактировать
+                                <br class="br-to-hide">Позже это можно редактировать
                             </div>
                         </div>
                         </div>
@@ -94,7 +94,7 @@
                                 {{form.link|attr:"maxlength:150"}}
                             </div>
                             <p class="input__comment">Оставьте здесь ссылку на сайт
-                                <br>или на социальную сеть
+                                <br class="br-to-hide">или на социальную сеть
                         </div>
                     </div>
                     <div class="line line__bottom">
@@ -104,12 +104,12 @@
                     </div>
                         <hr class="line__dashed line__dashed-620">
                     </div>
-                    <div class="button-submit">
-                        <button class="button" type="submit" name="next" value="{{ request.GET.next }}">
+                    <div class="button-submit mobile-not-flex">
+                        <button class="button button-240px" type="submit" name="next" value="{{ request.GET.next }}">
                             <p class="button-p">Сохранить</p>
                         </button>
 
-						<a href="{% url 'tech-help' %}" class="a-account">
+						<a href="{% url 'tech-help' %}" class="a-account support-mobile">
                             Написать в техподдержку
                         </a>
                     </div>

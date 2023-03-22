@@ -95,7 +95,9 @@
                 </div>
 
                 <div class="profile">
-                    <div class="profile-owner">
+                    <span class="profile-user__name name-to-show">{{company.title}}</span>
+
+                    <div class="profile-owner mg-bottom-8px">
 
                          <div class="profile-user-left">
 
@@ -122,7 +124,7 @@
 
                         </div>
                         <div class="profile-user-right">
-                            <h1 class="profile-user__name">{{company.title}}</h1>
+                            <h1 class="profile-user__name to-hide">{{company.title}}</h1>
                             <div class="owner-info">
                                 <div class="owner-info-item">
                                     <span class="profile-user__city">Страна:&nbsp</span>
@@ -145,21 +147,21 @@
                             </div>
                             <div class="profile-user__buttons">
                                 <div class="button-240px">
-                                    <button class="button" onclick="window.location.href = '{% url 'companies:update-company' company.id %}'">
+                                    <button class="button button-to-hide" onclick="window.location.href = '{% url 'companies:update-company' company.id %}'">
                                         <p class="button-p">Редактировать компанию</p>
                                     </button> 
                                 </div>
-                                <div class="button-240px">
+                                <div class="button-240px button-to-hide">
                                     <button id="cmp-{{company.id}}" class="button button-for-pop-up company-del-button">
                                         <p class="button-p">Удалить компанию</p>
                                     </button> 
                                 </div>
-                                <div class="button-240px">
+                                <div class="button-240px button-to-hide">
                                     <button class="button" onclick="window.location.href = '{% url 'offers:create-offer' company.id %}?next={{ request.path|urlencode }}'">
                                         <p class="button-p">Добавить предложение</p>
                                     </button> 
                                 </div>
-                                <div class="button-240px">
+                                <div class="button-240px button-to-hide">
                                     <button class="button button-ynp">
                                         <p class="button-p">Проверить УНП</p>
                                     </button>
@@ -167,6 +169,16 @@
                             </div>
                         </div>
 
+                    </div>
+                    <div style="padding:0px 13px;" class="button-240px button-to-show mg-bottom-8px">
+                        <button class="button" onclick="window.location.href = '{% url 'companies:update-company' company.id %}'">
+                            <p class="button-p">Редактировать компанию</p>
+                        </button> 
+                    </div>
+                    <div style="padding: 0px 13px;" class="button-240px button-to-show">
+                        <button id="cmp-{{company.id}}" class="button button-for-pop-up company-del-button">
+                            <p class="button-p">Удалить компанию</p>
+                        </button> 
                     </div>
                 </div>
 
@@ -184,7 +196,7 @@
                             </div>
                         </div>
                         <div class="profile-user-right">
-                            <h1 class="profile-user__name">{{company.title}}</h1>
+                            <h1 class="profile-user__name to-hide">{{company.title}}</h1>
                             <div class="owner-info-no-bottom">
                                 <div class="owner-info-item">
                                     <span class="profile-user__city">Страна:&nbsp</span>
@@ -211,7 +223,7 @@
 
                 {% endif %}
 
-                <section style="display: flex; column-gap: 24px; margin-bottom: 24px;">
+                <section class="company-section">
 
                     <div class="pop-up-images">
                     <div class="pop-up-container">
@@ -247,7 +259,7 @@
                         <div class="flex">
                             <div class="reviews-container">
                                 <div class="reviews-info">
-                                    <div class="main-title profile-title">
+                                    <div class="main-title profile-title mg-bottom-0px">
                                         Отзывы&nbsp(0)
                                     </div>
                                     <div class="rating-small">
@@ -370,11 +382,11 @@
                             {% endif %}
 
 
-                            <div class="profile-user__mail">
+                            <div class="profile-user__mail profile-user__mail-mobile">
                                 <p class="user__mail">{{company.owner.email}}</p>
                             </div>
                             {% if company.owner.profile_set.all.0.phone_num_show %}
-                            <div class="profile-user__phone">
+                            <div class="profile-user__phone profile-user__phone-mobile">
                                 <p class="user__phone">{{company.owner.profile_set.all.0.phone_num}}</p>
                                     {% if owner %}
                                 <img src="{% static 'images/edit.png' %}" alt="фото" class="user__phone__logo">
@@ -388,7 +400,7 @@
 
                 {% if owner %}
 
-                <section>
+                <section class="margin-15px">
                     <div class="card-container">
                         <div class="flex-32-24">
                         <p class="main-title">
@@ -473,7 +485,7 @@
 
                 {% else %}
 
-                <section>
+                <section class="margin-15px">
                     <div class="card-container">
                         <div class="flex-32-24">
                         <p class="main-title">

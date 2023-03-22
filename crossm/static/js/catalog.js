@@ -72,7 +72,11 @@ let sort = function () {
       el.querySelector(".coupon-price").innerHTML;
     const currentCompanyRetailPrice =
       el.querySelector(".retail-price").innerHTML;
-    const currentCompanyPhone = el.querySelector(".contacts-phone").innerHTML;
+      let currentCompanyPhone;
+    if (el.querySelector(".contacts-phone")) {
+      currentCompanyPhone = el.querySelector(".contacts-phone").innerHTML;
+    } else currentCompanyPhone = '';
+    
 
     let resCouponCount = currentCompanyCouponCount
       .match(/(-?\d+(\.\d+)?)/g)
