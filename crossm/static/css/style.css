@@ -882,6 +882,10 @@ button:hover {
   margin-bottom: 26px;
 }
 
+.mg-bottom-16px {
+  margin-bottom: 16px;
+}
+
 .profile-user {
   min-width: 650px;
   max-width: 876px;
@@ -948,6 +952,7 @@ button:hover {
 }
 
 .profile-user__name-small {
+  width: fit-content;
   font-style: normal;
   font-weight: 900;
   font-size: 18px;
@@ -1757,6 +1762,7 @@ button:hover {
 }
 
 .profile-user-small {
+  /* width: fit-content; */
   display: flex;
   padding: 28px 32px;
   background: #f7f7f7;
@@ -2664,6 +2670,15 @@ p.ot {
 }
 
 @media (max-width: 768px) {
+  .mg-bottom-16px {
+    margin-bottom: 24px;
+  }
+  .profile-user-info-left {
+    margin-bottom: 36px;
+  }
+  .container-scroll {
+    display: none;
+  }
   .company-section {
     display: block;
   }

@@ -94,12 +94,12 @@
                     </div>
                 </div>
 
-                <div class="profile">
+                <div class="profile mg-bottom-0px">
                     <span class="profile-user__name name-to-show">{{company.title}}</span>
 
                     <div class="profile-owner mg-bottom-8px">
 
-                         <div class="profile-user-left">
+                         <div class="profile-user-left profile-user-info-left">
 
                             <div class="profile-user__logo">
 
@@ -124,7 +124,7 @@
 
                         </div>
                         <div class="profile-user-right">
-                            <h1 class="profile-user__name to-hide">{{company.title}}</h1>
+                            <h1 class="profile-user__name name-to-hide">{{company.title}}</h1>
                             <div class="owner-info">
                                 <div class="owner-info-item">
                                     <span class="profile-user__city">Страна:&nbsp</span>
@@ -184,7 +184,7 @@
 
                 {% else %}
 
-                <div class="profile">
+                <div class="profile mg-bottom-0px">
                     <div style="align-items: center;" class="profile-owner">
                         <div class="profile-user-left">
                             <div class="profile-user__logo">
@@ -196,7 +196,7 @@
                             </div>
                         </div>
                         <div class="profile-user-right">
-                            <h1 class="profile-user__name to-hide">{{company.title}}</h1>
+                            <h1 class="profile-user__name name-to-hide">{{company.title}}</h1>
                             <div class="owner-info-no-bottom">
                                 <div class="owner-info-item">
                                     <span class="profile-user__city">Страна:&nbsp</span>
@@ -322,7 +322,7 @@
 
                             <!-- с текстом -->
                             {% if company.owner.profile_set.all.0.bio %}
-                             <div style="margin-bottom: 16px;" class="profile-user-small">
+                             <div class="profile-user-small mg-bottom-16px">
                                 <div class="profile-user-left">
                                     <div class="profile-user__logo-small" style="position: relative;">
 										{% if company.owner.profile_set.all.0.photo %}
@@ -354,7 +354,7 @@
 
                             <!-- без текста -->
 
-                            <div style="margin-bottom: 16px; align-items: center;" class="profile-user-small">
+                            <div style="align-items: center;" class="profile-user-small mg-bottom-16px">
                                 <div class="profile-user-left">
                                     <div class="profile-user__logo-small" style="position: relative;">
 										{% if company.owner.profile_set.all.0.photo %}
