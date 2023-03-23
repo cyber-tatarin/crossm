@@ -2791,6 +2791,9 @@ p.ot {
     margin-left: 24px;
     display: block;
   }
+  .p-mobile-instruction {
+    font-size: 10px;
+  }
   .pop-up-images-title {
     margin-bottom: 8px;
   }
@@ -3091,11 +3094,15 @@ p.ot {
     height: 60px;
   }
   .footer-logo-bottom {
-    font-size: 14px;
+    font-size: 16px;
   }
   .footer-item__img {
     width: 16px;
     height: 16px;
+  }
+  .mobile-footer-logo {
+    width: 22px;
+    height: 22px;
   }
   .footer-item__text {
     font-size: 10px;
