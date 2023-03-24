@@ -53,10 +53,10 @@ class GenerateCrossmAdviceBase:
         # 	frequency_penalty=1.2,
         # 	presence_penalty=1.2,
         # )
-        
+            text_from_response = response.json()['choices'][0]['message']['content']
+            
         except:
             return {'error': True}
-        text_from_response = response.json()['choices'][0]['message']['content']
         result = {'translated': self.translate(response=text_from_response), 'original': text_from_response}
         return result
 
