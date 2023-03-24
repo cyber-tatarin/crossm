@@ -241,6 +241,7 @@
             <div class="container-padding">
             <div class="container-main">
                 <div class="profile">
+                    <h1 class="profile-user__name name-to-show">{{user.first_name}}<br>{{user.last_name}}</h1>
                     <div class="profile-user">
                         <div class="profile-user-left">
                             <div class="profile-user__logo">
@@ -253,10 +254,10 @@
                             </div>
                         </div>
                         <div class="profile-user-right">
-                            <h1 class="profile-user__name">{{user.first_name}} {{user.last_name}}</h1>
+                            <h1 class="profile-user__name name-to-hide">{{user.first_name}} {{user.last_name}}</h1>
                             <div class="city-info">
-                                <span class="profile-user__city">Город:&nbsp</span>
-                                <span class="profile-user__city__name">
+                                <span class="profile-user__city mobile-block">Город:&nbsp</span>
+                                <span class="profile-user__city__name mobile-block">
                                     {% if user.profile_set.all.0.city.city %}
                                     {{user.profile_set.all.0.city.city}}
                                     {% else %}
@@ -264,8 +265,8 @@
                                     {% endif %}
                                 </span>
                                 <div class="">
-                                <span class="profile-user__city">Последний раз был:&nbsp</span>
-                                <span class="profile-user__city__name">{{seen}}</span>
+                                <span class="profile-user__city mobile-block">Последний раз был:&nbsp</span>
+                                <span class="profile-user__city__name mobile-block">{{seen}}</span>
                             </div>
                             </div>
                             <div class="profile__remark">
@@ -362,7 +363,7 @@
 <!--                                </div>-->
                             </div>
 
-                            <hr class="card-hr-solid hr-to-show">
+                            <!-- <hr class="card-hr-solid hr-to-show"> -->
 
 
                         </div>

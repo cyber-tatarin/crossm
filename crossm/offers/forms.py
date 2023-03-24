@@ -37,7 +37,7 @@ class CreateOfferForm(forms.ModelForm):
             }),
             'coupon_price': forms.NumberInput(attrs={
                 'class': 'input input-300px',
-                'placeholder': 'Введите цену купона'
+                'placeholder': 'Введите цену'
             }),
             'currency': forms.Select(choices=BLANK_CHOICE_DASH + get_currency_choices(), attrs={
                 'class': 'js-choice',

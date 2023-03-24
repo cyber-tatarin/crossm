@@ -66,9 +66,7 @@
                       {{form.amount_min|attr:"maxlength:4"}}
                     </div>
 
-                    <p class="input__comment">
-                      Напишите желаемое количество купонов для реализации.
-                    </p>
+                    <!-- <p class="input__comment">Напишите желаемое количество купонов для реализации.</p> -->
                   </div>
 
                   <div class="inputs-part__300px">
@@ -76,9 +74,11 @@
                       {{form.amount_max|attr:"maxlength:4"}}
                     </div>
 
-                    <p class="input__comment">Введите валюту</p>
+                    <!-- <p class="input__comment">Введите валюту</p> -->
                   </div>
                 </div>
+                <p class="input__comment">Напишите желаемое количество купонов для реализации. Точное число или, например ОТ ... или ОТ ... ДО ...</p>
+
               </div>
 
             </div>
@@ -151,7 +151,7 @@
                 <div class="bottom-16px"></div>
                 <p class="input__comment">
                   Выберите нишу Вашей компании. Если в списке нет того, что Вам
-                  <br />нужно, выберите наиболее подходящую
+                  <br class="br-to-hide" />нужно, выберите наиболее подходящую
                 </p>
               </div>
             </div>
@@ -160,12 +160,12 @@
               <hr class="line__dashed line__dashed-620" />
             </div>
 
-            <div class="button-submit">
-              <button class="button" type="submit" name="next" value="{{ request.GET.next }}">
+            <div class="button-submit mobile-not-flex">
+              <button class="button button-240px" type="submit" name="next" value="{{ request.GET.next }}">
                 <p class="button-p">Сохранить</p>
               </button>
 
-				<a href="{% url 'tech-help' %}" class="a-account">
+				<a href="{% url 'tech-help' %}" class="a-account support-mobile">
                             Написать в техподдержку
                         </a>
             </div>
@@ -195,7 +195,7 @@
         </div>
       </div>
     </main>
-    {% include "footer-mobile.html" %}
+    <!-- {% include "footer-mobile.html" %} -->
 
 
     <!--                        <p>Старые фото</p>-->
@@ -247,9 +247,10 @@
         </div>
       </div>
     </section>
+    {% include "footer-mobile.html" %}
+
 
     {% include "footer.html" %}
-    <!-- <div class="bottom-margin"></div> -->
     <script src="{% static 'js/file-animation.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
@@ -311,6 +312,13 @@
         }
 
         input.files = dt.files; // Assign the updates list
+
+        if (imagesArray.length -1 === 0) {
+            // document.querySelector('#test').style.float = 'left';
+            document.querySelector('.button-file').innerText = 'Выбрать файлы';
+            // document.querySelector('.choose-file-button').style.backgroundColor = '#000000';
+        }
+        
         imagesArray.splice(index, 1);
         // displayImages();
       }
