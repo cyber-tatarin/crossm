@@ -260,9 +260,9 @@ input {
   /* max-width: 620px; */
 }
 
-.input-367px {
+.input-bottom {
   /* max-width: 367px; */
-  margin-bottom: 0px;
+  margin-bottom: 16px;
 }
 
 .phone-input {
@@ -355,6 +355,7 @@ input {
 }
 
 .input__comment {
+  margin-right: 24px;
   font-weight: 300;
   font-size: 12px;
   line-height: 15px;
@@ -805,34 +806,38 @@ button:hover {
   border: 2px solid #000000;
 }
 
-.choose-file-button:hover {
-  background-color: rgba(5, 0, 255, 0.4);
-  width: 240px;
-  height: 52px;
-  border: 2px solid #000000;
-  border-radius: 18px;
-  transition: 0.3s ease-out;
-  /* box-shadow: 0 0px 0px 1.6px #000000; */
-}
-
 .choose-file-button {
   /* position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-100%,-50%); */
   cursor: pointer;
-  margin-top: -2px;
-  margin-left: -1.8px;
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(0%, -50%);
+  /* margin-top: -2px;
+  margin-left: -1.8px; */
   display: -webkit-box;
   background-color: #000000;
   width: 240px;
-  height: 52px;
-  border: 2px solid #000000;
+  height: 50px;
+  border: 1px solid #000000;
+  border-right: 2px solid #000000;
   border-radius: 18px;
   font-size: 25px;
   font-weight: bold;
   color: #000000;
-  /* box-shadow: 0px 0px 0px 1.6px #000000; */
+}
+
+.choose-file-button:hover {
+  background-color: rgba(5, 0, 255, 0.4);
+  width: 240px;
+  height: 50px;
+  border: 1px solid #000000;
+  border-right: 2px solid #000000;
+  border-radius: 18px;
+  transition: 0.3s ease-out;
 }
 
 .button-file {
@@ -863,12 +868,14 @@ button:hover {
 
 .after-file {
   background-color: rgba(5, 0, 255, 0.4);
-  border: 2px solid #000000;
-  margin-right: -2px;
+  border: 1px solid #000000;
+  border-left: 2px solid #000000;
 }
 
 .after-file:hover {
   background-color: #000000;
+  border: 1px solid #000000;
+  border-left: 2px solid #000000;
 }
 
 .main {
@@ -1137,7 +1144,6 @@ button:hover {
 
 .card-info {
   display: flex;
-  /* gap: 24px; */
 }
 
 .card__info {
@@ -1897,8 +1903,8 @@ input[type="number"] {
   /* overflow: auto; */
   /* min-width: 500px; */
   position: relative;
-  padding: 64px 52px 104px;
-  margin: auto 16px;
+  padding: 64px 52px 92px;
+  margin: auto;
   width: 100%;
   max-width: 1200px;
   height: 90%;
@@ -2385,6 +2391,10 @@ p.ot {
   margin-left: 0px;
 }
 
+.ol-description-en {
+  margin-left: 0px;
+}
+
 .li-description {
   margin-bottom: 8px;
   font-weight: 500;
@@ -2424,6 +2434,10 @@ p.ot {
 
 .button-is-single {
   max-width:calc(50% - 10px);
+}
+
+.mg-bottom-24px {
+  margin-bottom: 24px;
 }
 
 /* ############################################################## */
@@ -2600,11 +2614,11 @@ p.ot {
   }
 }
 
-@media (max-width: 1025px) and (min-width:930px) {
+/* @media (max-width: 1025px) and (min-width:930px) {
   .choose-file-button {
     margin-top: -1.5px;
   }
-}
+} */
 
 @media (max-width: 992px) {
   .count-reviews {
@@ -2670,8 +2684,23 @@ p.ot {
 }
 
 @media (max-width: 768px) {
+  .profile-content-title {
+    margin-left: 8px;
+  }
+  .card__logo {
+    margin-right: 20px;
+  }
+  .card-info {
+    align-items: center;
+  }
+  .a-height-mobile {
+    height: 128px;
+  }
+  .profile-owner {
+    background-color: transparent;
+  }
   .mg-bottom-16px {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
   .profile-user-info-left {
     margin-bottom: 36px;
@@ -2693,17 +2722,21 @@ p.ot {
   }
   .mobile-not-flex {
     display: block;
+    text-align: center;
   }
   .support-mobile {
     margin-top: 12px;
     display: block;
     text-align: center;
   }
+  .a-inline-mobile {
+    display: inline-block;
+  }
   .card {
     background-color: #fcfcfc;
   }
   .profile {
-    margin-bottom: 30px;
+    margin-bottom: 12px;
   }
   .profile-contacts__title {
     margin-bottom: 8px;
@@ -2724,12 +2757,12 @@ p.ot {
   }
   .profile-user__mail-mobile {
     display: inline-block;
-  padding: 24px 32px;
-  height: 60px;
-  border-radius: 24px;
-  margin-bottom: 12px;
-  background-color: #f7f7f7;
-  box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.08);
+    padding: 24px 32px;
+    height: 60px;
+    border-radius: 24px;
+    margin-bottom: 8px;
+    background-color: #f7f7f7;
+    box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.08);
   }
   .profile-user__phone-mobile {
     display: flex;
@@ -2763,6 +2796,7 @@ p.ot {
     margin-top: 140px;
   }
   .profile-user {
+    gap: 24px;
     background-color: transparent;
     padding: 0px 13px 36px;
     height: auto;
@@ -2827,6 +2861,9 @@ p.ot {
   }
   .catalog-filters-container {
     padding-top: 24px;
+  }
+  .company-name {
+    margin-bottom: 0px;
   }
   .p-filters-pc {
     margin-bottom: 16px;
@@ -2909,11 +2946,14 @@ p.ot {
   }
   .section-instruction {
     padding: 16px;
-    border-radius: 16px;
+    border-radius: 24px;
   }
   .footer-margin {
     display: block;
     /* margin-bottom: 108px; */
+  }
+  .input-bottom {
+    margin-bottom: 12px;
   }
   .footer-bottom {
     display: block;
@@ -2936,6 +2976,7 @@ p.ot {
     display: block;
   }
   .container {
+    background-color: transparent;
     padding: 24px 5px 0px;
     border-radius: 0px;
   }
@@ -2943,8 +2984,8 @@ p.ot {
     display: none;
   }
   .container-help {
-    padding: 16px;
-    border-radius: 16px;
+    border-radius: 0px;
+    background-color: transparent;
   }
   .images-body {
     padding: 20px 12px 72px;
@@ -2958,6 +2999,34 @@ p.ot {
   .mg-bottom-0px {
     margin-bottom: 0px;
   }
+  .greeting {
+    background-color: transparent;
+  }
+  .container-instruction {
+    background-color: transparent;
+  }
+  .li-description {
+    font-weight: 400;
+  }
+  .attachments-mobile {
+    text-align: center;
+    margin-left: 0px;
+    margin-bottom: 20px;
+    margin-top: 4px;
+  }
+  .inputs-part__double-flex {
+    gap: 8px;
+  }
+  .bottom-16px {
+    margin-bottom: 8px;
+  }
+  .input {
+    margin-bottom: 8px;
+  }
+  .inputs-part__title {
+    margin-bottom: 8px;
+  }
+  
   /* .read-reviews {
     display: none;
   }
@@ -2967,9 +3036,9 @@ p.ot {
 }
 
 @media (max-width: 718px) {
-  .choose-file-button {
+  /* .choose-file-button {
     margin-top: -1px;
-  }
+  } */
   .choose-file-container {
     height: 53px;
   }
@@ -2996,6 +3065,19 @@ p.ot {
 }
 
 @media(max-width:600px) {
+  #attention {
+    display: block;
+  }
+  .ol-description-ru {
+    margin-bottom: 24px;
+    margin-left: 13px;
+  }
+  .ol-description-en {
+    margin-left: 13px;
+  }
+  .answers {
+    display: block;
+  }
   .description-example {
     margin-left: 30px;
   }
@@ -3044,6 +3126,17 @@ p.ot {
 }
 
 @media (max-width: 500px) {
+  .card__logo {
+    width: 60px;
+    height: 60px;
+    margin-right: 12px;
+  }
+  .a-height-mobile {
+    height: 108px;
+  }
+  .footer-margin {
+    height: 88px;
+  }
   .count-reviews {
     display: none;
   }
@@ -3053,9 +3146,6 @@ p.ot {
   }
   .company-name {
     margin-bottom: 0px;
-  }
-  .card-info {
-    align-items: center;
   }
   .grid-item {
     padding: 16px;
@@ -3077,8 +3167,8 @@ p.ot {
     min-width: 50px;
   }
   .card__img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
   }
   .pop-up-exit {
     width: 20px;
@@ -3114,7 +3204,7 @@ p.ot {
     height: 53px;
   }
   .choose-file-button {
-    margin-top: -1.5px;
+    /* margin-top: -1.5px; */
     width: 180px;
   }
   .choose-file-button:hover {

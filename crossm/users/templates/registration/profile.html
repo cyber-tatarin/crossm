@@ -29,7 +29,7 @@
             <div class="container-padding">
             <div class="container-main">
                 <div class="profile">
-                    <h1 class="profile-user__name name-to-show">{{user.first_name}}<br>{{user.last_name}}</h1>
+                    <h1 class="profile-user__name name-to-show">{{user.first_name}} {{user.last_name}}</h1>
 
                     <!-- <div class="profile-user" 
                     style="height:auto;"
@@ -100,7 +100,7 @@
                         </div>
                         {% endif %}
                     </div>
-                    <div style="padding: 0px 13px;" class="button-240px button-to-show">
+                    <div style="padding: 16px 13px;" class="button-240px button-to-show">
                         <button class="button" onclick="window.location.href = '{% url 'update-profile' %}'">
                             <p class="button-p">Редактировать профиль</p>
                         </button>
@@ -158,42 +158,27 @@
                                 </div>
                                 <div class="card__info">
                                     <h3 onclick="window.location.href = '{% url 'companies:company-page' company.id %}'" class="company-name">{{company.title}}</h3>
-                                    <div class="company-title to-hide-500px">
-                                        <span class="company-sphere">Ниша:&nbsp</span>
-                                        <span class="company-sphere-name">{{company.niche}}</span>
+                                    <div class="company-title name-to-hide">
+                                        <span class="company-sphere mobile-block">Ниша:&nbsp</span>
+                                        <span class="company-sphere-name mobile-block">{{company.niche}}</span>
                                     </div>
-                                    <div class="company-title company-title-12px to-hide-500px">
-                                        <span class="company-position">Должность в компании:&nbsp</span>
+                                    <div class="company-title name-to-hide company-title-12px">
+                                        <span class="company-position mobile-block">Должность в компании:&nbsp</span>
                                         {% if company.role %}
-                                        <span class="company-position-name">{{company.role}}</span>
+                                        <span class="company-position-name mobile-block">{{company.role}}</span>
                                         {% else %}
-                                        <span class="company-position-name">-</span>
+                                        <span class="company-position-name mobile-block">-</span>
                                         {% endif %}
                                     </div>
 
                                     {% if company.link %}
-                                    <a style="margin-bottom: 24px;" href="{{company.link}}" class="company-link to-hide-500px">{{company.link}}</a>
+                                    <a style="margin-bottom: 24px;" href="{{company.link}}" class="company-link name-to-hide">{{company.link}}</a>
                                     {% else %}
-                                    <a style="margin-bottom: 24px;" href="{% url 'companies:company-page' company.id %}" class="company-link to-hide-500px">{% url 'companies:company-page' company.id %}</a>
+                                    <a style="margin-bottom: 24px;" href="{% url 'companies:company-page' company.id %}" class="company-link name-to-hide">{% url 'companies:company-page' company.id %}</a>
                                     {% endif %}
 
                                 </div>
                                 
-
-
-                                <div class="company-title to-show-500px">
-                                    <span class="company-sphere">Ниша:&nbsp</span>
-                                    <span class="company-sphere-name">{{company.niche}}</span>
-                                </div>
-                                <div class="company-title company-title-12px to-show-500px">
-                                    <span class="company-position">Должность в компании:&nbsp</span>
-                                    {% if company.role %}
-                                    <span class="company-position-name">{{company.role}}</span>
-                                    {% else %}
-                                    <span class="company-position-name">-</span>
-                                    {% endif %}
-                                </div>
-
                            
 <!--                                <div class="card-reviews">-->
 <!--                                    <span class="reviews-count">Отзывы(7)</span>-->
@@ -206,6 +191,28 @@
 <!--                                    </div>-->
 <!--                                </div>-->
                             </div>
+
+                            <hr class="card-hr-solid hr-to-show">
+
+                            <div class="company-title name-to-show">
+                                <span class="company-sphere mobile-block">Ниша:&nbsp</span>
+                                <span class="company-sphere-name mobile-block">{{company.niche}}</span>
+                            </div>
+                            <hr class="mobile-card-dashed">
+                            <div class="company-title company-title-12px name-to-show">
+                                <span class="company-position mobile-block">Должность в компании:&nbsp</span>
+                                {% if company.role %}
+                                <span class="company-position-name mobile-block">{{company.role}}</span>
+                                {% else %}
+                                <span class="company-position-name mobile-block">-</span>
+                                {% endif %}
+                            </div>
+                            <hr class="card-hr-solid hr-to-show">
+                            {% if company.link %}
+                                    <a href="{{company.link}}" class="company-link name-to-show">{{company.link}}</a>
+                                    {% else %}
+                                    <a href="{% url 'companies:company-page' company.id %}" class="company-link name-to-show">{% url 'companies:company-page' company.id %}</a>
+                                    {% endif %}
 
                             <hr class="card-hr-solid hr-to-show">
 
@@ -241,7 +248,7 @@
             <div class="container-padding">
             <div class="container-main">
                 <div class="profile">
-                    <h1 class="profile-user__name name-to-show">{{user.first_name}}<br>{{user.last_name}}</h1>
+                    <h1 class="profile-user__name name-to-show">{{user.first_name}} {{user.last_name}}</h1>
                     <div class="profile-user">
                         <div class="profile-user-left">
                             <div class="profile-user__logo">
@@ -269,7 +276,7 @@
                                 <span class="profile-user__city__name mobile-block">{{seen}}</span>
                             </div>
                             </div>
-                            <div class="profile__remark">
+                            <div class="profile__remark name-to-hide">
                                 {% if user.profile_set.all.0.bio %}
                                 {{user.profile_set.all.0.bio}}
                                 {% endif %}
@@ -282,10 +289,17 @@
                             <p class="user__mail">{{user.email}}</p>
                         </div>
                         {% if user.profile_set.all.0.phone_num_show %}
+                        <hr style="margin:0px 0px 4px;" class="mobile-card-dashed">
                         <div class="profile-user__phone">
                             <p class="user__phone">{{user.profile_set.all.0.phone_num}}</p>
                         </div>
                         {% endif %}
+                        <hr class="card-hr-solid hr-to-show">
+                        <div class="profile__remark name-to-show">
+                            {% if user.profile_set.all.0.bio %}
+                            {{user.profile_set.all.0.bio}}
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
 
@@ -317,40 +331,25 @@
                                 </div>
                                 <div class="card__info">
                                     <h3 onclick="window.location.href = '{% url 'companies:company-page' company.id %}'" class="company-name">{{company.title}}”</h3>
-                                    <div class="company-title to-hide-500px">
-                                        <span class="company-sphere">Ниша:&nbsp</span>
-                                        <span class="company-sphere-name">{{company.niche}}</span>
+                                    <div class="company-title name-to-hide">
+                                        <span class="company-sphere mobile-block">Ниша:&nbsp</span>
+                                        <span class="company-sphere-name mobile-block">{{company.niche}}</span>
                                     </div>
-                                    <div class="company-title company-title-12px to-hide-500px">
-                                        <span class="company-position">Должность в компании:&nbsp</span>
+                                    <div class="company-title name-to-hide company-title-12px">
+                                        <span class="company-position mobile-block">Должность в компании:&nbsp</span>
                                         {% if company.role %}
-                                        <span class="company-position-name">{{company.role}}</span>
+                                        <span class="company-position-name mobile-block">{{company.role}}</span>
                                         {% else %}
-                                        <span class="company-position-name">-</span>
+                                        <span class="company-position-name mobile-block">-</span>
                                         {% endif %}
                                     </div>
                                     {% if company.link %}
-                                    <a href="{{company.link}}" class="company-link to-hide-500px">{{company.link}}</a>
+                                    <a href="{{company.link}}" class="company-link name-to-hide">{{company.link}}</a>
                                     {% else %}
-                                    <a href="{% url 'companies:company-page' company.id %}" class="company-link to-hide-500px">{% url 'companies:company-page' company.id %}</a>
+                                    <a href="{% url 'companies:company-page' company.id %}" class="company-link name-to-hide">{% url 'companies:company-page' company.id %}</a>
                                     {% endif %}
                                 </div>
 
-
-
-                                <div class="company-title to-show-500px">
-                                    <span class="company-sphere">Ниша:&nbsp</span>
-                                    <span class="company-sphere-name">{{company.niche}}</span>
-                                </div>
-                                <div class="company-title company-title-12px to-show-500px">
-                                    <span class="company-position">Должность в компании:&nbsp</span>
-                                    {% if company.role %}
-                                    <span class="company-position-name">{{company.role}}</span>
-                                    {% else %}
-                                    <span class="company-position-name">-</span>
-                                    {% endif %}
-                                </div>
-                              
 <!--                                <div class="card-reviews">-->
 <!--                                    <span class="reviews-count">Отзывы(7)</span>-->
 <!--                                    <div class="rating-mini">-->
@@ -361,7 +360,31 @@
 <!--                                        <span class="not-active"></span>-->
 <!--                                    </div>-->
 <!--                                </div>-->
+                            </div>  
+
+                            <hr class="card-hr-solid hr-to-show">
+
+                            <div class="company-title name-to-show">
+                                <span class="company-sphere mobile-block">Ниша:&nbsp</span>
+                                <span class="company-sphere-name mobile-block">{{company.niche}}</span>
                             </div>
+                            <hr class="mobile-card-dashed">
+                            <div class="company-title company-title-12px name-to-show">
+                                <span class="company-position mobile-block">Должность в компании:&nbsp</span>
+                                {% if company.role %}
+                                <span class="company-position-name mobile-block">{{company.role}}</span>
+                                {% else %}
+                                <span class="company-position-name mobile-block">-</span>
+                                {% endif %}
+                            </div>
+                            <hr class="card-hr-solid hr-to-show">
+                            {% if company.link %}
+                                    <a href="{{company.link}}" class="company-link name-to-show">{{company.link}}</a>
+                                    {% else %}
+                                    <a href="{% url 'companies:company-page' company.id %}" class="company-link name-to-show">{% url 'companies:company-page' company.id %}</a>
+                                    {% endif %}
+
+                            <hr class="card-hr-solid hr-to-show">
 
                             <!-- <hr class="card-hr-solid hr-to-show"> -->
 
