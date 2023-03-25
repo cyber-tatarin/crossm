@@ -221,7 +221,7 @@
                     </div>
 
                     <hr style = "margin-bottom: 32px" class="hr-solid hr-to-hide">
-                        <hr style="margin-bottom: 32px;" class="card-hr-solid hr-to-show">
+                        <hr class="card-hr-solid hr-to-show">
 
                     <!-- <hr class="hr-solid"> -->
                     {% if offer.has_photo %}
@@ -233,12 +233,9 @@
                             <p class="button-p">Посмотреть вложения</p>
                         </button>
                         {% endif %}
+                        <hr class="card-hr-solid hr-to-show">
                     <div class="company-card-buttons">
-
-
-                        
-
-
+                    
                         <button class="button button-282px" onclick="window.location.href = '{% url 'offers:update-offer' offer.id %}'">
                             <p class="button-p">Редактировать предложение</p>
                         </button>

@@ -430,19 +430,21 @@
                                                 <p class="company-key">{{offer.type}}</p>
                                                 <p class="company-value no-bottom" >{{offer.title}}</p>
                                             </div>
+                                            <hr class="mobile-card-dashed">
                                             <div class=""> 
                                                 <p class="company-key">Розничная цена</p>
                                                 <p class="company-value no-bottom">{{offer.retail_price}} {{offer.currency}}</p>
                                             </div>
                                         </div>
+                                        <hr class="card-hr-solid">    
                                         <!-- <div class="hr-solid-vertical"></div> -->
                                         <div class="company-content-right">
                                             <div class="flex-content-no-gap">
                                                 <div class="">
                                                 <p class="company-key">Количество купонов</p>
-                                                <p class="company-value">От {{offer.amount_min}} до {{offer.amount_max}}</p>
+                                                <p class="company-value no-bottom">От {{offer.amount_min}} до {{offer.amount_max}}</p>
                                                 </div>
-                                                
+                                                <hr class="mobile-card-dashed">
                                                 <div class="">
                                                 <p class="company-key">Цена купона</p>
                                                 <p class="company-value no-bottom">{{offer.coupon_price}} {{offer.currency}}</p>
@@ -467,7 +469,7 @@
                                         </div>
                                     </div>
                                     </div>
-                                    <hr style="margin-bottom: 20px;" class="card-hr-solid">
+                                    <hr class="card-hr-solid">
                                     <div class="company-card-buttons">
                                         <button class="button button-282px" onclick="window.location.href = '{% url 'offers:update-offer' offer.id %}?next={{ request.path|urlencode }}'">
                                             <p class="button-p">Редактировать предложение</p>
@@ -513,19 +515,21 @@
                                                 <p class="company-key">{{offer.type}}</p>
                                                 <p class="company-value no-bottom">{{offer.title}} </p>
                                             </div>
+                                            <hr class="mobile-card-dashed">
                                             <div class="">
                                                 <p class="company-key">Розничная цена</p>
                                                 <p class="company-value no-bottom">{{offer.retail_price}} {{offer.currency}}</p>
                                             </div>
                                         </div>
+                                        <hr class="card-hr-solid">  
                                         <!-- <div class="hr-solid-vertical"></div> -->
                                         <div class="company-content-right">
                                             <div class="flex-content-no-gap">
                                                 <div class="">
                                                 <p class="company-key">Количество купонов</p>
-                                                <p class="company-value">От {{offer.amount_min}} до {{offer.amount_max}}</p>
+                                                <p class="company-value  no-bottom">От {{offer.amount_min}} до {{offer.amount_max}}</p>
                                                 </div>
-
+                                                <hr class="mobile-card-dashed">
                                                 <div class="">
                                                 <p class="company-key">Цена купона</p>
                                                 <p class="company-value no-bottom">{{offer.coupon_price}} {{offer.currency}}</p>
@@ -536,7 +540,7 @@
 
                                     <hr class="card-hr-solid">
                                     <div class="company-card-main">
-                                        <div class="card-button-single">
+                                        <div class="card-button-single card-button-single-alone">
                                         <div class="flex-content">
                                             {% if offer.has_photo %}
                                             <button id="get-img-{{offer.id}}" style="margin-top: -2px; max-width: 100%;" class="button check-pop-up">
@@ -550,7 +554,7 @@
                                         </div>
                                     </div>
                                     </div>
-                                    <hr class="card-hr-solid">
+                                    <!-- <hr class="card-hr-solid"> -->
                                 </div>
 
                     {% endfor %}
