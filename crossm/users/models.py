@@ -12,9 +12,20 @@ class Cities(models.Model):
 
 
 class User(AbstractUser):
+    NEWBIE = 1
+    COMPLETE = 2
+    MEMBER = 3
+    
+    ROLE_CHOICES = (
+        (NEWBIE, 'Newbie'),
+        (COMPLETE, 'Complete'),
+        (MEMBER, 'Member'),
+    )
+    
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    allowed = models.BooleanField(default=0)
+
+    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, null=False, default=NEWBIE)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']

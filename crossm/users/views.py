@@ -11,7 +11,7 @@ from django.views import View
 from django.views.generic import TemplateView
 from funcy import omit
 from last_seen.models import LastSeen
-
+from .mixins import AccessForCompletesOnlyMixin
 import crossm.settings.settingsa
 from .forms import UserCreateForm, UserLoginForm, ProfileInfoForm, ProfileUpdateForm
 from .models import Profile, Cities, User
@@ -34,9 +34,9 @@ def get_profile_ph(request):
 		return None
 
 
-def is_allowed(request):
-	if not request.user.allowed:
-		raise PermissionError
+# def is_allowed(request):
+# 	if not request.user.allowed:
+# 		raise PermissionError
 
 
 class RegisterView(View):
@@ -70,7 +70,7 @@ class SetProfileInfo(LoginRequiredMixin, View):
 	template_name = 'registration/setprofileinfo.html'
 	
 	def get(self, request):
-		if request.user.allowed:
+		if request.user.role != 'newbie':
 			raise Http404
 		
 		context = {
@@ -80,7 +80,7 @@ class SetProfileInfo(LoginRequiredMixin, View):
 		return render(request, self.template_name, context)
 	
 	def post(self, request):
-		if request.user.allowed:
+		if request.user.role != 'newbie':
 			raise Http404
 		
 		form = ProfileInfoForm(request.POST)
@@ -92,7 +92,7 @@ class SetProfileInfo(LoginRequiredMixin, View):
 			obj.user = request.user
 			obj.city = Cities.objects.get(city=data['city'])
 			obj.save()
-			request.user.allowed = 1
+			request.user.role = 'complete'
 			request.user.save()
 			return redirect('companies:create-company')
 		
@@ -134,15 +134,15 @@ class LoginView(View):
 		return render(request, self.template_name, context)
 
 
-class ProfileView(LoginRequiredMixin, View):
+class ProfileView(AccessForCompletesOnlyMixin, View):
 	template_name = 'registration/profile.html'
 	
 	def get(self, request, **kwargs):
 		
-		try:
-			is_allowed(request)
-		except PermissionError:
-			return redirect('set-profile-info')
+		# try:
+		# 	is_allowed(request)
+		# except PermissionError:
+		# 	return redirect('set-profile-info')
 		
 		owner = 0
 		s_user = kwargs['pk']
@@ -170,15 +170,15 @@ class ProfileView(LoginRequiredMixin, View):
 		return render(request, self.template_name, context)
 
 
-class ProfileUpdateView(LoginRequiredMixin, View):
+class ProfileUpdateView(AccessForCompletesOnlyMixin, View):
 	template_name = 'registration/update_profile.html'
 	
 	def get(self, request):
 		
-		try:
-			is_allowed(request)
-		except PermissionError:
-			return redirect('set-profile-info')
+		# try:
+		# 	is_allowed(request)
+		# except PermissionError:
+		# 	return redirect('set-profile-info')
 		
 		profile = get_object_or_404(Profile, user=request.user)
 		
@@ -198,10 +198,10 @@ class ProfileUpdateView(LoginRequiredMixin, View):
 	
 	def post(self, request):
 		
-		try:
-			is_allowed(request)
-		except PermissionError:
-			return redirect('set-profile-info')
+		# try:
+		# 	is_allowed(request)
+		# except PermissionError:
+		# 	return redirect('set-profile-info')
 		
 		form = ProfileUpdateForm(request.user.id, request.POST)
 		
@@ -310,4 +310,7 @@ class TechnicalHelp(View):
 
 class CrossMHelp(TechnicalHelp):
 	template_name = 'registration/crossm_help.html'
- 
+
+
+class UserEnrollment(LoginRequiredMixin, TemplateView):
+	template_name = 'registration/user_enrollment.html'

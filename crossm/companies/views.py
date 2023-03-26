@@ -10,18 +10,19 @@ from .models import Companies, Countries
 from funcy import omit
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, JsonResponse, HttpResponseRedirect
-from users.views import get_profile_ph, is_allowed
+from users.views import get_profile_ph
+from users.mixins import AccessForCompletesOnlyMixin
 
 
-class CreateCompanyView(LoginRequiredMixin, View):
+class CreateCompanyView(AccessForCompletesOnlyMixin, View):
     template_name = 'companies/create_company.html'
 
     def get(self, request):
 
-        try:
-            is_allowed(request)
-        except PermissionError:
-            return redirect('set-profile-info')
+        # try:
+        #     is_allowed(request)
+        # except PermissionError:
+        #     return redirect('set-profile-info')
 
         context = {
             'form': CompanyCreateForm(),
@@ -31,10 +32,10 @@ class CreateCompanyView(LoginRequiredMixin, View):
 
     def post(self, request):
 
-        try:
-            is_allowed(request)
-        except PermissionError:
-            return redirect('set-profile-info')
+        # try:
+        #     is_allowed(request)
+        # except PermissionError:
+        #     return redirect('set-profile-info')
 
         form = CompanyCreateForm(request.POST)
 
@@ -62,15 +63,15 @@ class CreateCompanyView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
-class CompanyPageView(LoginRequiredMixin, View):
+class CompanyPageView(AccessForCompletesOnlyMixin, View):
     template_name = 'companies/company_page.html'
 
     def get(self, request, **kwargs):
 
-        try:
-            is_allowed(request)
-        except PermissionError:
-            return redirect('set-profile-info')
+        # try:
+        #     is_allowed(request)
+        # except PermissionError:
+        #     return redirect('set-profile-info')
 
         company = Companies.objects.filter(id=kwargs['pk']).select_related('owner').all(). \
             prefetch_related('offers_set', 'owner__profile_set').all()
@@ -98,15 +99,15 @@ class DeleteCompanyView(LoginRequiredMixin, View):
         return JsonResponse({'success': True})
 
 
-class UpdateCompanyView(LoginRequiredMixin, View):
+class UpdateCompanyView(AccessForCompletesOnlyMixin, View):
     template_name = 'companies/update_company.html'
 
     def get(self, request, **kwargs):
-
-        try:
-            is_allowed(request)
-        except PermissionError:
-            return redirect('set-profile-info')
+        
+        # try:
+        #     is_allowed(request)
+        # except PermissionError:
+        #     return redirect('set-profile-info')
 
         obj = get_object_or_404(Companies, id=kwargs['pk'], owner=request.user)
         form = CompanyCreateForm(initial={
@@ -124,10 +125,10 @@ class UpdateCompanyView(LoginRequiredMixin, View):
 
     def post(self, request, **kwargs):
 
-        try:
-            is_allowed(request)
-        except PermissionError:
-            return redirect('set-profile-info')
+        # try:
+        #     is_allowed(request)
+        # except PermissionError:
+        #     return redirect('set-profile-info')
 
         form = CompanyCreateForm(request.POST)
 

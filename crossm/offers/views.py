@@ -16,18 +16,19 @@ from django.db.models.signals import post_delete, pre_save
 from users.views import get_profile_ph
 from users.models import Profile
 import json
-from users.views import is_allowed
+from users.mixins import AccessForCompletesOnlyMixin
+# from users.views import is_allowed
 
 
-class CreateOfferView(LoginRequiredMixin, View):
+class CreateOfferView(AccessForCompletesOnlyMixin, View):
     template_name = 'offers/create_offer.html'
 
     def get(self, request, **kwargs):
 
-        try:
-            is_allowed(request)
-        except PermissionError:
-            return redirect('set-profile-info')
+        # try:
+        #     is_allowed(request)
+        # except PermissionError:
+        #     return redirect('set-profile-info')
 
         context = {
             'form': CreateOfferForm(),
@@ -37,10 +38,10 @@ class CreateOfferView(LoginRequiredMixin, View):
 
     def post(self, request, **kwargs):
 
-        try:
-            is_allowed(request)
-        except PermissionError:
-            return redirect('set-profile-info')
+        # try:
+        #     is_allowed(request)
+        # except PermissionError:
+        #     return redirect('set-profile-info')
 
         form = CreateOfferForm(request.POST, request.FILES)
         company_id = kwargs['pk']
@@ -86,15 +87,15 @@ class DeleteOfferView(LoginRequiredMixin, View):
         return JsonResponse(data)
 
 
-class UpdateOfferView(LoginRequiredMixin, View):
+class UpdateOfferView(AccessForCompletesOnlyMixin, View):
     template_name = 'offers/update_offer.html'
 
     def get(self, request, **kwargs):
 
-        try:
-            is_allowed(request)
-        except PermissionError:
-            return redirect('set-profile-info')
+        # try:
+        #     is_allowed(request)
+        # except PermissionError:
+        #     return redirect('set-profile-info')
 
         obj = get_object_or_404(Offers, id=kwargs['pk'])
 
@@ -118,10 +119,10 @@ class UpdateOfferView(LoginRequiredMixin, View):
 
     def post(self, request, **kwargs):
 
-        try:
-            is_allowed(request)
-        except PermissionError:
-            return redirect('set-profile-info')
+        # try:
+        #     is_allowed(request)
+        # except PermissionError:
+        #     return redirect('set-profile-info')
 
         instance = get_object_or_404(Offers, id=kwargs['pk'])
 
@@ -171,15 +172,15 @@ def post_save_image(sender, instance, *args, **kwargs):
         pass
 
 
-class MyOffersPageView(LoginRequiredMixin, View):
+class MyOffersPageView(AccessForCompletesOnlyMixin, View):
     template_name = 'offers/my_offers.html'
 
     def get(self, request, **kwargs):
 
-        try:
-            is_allowed(request)
-        except PermissionError:
-            return redirect('set-profile-info')
+        # try:
+        #     is_allowed(request)
+        # except PermissionError:
+        #     return redirect('set-profile-info')
 
         objects = Companies.objects.filter(owner=request.user).prefetch_related('offers_set',
                                                                                 'owner__profile_set').all()
