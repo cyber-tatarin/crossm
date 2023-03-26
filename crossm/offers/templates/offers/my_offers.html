@@ -74,7 +74,7 @@
                             <div class="pop-up-exit">
 
                             </div>
-                            <div style="margin-bottom: 32px; margin-right: 36px;" class="flex card-pop-up-mobile">
+                            <div style="margin-bottom: 12px; margin-right: 36px;" class="flex card-pop-up-mobile">
                             <p class="pop-up-images-title"></p>
                             <div style="margin-right: 16px;" class="">
                                 <span class="profile-user__city">Услуга:&nbsp</span>
@@ -96,15 +96,15 @@
 
 
             <div class="card-container">
-                <p class="offers-mobile">Мои предложения</p>
+                <p class="offers-mobile margin-left-mobile">Мои предложения</p>
                     {% if objects %}
-                <div class="all-companies">
+                <div class="all-companies margin-left-mobile">
                     {% for company in objects %}
                     <span id="{{company.id}}" class="company">{{company.title}}</span>
                     {% endfor %}
                 </div>
 
-                <a class="add-offer">Добавить предложение</a>
+                <a class="add-offer margin-left-mobile">Добавить предложение</a>
                 
                 <div class="pop-up">
                     <div class="pop-up-arrow"></div>
@@ -221,7 +221,7 @@
                     </div>
 
                     <hr style = "margin-bottom: 32px" class="hr-solid hr-to-hide">
-                        <hr style="margin-bottom: 32px;" class="card-hr-solid hr-to-show">
+                        <hr class="card-hr-solid hr-to-show">
 
                     <!-- <hr class="hr-solid"> -->
                     {% if offer.has_photo %}
@@ -233,12 +233,9 @@
                             <p class="button-p">Посмотреть вложения</p>
                         </button>
                         {% endif %}
+                        <hr class="card-hr-solid hr-to-show">
                     <div class="company-card-buttons">
-
-
-                        
-
-
+                    
                         <button class="button button-282px" onclick="window.location.href = '{% url 'offers:update-offer' offer.id %}'">
                             <p class="button-p">Редактировать предложение</p>
                         </button>

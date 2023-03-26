@@ -46,7 +46,7 @@
                         <p class="filter-subtitle" style="margin-bottom: 12px;">Ниша</p>
                         <div style="margin-bottom: 16px;" class="filters-choices">
                             <select class="js-choice">
-                                <option value="" selected>Все</option>
+                                <option id="main-option1" value="" selected>Все</option>
                                 {% for niche in niches %}
                                 <option value="1">{{niche.niche}}</option>
                                 {% endfor %}
@@ -70,7 +70,7 @@
                         <p class="filter-subtitle" style="margin-bottom: 9px;">Валюта</p>
                         <div style="margin-bottom: 16px;" class="filters-choices">
                             <select class="js-choice">
-                                <option value="" selected>Все</option>
+                                <option id="main-option2" value="" selected>Все</option>
                                 {% for currency in currencies %}
                                 <option value="1">{{currency.currency}}</option>
                                 {% endfor %}
@@ -121,8 +121,12 @@
                         </div> 
                         <hr style="margin-bottom: 24px;" class="line__dashed-filters">
                         
-                            <button id="sort-button" class="button">
+                            <button style="margin-bottom:8px;" id="sort-button" class="button">
                                 <p class="button-p">Показать результаты</p>
+                            </button>
+
+                            <button id="reset-button" class="button">
+                                <p class="button-p">Сбросить фильтры</p>
                             </button>
                         
                     </div>
@@ -156,7 +160,7 @@
 
             
             <div class="card-container">
-                <div class="flex margin-left-mobile">
+                <div class="flex">
                 <h2 class="main-title main-title-pc">
                     Предложения
                 </h2>
