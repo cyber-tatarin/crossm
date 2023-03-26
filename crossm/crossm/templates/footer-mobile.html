@@ -3,7 +3,7 @@
             <div class="footer-bottom__content">
                 <a href="{% url 'instruction' %}" class="footer-logo-bottom">
                     <p class="">КроссМ</p>
-                    <p class="p-mobile-logo">инструкция</p>
+                    <p class="p-mobile-logo p-mobile-instruction">инструкция</p>
 
                 </a>
                 <a href="{% url 'offers:catalog' %}" class="footer-item">
@@ -21,11 +21,13 @@
 				{% if request.user.is_authenticated %}
                 <a href="{% url 'view-profile' request.user.id %}" class="footer-item">
                     <img style="margin-bottom: 2px; margin-top: -2px;   border-radius: 50%;" src="../../../static/images/Dima.jpg" class="footer-item__img">
+
                     <p class="footer-item__text">профиль</p>
+                    
                 </a>
 				{% else %}
 				<a href="{% url 'login' %}" class="footer-item">
-                    <img style="margin-bottom: 2px; margin-top: -2px;   border-radius: 50%;" src="/media/images/no_company_logo.png" class="footer-item__img">
+                    <img style="margin-bottom: 2px; margin-top: -2px;   border-radius: 50%;" src="/media/images/no_company_logo.png" class="footer-item__img mobile-footer-logo">
                     <p class="footer-item__text">вход</p>
                 </a>
 				{% endif %}
