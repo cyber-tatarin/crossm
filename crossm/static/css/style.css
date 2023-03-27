@@ -2528,6 +2528,7 @@ p.ot {
 }
 
 .enrollment {
+  border-radius: 50px;
   margin: 0 auto;
   max-width: 920px;
   padding: 40px 48px;
@@ -2827,6 +2828,7 @@ p.ot {
 
 @media (max-width: 768px) {
   .enrollment {
+    border-radius: 0px;
     padding: 0px 5px;
   }
   .enrollment-title {
