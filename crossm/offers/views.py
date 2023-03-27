@@ -16,11 +16,11 @@ from django.db.models.signals import post_delete, pre_save
 from users.views import get_profile_ph
 from users.models import Profile
 import json
-from users.mixins import AccessForCompletesOnlyMixin
+from users.mixins import AccessForCompletesOnlyMixin, AccessForMembersOnlyMixin
 # from users.views import is_allowed
 
 
-class CreateOfferView(AccessForCompletesOnlyMixin, View):
+class CreateOfferView(AccessForMembersOnlyMixin, View):
     template_name = 'offers/create_offer.html'
 
     def get(self, request, **kwargs):
@@ -75,7 +75,7 @@ class CreateOfferView(AccessForCompletesOnlyMixin, View):
         return render(request, self.template_name, context)
 
 
-class DeleteOfferView(LoginRequiredMixin, View):
+class DeleteOfferView(AccessForMembersOnlyMixin, View):
     def post(self, request, **kwargs):
         obj = get_object_or_404(Offers, id=request.POST.get('id'))
 
@@ -87,7 +87,7 @@ class DeleteOfferView(LoginRequiredMixin, View):
         return JsonResponse(data)
 
 
-class UpdateOfferView(AccessForCompletesOnlyMixin, View):
+class UpdateOfferView(AccessForMembersOnlyMixin, View):
     template_name = 'offers/update_offer.html'
 
     def get(self, request, **kwargs):
@@ -153,7 +153,7 @@ class UpdateOfferView(AccessForCompletesOnlyMixin, View):
         return render(request, self.template_name, context)
 
 
-class OfferImageDeleteView(LoginRequiredMixin, View):
+class OfferImageDeleteView(AccessForMembersOnlyMixin, View):
     def get(self, request, **kwargs):
         post = get_object_or_404(OffersImages, id=request.GET.get('id'))
         if post.offer.company.owner == request.user:
@@ -172,7 +172,7 @@ def post_save_image(sender, instance, *args, **kwargs):
         pass
 
 
-class MyOffersPageView(AccessForCompletesOnlyMixin, View):
+class MyOffersPageView(AccessForMembersOnlyMixin, View):
     template_name = 'offers/my_offers.html'
 
     def get(self, request, **kwargs):
@@ -191,7 +191,7 @@ class MyOffersPageView(AccessForCompletesOnlyMixin, View):
         return render(request, self.template_name, context)
 
 
-class SendImagesView(View):
+class SendImagesView(AccessForMembersOnlyMixin, View):
     def get(self, request, **kwargs):
         images = OffersImages.objects.filter(offer=request.GET.get('id')).all()
         res = []

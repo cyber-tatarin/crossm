@@ -11,10 +11,10 @@ from funcy import omit
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, JsonResponse, HttpResponseRedirect
 from users.views import get_profile_ph
-from users.mixins import AccessForCompletesOnlyMixin
+from users.mixins import AccessForCompletesOnlyMixin, AccessForMembersOnlyMixin
 
 
-class CreateCompanyView(AccessForCompletesOnlyMixin, View):
+class CreateCompanyView(AccessForMembersOnlyMixin, View):
     template_name = 'companies/create_company.html'
 
     def get(self, request):
@@ -91,7 +91,7 @@ class CompanyPageView(AccessForCompletesOnlyMixin, View):
         return render(request, self.template_name, context)
 
 
-class DeleteCompanyView(LoginRequiredMixin, View):
+class DeleteCompanyView(AccessForMembersOnlyMixin, View):
 
     def post(self, request, **kwargs):
         obj = get_object_or_404(Companies, id=request.POST.get('id'), owner=request.user)
@@ -99,7 +99,7 @@ class DeleteCompanyView(LoginRequiredMixin, View):
         return JsonResponse({'success': True})
 
 
-class UpdateCompanyView(AccessForCompletesOnlyMixin, View):
+class UpdateCompanyView(AccessForMembersOnlyMixin, View):
     template_name = 'companies/update_company.html'
 
     def get(self, request, **kwargs):
@@ -152,7 +152,7 @@ class UpdateCompanyView(AccessForCompletesOnlyMixin, View):
         return render(request, self.template_name, context)
 
 
-class CompanyImageDeleteView(LoginRequiredMixin, View):
+class CompanyImageDeleteView(AccessForMembersOnlyMixin, View):
     def post(self, request, **kwargs):
         company = get_object_or_404(Companies, id=request.POST.get('id'), owner=request.user)
         if company.owner == request.user:
@@ -163,7 +163,7 @@ class CompanyImageDeleteView(LoginRequiredMixin, View):
             return Http404
 
 
-class CompanyPhotoUpload(LoginRequiredMixin, View):
+class CompanyPhotoUpload(AccessForMembersOnlyMixin, View):
     def post(self, request, **kwargs):
         obj = get_object_or_404(Companies, owner=request.user, id=request.POST.get('id'))
         obj.photo = request.FILES.get('image')
@@ -196,7 +196,7 @@ def post_save_image(sender, instance, *args, **kwargs):
         pass
 
 
-class CheckCompanyPhoto(LoginRequiredMixin, View):
+class CheckCompanyPhoto(AccessForMembersOnlyMixin, View):
     def get(self, request, **kwargs):
         obj = get_object_or_404(Companies, owner=request.user, id=request.GET.get('id'))
         if obj.photo:
