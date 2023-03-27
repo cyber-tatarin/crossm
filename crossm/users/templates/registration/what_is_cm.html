@@ -109,7 +109,7 @@
         </div>
        
 
-      <div style="display: none;" class="guid" id="answers" >
+      <div class="guid answers-none" id="answers" >
 
         <div id="guid-left-default" class="guid-left">
           <p class="guid-p">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
@@ -134,7 +134,7 @@
       </div>
 
 
-      <div style="display: none; margin-top:20px;" class="guid" id="attention">
+      <div style="margin-top:20px;" class="guid attention-none" id="attention">
           <div class="guid-left">
             <p class="guid-p">Уточняем!</p>
             <ol class="ol-description">
@@ -357,6 +357,9 @@ if (document.URL.includes('whatis')) {
         }
 
 function get_AI_help(g_type){
+  if (document.querySelector('.input-description').value === '') {
+    alert('Пожалуйста, введите данные')
+  } else {
 
   document.querySelector('.loading').style.display = 'flex'
   // document.querySelector('body').style.overflow = 'hidden'
@@ -380,7 +383,9 @@ function get_AI_help(g_type){
         if (!data.text.error && data.text != 'banned'){
 
 					document.getElementById('no-question').style.display = 'none';
-					document.getElementById('answers').style.display = 'flex';
+					document.getElementById('answers').classList.add('answers-flex');
+          document.getElementById('answers').classList.remove('answers-none');
+
 
           let deleteElementsEN = document.querySelector('.ol-description-en');
           while (deleteElementsEN.firstChild) {
@@ -393,24 +398,25 @@ function get_AI_help(g_type){
           }
 
           let textEN = data.text.original;
-          textEN.slice(2).split('\n').forEach((el,index) => {
+          textEN.split('\n').forEach((el,index) => {
             let li = document.createElement('div');
             li.classList.toggle('li-description');
             li.classList.toggle('li');
             li.innerHTML = el
             document.querySelector('.ol-description-en').append(li)
+            
           })
 
           if(data.text.translated != 'error' && data.text.translated != '') {
 
             let textRU = data.text.translated;
-            console.log(textRU)
             textRU.split('\n').forEach((el,index) => {
               let li = document.createElement('div');
               li.classList.toggle('li-description');
               li.classList.toggle('li');
               li.innerHTML = el
               document.querySelector('.ol-description-ru').append(li)
+              
             })
           } else {
             document.querySelector('#guid-left-default').style.display = 'none';
@@ -418,7 +424,9 @@ function get_AI_help(g_type){
           }
 
 
-					document.getElementById('attention').style.display = 'flex';
+					document.getElementById('attention').classList.remove('attention-none');
+          document.getElementById('attention').classList.add('attention-flex');
+
 
 
 }
@@ -426,13 +434,14 @@ function get_AI_help(g_type){
 else {
   document.querySelector('.loading').style.display = 'none'
   // document.querySelector('body').style.overflow = 'visible'
-document.getElementById('answers').style.display = 'none';
+document.getElementById('answers').classList.remove('answers-flex');
+document.getElementById('answers').classList.add('answers-none');
 document.querySelector('.ai-error').style.display = 'block';
 document.querySelector('#no-question').style.display = 'none';
                     }
         },
     });
-};
+}};
   </script>
   </body>
 {% endblock %}
