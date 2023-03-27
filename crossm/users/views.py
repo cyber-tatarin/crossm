@@ -299,14 +299,14 @@ class CheckProfilePhoto(AccessForMembersOnlyMixin, View):
 
 
 class GetAiHelp(View):
-	@method_decorator(ratelimit(key='ip', rate='5/d', method='GET'))
+	# @method_decorator(ratelimit(key='ip', rate='5/d', method='GET'))
 	def get(self, request, *args, **kwargs):
 		company = request.GET.get('company')
 		g_type = request.GET.get('g_type')
 		lang = request.GET.get('lang')
 		aig = AiGeneratorChooser(g_type=g_type, company=company, lang=lang)
-		return JsonResponse({'text': aig.execute()})
-		# return JsonResponse({'text': {'translated': 'error', 'original': 'lokaloka'}})
+		# return JsonResponse({'text': aig.execute()})
+		return JsonResponse({'text': {'translated': 'error', 'original': 'lokaloka'}})
 		# return JsonResponse({'text': {'error': True}})
 
 

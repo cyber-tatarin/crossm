@@ -59,7 +59,7 @@
         <div class="guid-left">
           <p class="guid-p to-hide">Получить помощь от искусственного интеллекта</p>
           <!-- <p class="guid-p to-hide">Правила использования сервиса</p> -->
-          <p class="description">Описание Вашем бизнесе</p>
+          <p class="description">Описание Вашего бизнеса</p>
           <div class="inputs-part__div">
             <input class="input input-620px input-description" id="coupon-company" type="text" name="company" maxlength="100" placeholder="Введите название компании" required>
           </div>
@@ -119,8 +119,8 @@
         
         <!-- error message left with red border -->
 
-        <div id="guid-left-red" style="display:none;" class="guid-left error-item">
-          <p class="guid-p">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
+        <div id="guid-left-red" style="display:none;" class="guid-left error-item guid-error-mobile">
+          <p class="guid-p mobile-left-0px">Ответ от искуственного интеллекта <em><b>(RU)</b></em></p>
           <div style="margin-left: 0px;" class="description">
             К сожалению, прямо сейчас перевод не доступен.<br>Попробуйте еще раз через несколько минут или переведите самостоятельно.
           </div>
@@ -134,7 +134,7 @@
       </div>
 
 
-      <div style="margin-top:20px;" class="guid attention-none" id="attention">
+      <div style="margin-top:28px;" class="guid attention-none" id="attention">
           <div class="guid-left">
             <p class="guid-p">Уточняем!</p>
             <ol class="ol-description">
@@ -146,7 +146,7 @@
       </div>
 
       <!-- Если нет ответа -->
-      <div style="margin-top:20px;" class="guid" id="no-question">
+      <div style="margin-top:28px;" class="guid" id="no-question">
         <div class="guid-left nothing-asked">
           <p style="margin-bottom: 16px;" class="guid-p">Ответ от искуственного интеллекта</p>
           <p class="no-answer">Вы пока ничего не спросили</p>       
@@ -416,11 +416,12 @@ function get_AI_help(g_type){
               li.classList.toggle('li');
               li.innerHTML = el
               document.querySelector('.ol-description-ru').append(li)
-              
             })
           } else {
             document.querySelector('#guid-left-default').style.display = 'none';
             document.querySelector('#guid-left-red').style.display = 'block';
+            document.querySelector('.ol-description-en').parentNode.classList.add('guid-middle-en');
+
           }
 
 
