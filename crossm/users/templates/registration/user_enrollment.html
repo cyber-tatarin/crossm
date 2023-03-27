@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 	<meta charset="UTF-8">
 	<title>Title</title>
 
 </head>
 <body>
-	<button onclick="checkRefCode(4ff624ac4d71)">gogo</button>
+	<button onclick="checkRefCode('4ff624ac4d71')">gogo</button>
 <p>kgtfiytc</p>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
       function checkRefCode(ref_code)
 
@@ -17,7 +19,7 @@
             url: '{% url "check-ref-code" %}',
             data: {
               'ref_code': ref_code,
-				'csrfmiddlewaretoken': {{ csrf_token }}
+				'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             dataType: "json",
             success: function (data) {
