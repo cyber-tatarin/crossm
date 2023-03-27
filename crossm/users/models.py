@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
+from .services import generate_ref_code
 
 from .managers import CustomUserManager
 
@@ -14,11 +15,13 @@ class Cities(models.Model):
 class User(AbstractUser):
     NEWBIE = 1
     COMPLETE = 2
-    MEMBER = 3
+    INVITED = 3
+    MEMBER = 4
     
     ROLE_CHOICES = (
         (NEWBIE, 'Newbie'),
         (COMPLETE, 'Complete'),
+        (INVITED, 'Invited'),
         (MEMBER, 'Member'),
     )
     
@@ -47,5 +50,12 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     photo = ResizedImageField(size=[500, 500], crop=['middle', 'center'], quality=99,
                               blank=True, null=True, upload_to='images')
+    code = models.CharField(max_length=12, blank=True)
+    recommended_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='rel_by')
+    
+    def save(self, *args, **kwargs):
+        if self.code == "":
+            self.code = generate_ref_code()
+        super().save(*args, **kwargs)
 
     # Create your models here.

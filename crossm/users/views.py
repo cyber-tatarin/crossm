@@ -42,7 +42,12 @@ def get_profile_ph(request):
 class RegisterView(View):
 	template_name = 'registration/register.html'
 	
-	def get(self, request):
+	def get(self, request, *args, **kwargs):
+		ref_code = request.GET.get('ref_code')
+		
+		if ref_code:
+			request.session['ref_code'] = ref_code
+			
 		context = {
 			'form': UserCreateForm(),
 		}
@@ -91,8 +96,19 @@ class SetProfileInfo(LoginRequiredMixin, View):
 			obj = Profile(**r_data)
 			obj.user = request.user
 			obj.city = Cities.objects.get(city=data['city'])
+			
+			ref_code = request.session.get('ref_code')
+			if ref_code:
+				try:
+					recommender = Profile.objects.get(code=ref_code)
+					obj.recommended_by = recommender
+					request.user.role = User.INVITED
+				except:
+					request.user.role = User.COMPLETE
+			else:
+				request.user.role = User.COMPLETE
+			
 			obj.save()
-			request.user.role = 'complete'
 			request.user.save()
 			return redirect('companies:create-company')
 		

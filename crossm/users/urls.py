@@ -7,6 +7,7 @@ from .views import RegisterView, LoginView, SetProfileInfo, ProfileView, \
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
+    path('register/<str:ref_code>', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
     path('setprofileinfo/', SetProfileInfo.as_view(), name='set-profile-info'),
     path('', include('django.contrib.auth.urls')),
