@@ -102,15 +102,16 @@ class SetProfileInfo(LoginRequiredMixin, View):
 			obj = Profile(**r_data)
 			obj.user = request.user
 			obj.city = Cities.objects.get(city=data['city'])
-			print(request.session)
+			print(request.session.items())
 			ref_code = request.session.get('ref_code')
 			print(ref_code, 'refff_code')
 			if ref_code:
-				try:
-					recommender = Profile.objects.filter(code=ref_code).first()
-					obj.recommended_by = recommender
+				recommender = Profile.objects.filter(code=ref_code).first()
+				print(recommender)
+				if recommender is not None:
+					obj.recommended_by = recommender.user
 					request.user.role = User.INVITED
-				except:
+				else:
 					request.user.role = User.COMPLETE
 			else:
 				request.user.role = User.COMPLETE
@@ -337,3 +338,22 @@ class CrossMHelp(TechnicalHelp):
 
 class UserEnrollment(LoginRequiredMixin, TemplateView):
 	template_name = 'registration/user_enrollment.html'
+
+
+class CheckRefCodeView(AccessForCompletesOnlyMixin, View):
+	def post(self, request, *args, **kwargs):
+		ref_code = request.POST.get('ref_code')
+		recommender = Profile.objects.filter(code=ref_code).first()
+		print(recommender)
+		if recommender is not None:
+			profile = Profile.objects.filter(user=request.user).first()
+			profile.recommended_by = recommender.user
+			request.user.role = User.INVITED
+			profile.save()
+			request.user.save()
+			return JsonResponse({'success': True})
+		else:
+			return JsonResponse({'success': False})
+
+		
+		

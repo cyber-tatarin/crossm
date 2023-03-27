@@ -3,9 +3,34 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
+	<button onclick="">gogo</button>
 </head>
 <body>
 <p>kgtfiytc</p>
+      function checkRefCode(ref_code='4ff624ac4d71')
 
+{
+          $.ajax({
+            url: '{% url "check-ref-code" %}',
+            data: {
+              'ref_code': ref_code,
+				'csrfmiddlewaretoken': {{ csrf_token }}
+            },
+            dataType: "json",
+            success: function (data) {
+				if (data.success){
+					console.log('gogo');
+				}
+				else {
+					console.log('fuck');
+				}
+            },
+            type: "POST",
+          });
+
+}
+<script>
+
+</script>
 </body>
 </html>

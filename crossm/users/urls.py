@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from .views import RegisterView, LoginView, SetProfileInfo, ProfileView, \
     ProfileUpdateView, ProfilePhotoUpload, DeletePhotoView, WhatisCMView, CheckProfilePhoto, GetAiHelp, \
-    CrossMHelp, TechnicalHelp, UserEnrollment
+    CrossMHelp, TechnicalHelp, UserEnrollment, CheckRefCodeView
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
@@ -21,4 +21,5 @@ urlpatterns = [
     path('techhelp', TechnicalHelp.as_view(), name='tech-help'),
     path('crossmhelp', CrossMHelp.as_view(), name='crossm-help'),
     path('enrollment', UserEnrollment.as_view(), name='user-enrollment'),
+    path('checkrefcode', CheckRefCodeView.as_view(), name='check-ref-code'),
 ]
