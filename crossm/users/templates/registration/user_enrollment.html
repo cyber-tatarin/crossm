@@ -1,17 +1,61 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/loading.css' %}" />
+		{% include "favicon.html" %}
+        <title>PMarket | Стать членом платформы</title>
+    </head>
+    <body>
+    {% include "base.html" %}
+{% block content %}
 
-	<meta charset="UTF-8">
-	<title>Title</title>
+        <main class="main">
+        <div class="container-padding">
+		<div class="enrollment">
+			<div class="enrollment-content">
+				<h2 class="main-title enrollment-title">
+					Эта страница доступна только членам нашей платформы
+				</h2>
+                <hr class="hr-solid left-8px enrollment-hr">
+				<p class="enrollment-text enrollment-12px">
+					Чтобы стать членом нашей платформы, Вас должен пригласить уже активный пользователь.
+				</p>
+				<p class="enrollment-text">
+					Увидеть полный список функций, доступных членам платформы 
+					<a href="{% url 'instruction' %}" class="login enrollment-a">можно по этой ссылке</a>
+				</p>
+				<div class="enrollment-ol">
+					<p class="enrollment-li">1. Если у Вас уже есть код, нажмите на кнопку стать членом.</p>
+					<p class="enrollment-li">2. Если кода нет, то напишите нам напрямую. Мы выдадим Вам код доступа в течение 2 часов.</p>
+				</div>
+				<div class="button-submit mobile-not-flex enrollment-button">
+					<button class="button button-240px">
+						<p class="button-p">Стать членом</p>
+					</button>
 
-</head>
-<body>
-	<button onclick="checkRefCode('4ff624ac4d71')">gogo</button>
-<p>kgtfiytc</p>
+					<a href="{% url 'tech-help' %}" class="a-account support-mobile a-height-mobile">
+						Написать в техподдержку
+					</a>
+				</div>
+			</div>
+		</div>
+                
+        </div>
+        </main>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+        {% include "footer-mobile.html" %}
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script>
       function checkRefCode(ref_code)
 
 {
@@ -35,5 +79,6 @@
 
 }
 </script>
-</body>
+    </body>
+{% endblock %}
 </html>

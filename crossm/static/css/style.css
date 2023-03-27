@@ -2527,6 +2527,41 @@ p.ot {
   height: 0px;
 }
 
+.enrollment {
+  border-radius: 50px;
+  margin: 0 auto;
+  max-width: 920px;
+  padding: 40px 48px;
+} 
+
+.enrollment-text, .enrollment-a {
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 39px;
+  text-align: center;
+  color: #D6D6D6;
+}
+
+.enrollment-title {
+  color: #000000;
+  text-align: center;
+}
+
+.enrollment-ol {
+  margin-top: 32px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #878787;
+  margin-bottom: 36px;
+}
+
+.enrollment-button {
+  justify-content: center;
+}
+
+
 /* ############################################################## */
 
 .footer-margin {
@@ -2792,6 +2827,51 @@ p.ot {
 }
 
 @media (max-width: 768px) {
+  .enrollment {
+    border-radius: 0px;
+    padding: 0px 5px;
+  }
+  .enrollment-title {
+    text-align: left;
+    margin-left: 8px;
+    margin-top: 24px;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .enrollment-text {
+    text-align: left;
+    margin-left: 8px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+  }
+  .enrollment-ol {
+    margin-top: 14px;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: left;
+    margin-left: 8px;
+    margin-bottom: 20px;
+    color: #000000;
+  }
+  .enrollment-a {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+  }
+  .enrollment-hr {
+    margin-bottom: 16px;
+  }
+  .enrollment-12px {
+    margin-bottom: 12px;
+  }
+  .left-8px {
+    margin-left: 8px;
+  }
   .mg-top-16px {
     margin-top: 16px;
   }
