@@ -292,7 +292,7 @@ class CheckProfilePhoto(LoginRequiredMixin, View):
 
 
 class GetAiHelp(View):
-	# @method_decorator(ratelimit(key='ip', rate='5/d', method='GET'))
+	@method_decorator(ratelimit(key='ip', rate='5/d', method='GET'))
 	def get(self, request, *args, **kwargs):
 		company = request.GET.get('company')
 		g_type = request.GET.get('g_type')
