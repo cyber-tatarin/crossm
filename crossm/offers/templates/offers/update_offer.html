@@ -290,6 +290,7 @@
               </div>`;
         });
         output.innerHTML = images;
+        document.querySelector('.p-no-reviews').style.display = 'none';
       }
 
       function deleteImage(index, id) {
@@ -315,6 +316,7 @@
 
         if (imagesArray.length -1 === 0) {
             // document.querySelector('#test').style.float = 'left';
+            document.querySelector('.p-no-reviews').style.display = 'block';
             document.querySelector('.button-file').innerText = 'Выбрать файлы';
             // document.querySelector('.choose-file-button').style.backgroundColor = '#000000';
         }

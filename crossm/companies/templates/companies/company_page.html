@@ -142,7 +142,7 @@
                                 </div>
                             
                                 <div class="owner-info-item">
-                                    <a style="display: block;" href="{{company.link}}" style="margin-bottom: 28px;" class="company-link">{{company.link}}</a>
+                                    <a href="{{company.link}}" style="margin-bottom: 28px;" class="company-link">{{company.link}}</a>
                                 </div>
                             </div>
                             <div class="profile-user__buttons">
@@ -215,7 +215,7 @@
                                 </div>
 
                                 <div class="owner-info-item">
-                                    <a style="display: block;" href="{{company.link}}" style="margin-bottom: 28px;" class="company-link">{{company.link}}</a>
+                                    <a href="{{company.link}}" style="margin-bottom: 28px;" class="company-link">{{company.link}}</a>
                                 </div>
                             </div>
                         </div>
@@ -228,12 +228,12 @@
 
                     <div class="pop-up-images">
                     <div class="pop-up-container">
-                        <div class="pop-up-images-body">
+                        <div class="pop-up-images-body pop-up-images-body-companies">
                             <div class="pop-up-exit">
 
                             </div>
-                            <div style="margin-bottom: 32px;" class="flex">
-                            <p class="pop-up-images-title"></p>
+                            <div style="margin-bottom: 12px; margin-right: 36px;" class="flex card-pop-up-mobile">
+                                <p class="pop-up-images-title"></p>
                             <div style="margin-right: 16px;" class="">
                                 <span class="profile-user__city">Услуга:&nbsp</span>
                                 <span class="profile-user__city__name pop-up-input-title"></span>
@@ -1017,7 +1017,9 @@ function getImages(id, el)
                  setTimeout(() => {}, "500")
 <!--                document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[0].children[1].innerHTML-->
                 document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].children[1].children[0].children[0].children[1].innerHTML
-                document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].children[1].children[0].children[1].children[1].innerHTML
+                document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].children[1].children[0].children[2].children[1].innerHTML           
+                console.log(                document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.parentNode.parentNode.children[2].children[1].children[0].children[2].children[1].innerHTML
+)
                 document.querySelector('.pop-up-images').classList.toggle('pop-up-delete-active');
         },
         type: "GET",

@@ -209,9 +209,9 @@
                             </div>
                             <hr class="card-hr-solid hr-to-show">
                             {% if company.link %}
-                                    <a href="{{company.link}}" class="company-link name-to-show">{{company.link}}</a>
+                                    <a href="{{company.link}}" class="company-link a-to-show">{{company.link}}</a>
                                     {% else %}
-                                    <a href="{% url 'companies:company-page' company.id %}" class="company-link name-to-show">{% url 'companies:company-page' company.id %}</a>
+                                    <a href="{% url 'companies:company-page' company.id %}" class="company-link a-to-show">{% url 'companies:company-page' company.id %}</a>
                                     {% endif %}
 
                             <hr class="card-hr-solid hr-to-show">
@@ -379,9 +379,9 @@
                             </div>
                             <hr class="card-hr-solid hr-to-show">
                             {% if company.link %}
-                                    <a href="{{company.link}}" class="company-link name-to-show">{{company.link}}</a>
+                                    <a href="{{company.link}}" class="company-link a-to-show">{{company.link}}</a>
                                     {% else %}
-                                    <a href="{% url 'companies:company-page' company.id %}" class="company-link name-to-show">{% url 'companies:company-page' company.id %}</a>
+                                    <a href="{% url 'companies:company-page' company.id %}" class="company-link a-to-show">{% url 'companies:company-page' company.id %}</a>
                                     {% endif %}
 
                             <hr class="card-hr-solid hr-to-show">

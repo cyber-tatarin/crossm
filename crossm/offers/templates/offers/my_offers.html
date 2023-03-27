@@ -203,9 +203,10 @@
                                 <div class="contacts-flex">
                                     <p class="contacts-mail">{{offer.company.owner.email}}</p>
                                     {% if company.owner.profile_set.all.0.phone_num_show %}
-                                    <p class="contacts-phone">{{company.owner.profile_set.all.0.phone_num}}</p>
+                                    <p style="margin-top:2px;" class="contacts-phone">{{company.owner.profile_set.all.0.phone_num}}</p>
                                     {% endif %}
                                 </div>
+                                <hr class="mobile-card-dashed">
 
                             </div>
                         </div>
