@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/loading.css' %}" />
+		{% include "favicon.html" %}
+        <title>PMarket | Каталог предложений</title>
+    </head>
+    <body>
+        <div class="Test"></div>
+
+    {% include "base.html" %}
+{% block content %}
+
+        <main class="main">
+        <div class="container-padding">
+		<div class="enrollment">
+			<div class="enrollment-content">
+				<h2 class="main-title enrollment-title">
+					Эта страница доступна только членам нашей платформы
+				</h2>
+                <hr class="hr-solid left-8px enrollment-hr">
+				<p class="enrollment-text enrollment-12px">
+					Чтобы стать членом нашей платформы, Вас должен пригласить уже активный пользователь.
+				</p>
+				<p class="enrollment-text">
+					Увидеть полный список функций, доступных членам платформы 
+					<a href="#" class="login enrollment-a">можно по этой ссылке</a>
+				</p>
+				<div class="enrollment-ol">
+					<p class="enrollment-li">1. Если у Вас уже есть код, нажмите на кнопку стать членом.</p>
+					<p class="enrollment-li">2. Если кода нет, то напишите нам напрямую. Мы выдадим Вам код доступа в течение 2 часов.</p>
+				</div>
+				<div class="button-submit mobile-not-flex enrollment-button">
+					<button class="button button-240px">
+						<p class="button-p">Стать членом</p>
+					</button>
+
+					<a href="{% url 'tech-help' %}" class="a-account support-mobile a-height-mobile">
+						Написать в техподдержку
+					</a>
+				</div>
+			</div>
+		</div>
+                
+        </div>
+        </main>
+
+        {% include "footer-mobile.html" %}
+
+
+
+        
+         
+
+<!-- {% include "footer.html" %} -->
+        <!-- <div class="bottom-margin"></div> -->
+        <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+        
+        <script src="{% static 'js/catalog.js' %}"></script>
+        <script>
+
+        if (document.URL.includes('catalog')) {
+     
+            document.querySelector('#CATALOG').classList.toggle('nav-menu__title__active')
+            document.querySelector('#CATALOG_MOBILE').classList.toggle('nav-menu__title__active')
+
+        }
+            
+        document.querySelector('.test-filter').addEventListener('click', () => {  
+            if (document.querySelector('.filters-container').style.visibility === 'visible') {
+            document.querySelector('.test-filter').style.visibility = 'visible';
+            document.querySelector('.test-filter').style.opacity = 1;
+
+            document.querySelector('.filters-container').style.transform = 'translateX(-320px)';
+            document.querySelector('.filters-container').style.visibility = 'hidden';
+            document.querySelector('.filters-container').style.opacity = 0;
+            document.querySelector('.exit-test').style.visibility = 'hidden';
+            document.querySelector('.exit-test').style.opacity = 0;
+            document.querySelector('.exit-test').style.transform = 'translateX(-320px)';
+            
+ 
+            } else {
+                document.querySelector('.test-filter').style.visibility = 'hidden';
+            document.querySelector('.test-filter').style.opacity = 0;
+            document.querySelector('.exit-test').style.transform = 'translateX(0px)';
+            document.querySelector('.filters-container').style.transform = 'translateX(0px)';
+            document.querySelector('.filters-container').style.visibility = 'visible';
+            document.querySelector('.filters-container').style.opacity = 1;
+            document.querySelector('.exit-test').style.visibility = 'visible';
+            document.querySelector('.exit-test').style.opacity = 1; 
+            }
+
+            
+
+        })
+
+        document.querySelector('.exit-test').addEventListener('click', () => { 
+            document.querySelector('.test-filter').style.visibility = 'visible';
+            document.querySelector('.test-filter').style.opacity = 1;
+
+        document.querySelector('.filters-container').style.transform = 'translateX(-320px)';
+           document.querySelector('.filters-container').style.visibility = 'hidden';
+           document.querySelector('.filters-container').style.opacity = 0;
+           document.querySelector('.exit-test').style.visibility = 'hidden';
+           document.querySelector('.exit-test').style.opacity = 0;
+           document.querySelector('.exit-test').style.transform = 'translateX(-320px)';
+
+       })
+
+        
+
+        document.querySelectorAll('.check-pop-up').forEach((el) => {
+            el.addEventListener('click', () => {
+                document.querySelector('body').style.overflow = 'hidden';
+                getImages(parseInt(el.id.replace(/[^\d]/g, '')), el);
+            })
+        })  
+
+        document.querySelector('.pop-up-exit').addEventListener('click', () => {
+            document.querySelector('.pop-up-images').classList.remove('pop-up-delete-active');
+            document.querySelector('body').style.overflow = 'auto';
+        })
+
+
+
+
+function getImages(id, el)
+{
+    document.querySelector('.loading').style.display = 'flex'
+
+    $.ajax(
+    {
+        url: '{% url "offers:get-images" %}',
+        data: {
+            'id': id,
+        },
+        dataType: 'json',
+        success: function(data) {
+            document.querySelector('.loading').style.display = 'none'
+                 const output = document.querySelector(".images-container")
+                 let images = "";
+
+                 for (let i = 0; i < data.images.length; i++) {
+                 const out = data.images[i]
+                 console.log(out);
+
+                    images += `
+                <img src="${out}" alt="image" class="pop-up-img">
+              `;
+                 }
+<!--                 images += ` <div style="margin-top: 32px" class=""></div> `-->
+                 console.log(images);
+                 output.innerHTML = images;
+                 setTimeout(() => {}, "500")
+                //  if(document.querySelector('header').style.display === 'none') {
+                if (window.getComputedStyle(document.querySelector('.header')).display === 'none') {
+                    document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.querySelector('.company-card-name').innerHTML
+                    document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.querySelector('.type-service').innerHTML
+                    document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.querySelector('.coupon-price').innerHTML
+                } else {
+                    document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[0].children[1].innerHTML
+                    document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].children[3].innerHTML
+                    document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.children[0].children[0].children[1].innerHTML
+                }
+                
+                document.querySelector('.pop-up-images').classList.toggle('pop-up-delete-active');
+        },
+        type: "GET",
+
+    });
+
+}
+
+
+        </script>
+        
+    </body>
+{% endblock %}
+</html>

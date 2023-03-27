@@ -11,7 +11,7 @@ from django.views import View
 from django.views.generic import TemplateView
 from funcy import omit
 from last_seen.models import LastSeen
-from .mixins import AccessForCompletesOnlyMixin
+from .mixins import AccessForCompletesOnlyMixin, AccessForMembersOnlyMixin
 import crossm.settings.settingsa
 from .forms import UserCreateForm, UserLoginForm, ProfileInfoForm, ProfileUpdateForm
 from .models import Profile, Cities, User
@@ -43,18 +43,24 @@ class RegisterView(View):
 	template_name = 'registration/register.html'
 	
 	def get(self, request, *args, **kwargs):
-		ref_code = request.GET.get('ref_code')
-		
-		if ref_code:
-			request.session['ref_code'] = ref_code
+		ref_code = ''
+		try:
+			ref_code = kwargs['ref_code']
+		except KeyError:
+			pass
 			
 		context = {
 			'form': UserCreateForm(),
+			'ref_code': ref_code
 		}
 		return render(request, self.template_name, context)
 	
-	def post(self, request):
+	def post(self, request, *args, **kwargs):
 		form = UserCreateForm(request.POST)
+		
+		ref_code = request.POST.get('ref_code')
+		request.session['ref_code'] = ref_code
+		print(request.session.items())
 		
 		if form.is_valid():
 			form.save()
@@ -75,7 +81,7 @@ class SetProfileInfo(LoginRequiredMixin, View):
 	template_name = 'registration/setprofileinfo.html'
 	
 	def get(self, request):
-		if request.user.role != 'newbie':
+		if request.user.role != User.NEWBIE:
 			raise Http404
 		
 		context = {
@@ -84,8 +90,8 @@ class SetProfileInfo(LoginRequiredMixin, View):
 		}
 		return render(request, self.template_name, context)
 	
-	def post(self, request):
-		if request.user.role != 'newbie':
+	def post(self, request, *args, **kwargs):
+		if request.user.role != User.NEWBIE:
 			raise Http404
 		
 		form = ProfileInfoForm(request.POST)
@@ -96,11 +102,12 @@ class SetProfileInfo(LoginRequiredMixin, View):
 			obj = Profile(**r_data)
 			obj.user = request.user
 			obj.city = Cities.objects.get(city=data['city'])
-			
+			print(request.session)
 			ref_code = request.session.get('ref_code')
+			print(ref_code, 'refff_code')
 			if ref_code:
 				try:
-					recommender = Profile.objects.get(code=ref_code)
+					recommender = Profile.objects.filter(code=ref_code).first()
 					obj.recommended_by = recommender
 					request.user.role = User.INVITED
 				except:
@@ -150,7 +157,7 @@ class LoginView(View):
 		return render(request, self.template_name, context)
 
 
-class ProfileView(AccessForCompletesOnlyMixin, View):
+class ProfileView(AccessForMembersOnlyMixin, View):
 	template_name = 'registration/profile.html'
 	
 	def get(self, request, **kwargs):
@@ -186,7 +193,7 @@ class ProfileView(AccessForCompletesOnlyMixin, View):
 		return render(request, self.template_name, context)
 
 
-class ProfileUpdateView(AccessForCompletesOnlyMixin, View):
+class ProfileUpdateView(AccessForMembersOnlyMixin, View):
 	template_name = 'registration/update_profile.html'
 	
 	def get(self, request):
@@ -241,7 +248,7 @@ class ProfileUpdateView(AccessForCompletesOnlyMixin, View):
 		return render(request, self.template_name, context)
 
 
-class ProfilePhotoUpload(LoginRequiredMixin, View):
+class ProfilePhotoUpload(AccessForMembersOnlyMixin, View):
 	
 	def post(self, request, **kwargs):
 		obj = get_object_or_404(Profile, user=request.user)
@@ -250,7 +257,7 @@ class ProfilePhotoUpload(LoginRequiredMixin, View):
 		return JsonResponse({'success': True, 'image': obj.photo.url})
 
 
-class DeletePhotoView(LoginRequiredMixin, View):
+class DeletePhotoView(AccessForMembersOnlyMixin, View):
 	
 	def post(self, request, **kwargs):
 		obj = get_object_or_404(Profile, user=request.POST.get('id'))
@@ -282,7 +289,7 @@ class WhatisCMView(TemplateView):
 		return {'profile_ph': get_profile_ph(self.request)}
 
 
-class CheckProfilePhoto(LoginRequiredMixin, View):
+class CheckProfilePhoto(AccessForMembersOnlyMixin, View):
 	def get(self, request, **kwargs):
 		obj = get_object_or_404(Profile, user=request.user)
 		if obj.photo:
