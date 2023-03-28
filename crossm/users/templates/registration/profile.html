@@ -25,7 +25,6 @@
 {% block content %}
 {% if owner %}
 
-	{{ user.profile_set.all.0.code }}
 
         <main class="mg-bottom-28px">
             <div class="container-padding">
@@ -86,6 +85,19 @@
                                     </button>
                                 </div> -->
                             </div>
+                            <div class="codes name-to-hide">
+                                <p class="ref-code__title">Код для приглашения</p>       
+                                <div class="code-flex"> 
+                                <div class="ref-link">
+                                    <p id="link" class="link-inside">pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}</p>
+                                    <div class="ref-link-copy copy-button"></div>
+                                </div>  
+                                <div class="ref-code">
+                                    <p id="code" class="link-inside">{{ user.profile_set.all.0.code }}</p>
+                                    <div class="ref-code-copy copy-button"></div>
+                                </div>          
+                                </div>        
+                            </div>
                         </div>
                     </div>
                     <div class="profile-contacts">
@@ -102,11 +114,25 @@
                         </div>
                         {% endif %}
                     </div>
-                    <div style="padding: 16px 13px;" class="button-240px button-to-show">
+                    <div style="padding: 0px 13px 0px;" class="button-240px button-to-show">
                         <button class="button" onclick="window.location.href = '{% url 'update-profile' %}'">
                             <p class="button-p">Редактировать профиль</p>
                         </button>
                     </div>
+                </div>
+
+                <div style="padding:0px 13px;" class="codes name-to-show">
+                    <p class="ref-code__title">Код для приглашения</p>       
+                    <div class="code-flex"> 
+                    <div class="ref-code">
+                        <p id="code" class="link-inside">{{ user.profile_set.all.0.code }}</p>
+                        <div class="ref-code-copy copy-button"></div>
+                    </div>  
+                    <div class="ref-link">
+                        <p id="link" class="link-inside">pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}</p>
+                        <div class="ref-link-copy copy-button"></div>
+                    </div>         
+                    </div>        
                 </div>
 
                 <section>
@@ -421,6 +447,21 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
     <script>
+
+const copies = document.querySelectorAll('.copy-button');
+copies.forEach((el) => {
+    el.addEventListener('click', () => {
+    let copyText = el.previousSibling.previousSibling.innerText;
+    console.log(copyText)
+//   console.log(this)
+
+  // Select the text field
+   // Copy the text inside the text field
+navigator.clipboard.writeText(copyText).then(() => {
+    // alert("Copied the text: " + copyText);
+});
+})
+})
 
 let cardId;
 let masonry;

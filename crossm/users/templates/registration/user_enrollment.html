@@ -61,7 +61,7 @@
 		<script>
       function checkRefCode()
 
-{       let code =document.querySelector('.enrollment-input').value;
+{       let code = document.querySelector('.enrollment-input').value;
           $.ajax({
             url: '{% url "check-ref-code" %}',
             data: {
