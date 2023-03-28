@@ -125,17 +125,20 @@
 
                 <div style="padding:0px 13px;" class="codes name-to-show">
                     <p class="ref-code__title">Код для приглашения</p>       
-                    <div class="code-flex"> 
+                    <div class="code-flex">
+
+						<div class="ref-code">
+                            <p id="code" class="link-inside">{{ user.profile_set.all.0.code }}</p>
+                            <input type="text" value="{{ user.profile_set.all.0.code }}" class="code-hidden">
+                            <div class="ref-code-copy copy-button"></div>
+                        </div>
+
                         <div class="ref-link">
                             <p id="link" class="link-inside">pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}</p>
                             <input type="text" value="pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}" class="link-hidden">
                             <div class="ref-link-copy copy-button"></div>
                         </div>  
-                        <div class="ref-code">
-                            <p id="code" class="link-inside">{{ user.profile_set.all.0.code }}</p>
-                            <input type="text" value="{{ user.profile_set.all.0.code }}" class="code-hidden">
-                            <div class="ref-code-copy copy-button"></div>
-                        </div>         
+
                     </div>        
                 </div>
 

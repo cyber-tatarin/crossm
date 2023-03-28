@@ -58,8 +58,6 @@ class RegisterView(View):
 	def post(self, request, *args, **kwargs):
 		form = UserCreateForm(request.POST)
 		
-		ref_code = request.POST.get('ref_code')
-		request.session['ref_code'] = ref_code
 		print(request.session.items())
 		
 		if form.is_valid():
@@ -68,6 +66,8 @@ class RegisterView(View):
 			password = form.cleaned_data.get('password1')
 			user = authenticate(email=email, password=password)
 			login(request, user)
+			ref_code = request.POST.get('ref_code')
+			request.session['ref_code'] = ref_code
 			return redirect('set-profile-info')
 		
 		context = {
