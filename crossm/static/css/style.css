@@ -2673,8 +2673,23 @@ p.ot {
   background-image: url(../../static/images/copy-icon.svg);
   background-position: center;
   background-repeat: no-repeat;
+  animation: 2s ease-in;
 }
 
+@keyframes code-copy {
+ from {
+  background-image: url(../../static/images/copy-icon.svg);
+ }
+ 10% {
+  background-image: url(../../static/images/copy-complete.svg);
+ }
+ 90% {
+  background-image: url(../../static/images/copy-complete.svg);
+ }
+ to {
+  background-image: url(../../static/images/copy-icon.svg);
+ }
+}
 
 /* ############################################################## */
 
@@ -2949,7 +2964,7 @@ p.ot {
 @media (max-width: 768px) {
   .codes {
     margin-top: 20px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
   .code-flex {
     flex-direction: column;
