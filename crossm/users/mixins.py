@@ -38,11 +38,13 @@ class AccessForMembersOnlyMixin:
             return HttpResponseRedirect(f"{reverse_lazy('login')}?next={reverse_lazy('user-enrollment')}")
         
 
-class AccessForNonMembersOnlyMixin:
+class AccessForCompleteNonMembersOnlyMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if request.user.role >= User.INVITED:
                 return redirect('offers:catalog')
+            elif request.user.role < User.COMPLETE:
+                return redirect('set-profile-info')
             else:
                 return super().dispatch(request, *args, **kwargs)
         else:

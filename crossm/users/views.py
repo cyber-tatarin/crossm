@@ -11,7 +11,7 @@ from django.views import View
 from django.views.generic import TemplateView
 from funcy import omit
 from last_seen.models import LastSeen
-from .mixins import AccessForCompletesOnlyMixin, AccessForMembersOnlyMixin, AccessForNonMembersOnlyMixin
+from .mixins import AccessForCompletesOnlyMixin, AccessForMembersOnlyMixin, AccessForCompleteNonMembersOnlyMixin
 import crossm.settings.settingsa
 from .forms import UserCreateForm, UserLoginForm, ProfileInfoForm, ProfileUpdateForm
 from .models import Profile, Cities, User
@@ -336,24 +336,25 @@ class CrossMHelp(TechnicalHelp):
 	template_name = 'registration/crossm_help.html'
 
 
-class UserEnrollment(AccessForNonMembersOnlyMixin, TemplateView):
+class UserEnrollment(AccessForCompleteNonMembersOnlyMixin, TemplateView):
 	template_name = 'registration/user_enrollment.html'
 
 
 class CheckRefCodeView(AccessForCompletesOnlyMixin, View):
 	def post(self, request, *args, **kwargs):
 		ref_code = request.POST.get('ref_code')
-		recommender = Profile.objects.filter(code=ref_code).first()
-		print(recommender)
-		if recommender is not None:
-			profile = Profile.objects.filter(user=request.user).first()
-			profile.recommended_by = recommender.user
-			request.user.role = User.INVITED
-			profile.save()
-			request.user.save()
-			return JsonResponse({'success': True})
-		else:
-			return JsonResponse({'success': False})
+		if ref_code != '':
+			recommender = Profile.objects.filter(code=ref_code).first()
+			print(recommender)
+			if recommender is not None:
+				profile = Profile.objects.filter(user=request.user).first()
+				profile.recommended_by = recommender.user
+				request.user.role = User.INVITED
+				profile.save()
+				request.user.save()
+				return JsonResponse({'success': True})
+			
+		return JsonResponse({'success': False})
 
 		
 		
