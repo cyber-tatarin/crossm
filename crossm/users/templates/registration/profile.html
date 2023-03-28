@@ -452,6 +452,11 @@ const copies = document.querySelectorAll('.copy-button');
 copies.forEach((el) => {
     el.addEventListener('click', () => {
     let copyText = el.previousSibling.previousSibling.innerText;
+    el.style.animationName = 'code-copy';
+    setTimeout(() => {
+        el.style.animationName = 'none';
+    }, 2000);
+    
     console.log(copyText)
 //   console.log(this)
 
