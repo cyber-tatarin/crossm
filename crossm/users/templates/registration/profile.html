@@ -459,11 +459,11 @@ copies.forEach((el) => {
     let copyText = el.previousSibling.previousSibling;
     copyText.select();
     copyText.setSelectionRange(0, 99999);
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(copyText.value);
-    } else {
-        document.execCommand("copy");
-    }
+    // if (navigator.clipboard) {
+    //     navigator.clipboard.writeText(copyText.value);
+    // } else {
+    document.execCommand("copy");
+    // }
     
     el.style.animationName = 'code-copy';
     setTimeout(() => {
