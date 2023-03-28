@@ -2635,6 +2635,10 @@ p.ot {
   position: relative;
 }
 
+.link-hidden, .code-hidden {
+  display: none;
+}
+
 .ref-link {
   border: 1.2px solid #000000;
   max-width: 264px;
