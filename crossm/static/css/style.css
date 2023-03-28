@@ -225,6 +225,7 @@ input {
 }
 
 .main-title {
+  color: #000000;
   margin-bottom: 24px;
   font-weight: 600;
   font-size: 20px;
@@ -1652,7 +1653,8 @@ button:hover {
 
 .contacts-name {
   font-weight: 900;
-  font-size: 13px;
+  /* font-size: 13px; */
+  font-size: 16px;
   line-height: 16px;
   margin-bottom: 2px;
   position: relative;
@@ -2528,11 +2530,23 @@ p.ot {
 }
 
 .enrollment {
+  background: #FCFCFC;
   border-radius: 50px;
   margin: 0 auto;
   max-width: 920px;
   padding: 40px 48px;
 } 
+
+.enrollment-input {
+  padding: 0px;
+  display: block;
+  text-align: center;
+  max-width: 420px;
+  margin-bottom: 16px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+}
 
 .enrollment-text, .enrollment-a {
   font-weight: 600;
@@ -2559,6 +2573,45 @@ p.ot {
 
 .enrollment-button {
   justify-content: center;
+}
+
+.private-container {
+  margin: 0 auto;
+  max-width: 1380px;
+}
+
+.private {
+  max-width: 920px;
+  margin-bottom: 24px;
+  padding: 40px 48px;
+  border-radius: 50px;
+  background-color: #FCFCFC;
+}
+
+.private-title {
+  margin-bottom: 20px;
+}
+
+.private-text {
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.private-text:nth-last-child(2) {
+  margin-bottom: 0px;
+}
+
+.private-ol {
+  margin-left: 20px;
+  text-align: left;
+  margin-bottom: 28px;
+}
+
+.private-ul {
+  margin-bottom: 12px;
+  margin-left: 24px;
 }
 
 
@@ -2828,6 +2881,7 @@ p.ot {
 
 @media (max-width: 768px) {
   .enrollment {
+    background-color: transparent;
     border-radius: 0px;
     padding: 0px 5px;
   }
@@ -2935,8 +2989,11 @@ p.ot {
   .a-inline-mobile {
     display: inline-block;
   }
-  .card {
+  .card, .company-card {
     background-color: #fcfcfc;
+  }
+  .contacts-name {
+    font-size: 14px;
   }
   .profile {
     margin-bottom: 12px;
@@ -3261,6 +3318,38 @@ p.ot {
   .mobile-left-0px {
     margin-left: 0px;
   }
+  .enrollment-input {
+    padding: 0px;
+    display: block;
+    text-align: center;
+    max-width: 100%;
+    margin-bottom: 12px;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+  }
+  .private {
+    transition: 0.2s ease-out;
+    box-shadow: 4px 4px 7px rgb(0 0 0 / 8%);
+    margin-top: 24px;
+    margin-bottom: 16px;
+    padding: 16px 20px 20px;
+    border-radius: 24px;
+  }
+  @media (hover: hover) {
+  .private:hover {
+    box-shadow: none;
+  }
+  }
+  .private-ol {
+    margin-bottom: 0px;
+  }
+  .private-buttons-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
   /* .read-reviews {
     display: none;
   }
@@ -3427,8 +3516,8 @@ p.ot {
     min-width: 50px;
   }
   .card__img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
   .pop-up-exit {
     width: 20px;

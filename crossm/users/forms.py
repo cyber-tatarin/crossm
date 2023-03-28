@@ -64,6 +64,7 @@ class UserCreateForm(UserCreationForm):
 class ProfileInfoForm(forms.Form):
     phone_num = PhoneNumberField(required=True, widget=RegionalPhoneNumberWidget(attrs={
         'class': 'input input-367px',
+        'style': 'margin-bottom:0px',
         'placeholder': 'Введите телефон',
     }))
     phone_num_show = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={

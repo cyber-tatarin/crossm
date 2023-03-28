@@ -35,6 +35,45 @@
                 </div>
                 </div>
 
+
+                <div class="private-container">
+                <div class="private name-to-hide">
+                        <h2 class="main-title private-title name-to-hide">
+                            К сожалению
+                        </h2>
+                        <p class="private-text">
+                            Так как Вы пока что не являетесь членом нашей платформы, бОльшая часть контента для Вас скрыта.                        </p>
+                        </p>
+                        <p style="font-weight: 400;" class="private-text">
+                            Когда Вы станете членом платформы, Вы сможете увидеть:
+                            <ul class="private-ul">
+                                <li class="private-li">название компании</li>
+                                <li class="private-li">ЛПРа</li>
+                                <li class="private-li">контакты ЛПРа</li>
+                                <li class="private-li">вложения</li>
+                            </ul>
+                        </p>
+                        <p class="private-text">
+                            Чтобы стать членом нашей платформы, Вас должен пригласить уже активный пользователь.
+                        </p>
+                        <ol class="private-ol">
+                            <li style="font-weight: 400;" class="private-text">Если у Вас уже есть код, нажмите на кнопку стать членом.</li>
+                            <li style="font-weight: 400;" class="private-text">Если кода нет, то напишите нам напрямую. Мы выдадим Вам код доступа в течение 2 часов.</li>
+                        </ol>
+                        <div class="button-submit mobile-not-flex name-to-hide">
+                            <button class="button button-240px">
+                                <p class="button-p">Стать членом</p>
+                            </button>
+                            <a href="{% url 'tech-help' %}" class="a-account support-mobile">
+                                Написать разработчикам
+                            </a>
+                        </div>
+                </div>
+                </div>  
+
+
+
+
             <div class="flex catalog-filters-container">
             
                 <div class="exit-test"></div>
@@ -102,7 +141,16 @@
                             </div>
                         </div>
                         <hr class="line__dashed-filters">
-
+<!--                        <p class="filter-subtitle" style="margin-bottom: 9px;">Страна</p>-->
+<!--                        <div style="margin-bottom: 16px;" class="filters-choices">-->
+<!--                            <select class="js-choice">-->
+<!--                                <option value="" selected>asdf</option>-->
+<!--                                <option value="1">Беларусь</option>-->
+<!--                                <option value="2">Франция</option>-->
+<!--                                <option value="3">Испания</option> -->
+<!--                            </select>-->
+<!--                        </div> -->
+<!--                        <hr style="margin-bottom: 20px;" class="line__dashed-filters">-->
                         <div class="phone-input__right" style="margin-bottom: 16px;">
                             <label style="cursor: pointer;" class="label-filters">
                                 <input id="phone" class="check-box" type="checkbox">
@@ -169,13 +217,57 @@
                 </div>
 
 
+                <div class="private name-to-show">
+                    <h2 class="main-title private-title name-to-hide">
+                        К сожалению
+                    </h2>
+                    <p class="private-text">
+                        Так как Вы пока что не являетесь членом нашей платформы, бОльшая часть контента для Вас скрыта.                        </p>
+                    </p>
+                    <p style="font-weight: 400;" class="private-text">
+                        Когда Вы станете членом платформы, Вы сможете увидеть:
+                        <ul class="private-ul">
+                            <li class="private-li">название компании</li>
+                            <li class="private-li">ЛПРа</li>
+                            <li class="private-li">контакты ЛПРа</li>
+                            <li class="private-li">вложения</li>
+                        </ul>
+                    </p>
+                    <p class="private-text">
+                        Чтобы стать членом нашей платформы, Вас должен пригласить уже активный пользователь.
+                    </p>
+                    <ol class="private-ol">
+                        <li style="font-weight: 400;" class="private-text">Если у Вас уже есть код, нажмите на кнопку стать членом.</li>
+                        <li style="font-weight: 400;" class="private-text">Если кода нет, то напишите нам напрямую. Мы выдадим Вам код доступа в течение 2 часов.</li>
+                    </ol>
+                    
+                    <div class="button-submit mobile-not-flex name-to-hide">
+                        <button class="button button-240px">
+                            <p class="button-p">Стать членом</p>
+                        </button>
+                        <a href="{% url 'tech-help' %}" class="a-account support-mobile">
+                            Написать разработчикам
+                        </a>
+                    </div>
+                    
+            </div>
+            <div class="private-buttons-mobile name-to-show">
+                <button style="max-width:100%;" class="button">
+                    <p class="button-p">Стать членом</p>
+                </button>
+                <button style="max-width:100%;" class="button">
+                    <p class="button-p">Написать разработчикам</p>
+                </button>
+            </div> 
+
+
                 <div class="grid">
                     <div class="grid-sizer"></div>
                     <div class="gutter-sizer"></div>
 
 {% for offer in offers %}
 
-                    <div class="company-card grid-item">
+                    <!-- <div class="company-card grid-item">
                         <div class="company-card-top">
                             <div class="company-card-logo" style="position: relative;">
                                 {% if offer.company.photo %}
@@ -282,7 +374,104 @@
                         </button>
                         {% endif %}
 
-                    </div>                   
+                    </div> -->
+
+                    <!-- catalog private !!!!!!!!!!!!! -->
+
+                    <div class="company-card grid-item">
+                        <div class="company-card-top">
+                            <div class="company-card-logo" style="position: relative;">
+                                {% if offer.company.photo %}
+                                <img class="card__img" src="{{offer.company.photo.url}}">
+                                {% else %}
+                                <img class="card__img" src="/media/images/no_company_logo.png">
+                                {% endif %}
+                            </div>
+                            <span style="cursor:auto;" class="company-card-name">Компания скрыта</span>
+                        </div>
+                        <hr class="card-hr-solid">
+                        <div class="company-card-main"> 
+                            <div class="company-content-left">
+                                <div class="">
+                                    <p class="company-key">Ниша</p>
+                                    <p class="company-value nisha">{{offer.company.niche}}</p>
+                                    <hr class="mobile-card-dashed">
+                                    <p class="company-key type-service">Услуга</p>
+                                    <p class="company-value usluga no-bottom">{{offer.title}}</p>
+                                    <hr class="mobile-card-dashed">
+
+                                </div>
+                            </div>
+                            <!-- <div class="hr-solid-vertical"></div> -->
+                            <div class="company-content-right">
+                                <div class="flex-content-no-gap mobile-flex-reverse">
+                                    <div class="">
+                                        <p class="company-key">Количество купонов</p>
+                                        <p class="company-value coupon-count">От {{offer.amount_min}} до {{offer.amount_max}}</p>
+                                        <hr class="mobile-card-dashed">
+
+                                    </div>
+                                    <div class="">
+                                        <p class="company-key">Розничная цена</p>
+                                        <p class="company-value no-bottom retail-price">{{offer.retail_price}} {{offer.currency}}</p>
+                                        <hr class="card-hr-solid hr-to-show">
+
+                                    </div>    
+                                </div>
+                            </div> 
+                        </div>
+    
+                        <hr class="card-hr-solid hr-to-hide">
+    
+                        <div class="company-card-main company-card-main-bottom"> 
+                            <div class="company-content-left">
+                                <div class=>
+                                    <p class="company-key">Цена купона</p>
+                                    <p class="company-value no-bottom coupon-price">{{offer.coupon_price}} {{offer.currency}}</p>
+                                    <hr class="card-hr-solid hr-to-show">
+
+                                </div>
+                            </div>
+                            <!-- <div class="hr-solid-vertical"></div> -->
+                            <div class="company-content-right">
+                                <div class="flex-content-no-gap">
+                                     <button style="margin-top: -2px; max-width: 150px;" class="button button-ynp button-to-hide">
+                                    <p class="button-p">Вложения скрыты</p>
+                                    </button> 
+                                </div>
+                            </div>
+                            
+                        </div>
+    
+                        <hr class="card-hr-solid hr-to-hide">
+    
+                        <div class="company-card-main"> 
+                            <div class="company-content-left">
+                                <div class="">
+                                    <p style="margin-bottom: 0px;" class="contacts">Контакты скрыты</p>
+                                    
+                                    <hr class="mobile-card-dashed">
+
+                                
+                                </div>
+                            </div>
+                            <!-- <div class="hr-solid-vertical"></div> -->
+                            <div class="company-content-right">
+                                <div class="flex-content-no-gap">
+                                    <div class="">
+                                        <p class="contacts-name">ЛПР скрыт</p>
+                                    </div>   
+                                </div>
+                            </div> 
+                        </div>
+                        <hr style = "margin-bottom: 4px" class="hr-solid hr-to-hide">
+                        <hr class="card-hr-solid hr-to-show">
+                        <button style="margin-top: 4px;" class="button button-ynp button-to-show">
+                            <p class="button-p">Вложения скрыты</p>
+                        </button>
+                      
+
+                    </div>
 
                     {% endfor %}
 
