@@ -21,7 +21,7 @@
         <main class="main">
         <div class="container-padding">
 		<div class="enrollment">
-			<div class="enrollment-content">
+			
 				<h2 class="main-title enrollment-title">
 					Эта страница доступна только членам нашей платформы
 				</h2>
@@ -34,19 +34,22 @@
 					<a href="{% url 'instruction' %}" class="login enrollment-a">можно по этой ссылке</a>
 				</p>
 				<div class="enrollment-ol">
-					<p class="enrollment-li">1. Если у Вас уже есть код, нажмите на кнопку стать членом.</p>
+					<p class="enrollment-li">1. Если у Вас уже есть код, введите его в форму и нажмите “Отправить”.</p>
 					<p class="enrollment-li">2. Если кода нет, то напишите нам напрямую. Мы выдадим Вам код доступа в течение 2 часов.</p>
 				</div>
+                <form action="" method="post">
+                <input type="text" class="input enrollment-input" placeholder="Введите код">
 				<div class="button-submit mobile-not-flex enrollment-button">
-					<button class="button button-240px">
-						<p class="button-p">Стать членом</p>
+					<button class="button button-240px" type="submit">
+						<p class="button-p">Отправить</p>
 					</button>
 
-					<a href="{% url 'tech-help' %}" class="a-account support-mobile a-height-mobile">
-						Написать в техподдержку
+					<a href="{% url 'tech-help' %}" class="a-account support-mobile">
+						Написать разработчикам
 					</a>
 				</div>
-			</div>
+                </form>
+			
 		</div>
                 
         </div>
