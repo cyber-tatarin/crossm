@@ -11,7 +11,7 @@ from django.views import View
 from django.views.generic import TemplateView
 from funcy import omit
 from last_seen.models import LastSeen
-from .mixins import AccessForCompletesOnlyMixin, AccessForMembersOnlyMixin
+from .mixins import AccessForCompletesOnlyMixin, AccessForMembersOnlyMixin, AccessForNonMembersOnlyMixin
 import crossm.settings.settingsa
 from .forms import UserCreateForm, UserLoginForm, ProfileInfoForm, ProfileUpdateForm
 from .models import Profile, Cities, User
@@ -336,7 +336,7 @@ class CrossMHelp(TechnicalHelp):
 	template_name = 'registration/crossm_help.html'
 
 
-class UserEnrollment(LoginRequiredMixin, TemplateView):
+class UserEnrollment(AccessForNonMembersOnlyMixin, TemplateView):
 	template_name = 'registration/user_enrollment.html'
 
 

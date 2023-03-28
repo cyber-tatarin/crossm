@@ -201,8 +201,15 @@ class SendImagesView(AccessForMembersOnlyMixin, View):
 
 
 class CatalogPageView(View):
-    template_name = 'offers/catalog.html'
-
+    catalog_template = 'offers/catalog.html'
+    catalog_template_hidden = 'offers/catalog-hidden.html'
+    
+    def get_template(self):
+        if self.request.user.is_authenticated:
+            if self.request.user.role >= User.INVITED:
+                return self.catalog_template
+        return self.catalog_template_hidden
+    
     def get(self, request, **kwargs):
         offers = Offers.objects.prefetch_related('offersimages_set', 'company__owner__profile_set').order_by(
             '-id').all()
@@ -283,7 +290,7 @@ class CatalogPageView(View):
             'currencies': currencies,
             'niches': niches,
         }
-        return render(request, self.template_name, context)
+        return render(request, self.get_template(), context)
 
 
 @receiver(post_delete, sender=OffersImages)

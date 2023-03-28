@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from .models import User
@@ -18,7 +19,7 @@ class AccessForCompletesOnlyMixin:
                 return self.redirect_to_set_profile_info()
             return super().dispatch(request, *args, **kwargs)
         else:
-            return redirect('login')
+            return HttpResponseRedirect(f"{reverse_lazy('login')}?next={reverse_lazy('user-enrollment')}")
 
 
 class AccessForMembersOnlyMixin:
@@ -34,5 +35,16 @@ class AccessForMembersOnlyMixin:
             else:
                 return super().dispatch(request, *args, **kwargs)
         else:
-            return redirect('login')
+            return HttpResponseRedirect(f"{reverse_lazy('login')}?next={reverse_lazy('user-enrollment')}")
+        
+
+class AccessForNonMembersOnlyMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.role >= User.INVITED:
+                return redirect('offers:catalog')
+            else:
+                return super().dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(f"{reverse_lazy('login')}?next={reverse_lazy('user-enrollment')}")
         

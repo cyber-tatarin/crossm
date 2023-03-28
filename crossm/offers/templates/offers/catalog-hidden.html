@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/loading.css' %}" />
+		{% include "favicon.html" %}
+        <title>PMarket | Каталог предложений</title>
+    </head>
+    <body>
+        <div class="Test"></div>
+
+    {% include "base.html" %}
+{% block content %}
+
+        <main class="main">
+            <div class="container-padding">
+                
+                <div class="search search-pc">
+                    
+                <div class="footer-arrow">
+                    <div class="test-arrow">
+                        <hr class="hr-solid-arrow">
+                    </div>
+                </div>
+                <div class="div-search">
+                    <input type="text" class="search-input search-input-pc" placeholder="Поиск...">
+                </div>
+                </div>
+
+
+                <div class="private-container">
+                <div class="private name-to-hide">
+                        <h2 class="main-title private-title name-to-hide">
+                            К сожалению
+                        </h2>
+                        <p class="private-text">
+                            Так как Вы пока что не являетесь членом нашей платформы, бОльшая часть контента для Вас скрыта.                        </p>
+                        </p>
+                        <p style="font-weight: 400;" class="private-text">
+                            Когда Вы станете членом платформы, Вы сможете увидеть:
+                            <ul class="private-ul">
+                                <li class="private-li">название компании</li>
+                                <li class="private-li">ЛПРа</li>
+                                <li class="private-li">контакты ЛПРа</li>
+                                <li class="private-li">вложения</li>
+                            </ul>
+                        </p>
+                        <p class="private-text">
+                            Чтобы стать членом нашей платформы, Вас должен пригласить уже активный пользователь.
+                        </p>
+                        <ol class="private-ol">
+                            <li style="font-weight: 400;" class="private-text">Если у Вас уже есть код, нажмите на кнопку стать членом.</li>
+                            <li style="font-weight: 400;" class="private-text">Если кода нет, то напишите нам напрямую. Мы выдадим Вам код доступа в течение 2 часов.</li>
+                        </ol>
+                        <div class="button-submit mobile-not-flex name-to-hide">
+                            <button class="button button-240px" onclick="window.location.href = '{% url 'user-enrollment' %}'">
+                                <p class="button-p">Стать членом</p>
+                            </button>
+                            <a href="{% url 'tech-help' %}" class="a-account support-mobile">
+                                Написать разработчикам
+                            </a>
+                        </div>
+                </div>
+                </div>  
+
+
+
+
+            <div class="flex catalog-filters-container">
+            
+                <div class="exit-test"></div>
+                <div class="filters-container">
+                    
+                    
+                    <div class="filters">
+                        <p class="filters-title">Фильтры</p>
+                        <hr class="hr-solid" style="margin-bottom: 20px;">
+                        <p class="filter-subtitle" style="margin-bottom: 12px;">Ниша</p>
+                        <div style="margin-bottom: 16px;" class="filters-choices">
+                            <select class="js-choice">
+                                <option id="main-option1" value="" selected>Все</option>
+                                {% for niche in niches %}
+                                <option value="1">{{niche.niche}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <hr class="line__dashed-filters">
+                        <p class="filter-subtitle" style="margin-bottom: 9px;">Количество купонов</p>
+                        <div style="gap: 12px;" class="flex">
+                            <div class="flex">
+                                <p class="ot">От</p>
+                                <input id="coupon-count-ot" class="input filters-input" type="text" maxlength="100" placeholder="0" required>
+                            </div>
+                            <div class="flex">
+                                <p class="ot">До</p>
+                                <input id="coupon-count-do" class="input filters-input" type="number" maxlength="100" placeholder="9999" required>
+                            </div>
+                        </div>
+
+                        <hr class="line__dashed-filters">
+                        <p class="filter-subtitle" style="margin-bottom: 9px;">Валюта</p>
+                        <div style="margin-bottom: 16px;" class="filters-choices">
+                            <select class="js-choice">
+                                <option id="main-option2" value="" selected>Все</option>
+                                {% for currency in currencies %}
+                                <option value="1">{{currency.currency}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>  
+                        <hr class="line__dashed-filters">
+                        <p class="filter-subtitle" style="margin-bottom: 9px;">Розничная цена</p>
+                        <div style="gap: 12px;" class="flex">
+                            <div class="flex">
+                                <p class="ot">От</p>
+                                <input id="retail-price-ot" class="input filters-input" type="text" maxlength="100" placeholder="0" required>
+                            </div>
+                            <div class="flex">
+                                <p class="ot">До</p>
+                                <input id="retail-price-do" class="input filters-input" type="number" maxlength="100" placeholder="9999" required>
+                            </div>
+                        </div>
+                        <hr class="line__dashed-filters">
+                        <p class="filter-subtitle" style="margin-bottom: 9px;">Цена купона</p>
+                        <div style="gap: 12px;" class="flex">
+                            <div class="flex">
+                                <p class="ot">От</p>
+                                <input id="coupon-price-ot" class="input filters-input" type="text" maxlength="100" placeholder="0" required>
+                            </div>
+                            <div class="flex">
+                                <p class="ot">До</p>
+                                <input id="coupon-price-do" class="input filters-input" type="number" maxlength="100" placeholder="9999" required>
+                            </div>
+                        </div>
+                        <hr class="line__dashed-filters">
+<!--                        <p class="filter-subtitle" style="margin-bottom: 9px;">Страна</p>-->
+<!--                        <div style="margin-bottom: 16px;" class="filters-choices">-->
+<!--                            <select class="js-choice">-->
+<!--                                <option value="" selected>asdf</option>-->
+<!--                                <option value="1">Беларусь</option>-->
+<!--                                <option value="2">Франция</option>-->
+<!--                                <option value="3">Испания</option> -->
+<!--                            </select>-->
+<!--                        </div> -->
+<!--                        <hr style="margin-bottom: 20px;" class="line__dashed-filters">-->
+                        <div class="phone-input__right" style="margin-bottom: 16px;">
+                            <label style="cursor: pointer;" class="label-filters">
+                                <input id="phone" class="check-box" type="checkbox">
+                                <!-- <span class="check-style-filters"></span> -->
+                                <span class="check-style"></span>
+                                <span class="filter-subtitle">Указан номер телефона</span>
+                            </label>
+                        </div> 
+                        <hr style="margin-bottom: 24px;" class="line__dashed-filters">
+                        
+                            <button style="margin-bottom:8px;" id="sort-button" class="button">
+                                <p class="button-p">Показать результаты</p>
+                            </button>
+
+                            <button id="reset-button" class="button">
+                                <p class="button-p">Сбросить фильтры</p>
+                            </button>
+                        
+                    </div>
+                </div>
+
+
+                <div class="pop-up-images">
+                    <div class="pop-up-container">
+                        <div class="pop-up-images-body">
+                            <div class="pop-up-exit">
+    
+                            </div>
+                            <div style="margin-bottom: 12px; margin-right: 36px;" class="flex card-pop-up-mobile">
+                            <p class="pop-up-images-title no-pointer"></p>
+                            <div style="margin-right: 16px;" class="">
+                                <span class="profile-user__city">Услуга:&nbsp</span>
+                                <span class="profile-user__city__name pop-up-input-title"></span>
+                            </div>
+                            <div class="">
+                                <span class="profile-user__city">Цена купона:&nbsp</span>
+                                <span class="profile-user__city__name pop-up-input-price"></span>
+                            </div>
+                            </div>
+                            <div class="images-container">
+<!--                                <img src="" alt="" class="pop-up-img">-->
+<!--                                <div style="margin-top: 32px" class=""></div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            
+            <div class="card-container">
+                <div class="flex">
+                <h2 class="main-title main-title-pc">
+                    Предложения
+                </h2>
+                <h2 class="main-title main-title-mobile">
+                    Каталог
+                </h2>
+                    <p class="add-something test-filter p-filters-pc">Фильтры</p>
+                    
+                </div>
+
+
+                <div class="div-search search-mobile">
+                        <input type="text" class="search-input search-input-mobile" placeholder="Поиск...">
+                </div>
+
+
+                <div class="private name-to-show">
+                    <h2 class="main-title private-title name-to-hide">
+                        К сожалению
+                    </h2>
+                    <p class="private-text">
+                        Так как Вы пока что не являетесь членом нашей платформы, бОльшая часть контента для Вас скрыта.                        </p>
+                    </p>
+                    <p style="font-weight: 400;" class="private-text">
+                        Когда Вы станете членом платформы, Вы сможете увидеть:
+                        <ul class="private-ul">
+                            <li class="private-li">название компании</li>
+                            <li class="private-li">ЛПРа</li>
+                            <li class="private-li">контакты ЛПРа</li>
+                            <li class="private-li">вложения</li>
+                        </ul>
+                    </p>
+                    <p class="private-text">
+                        Чтобы стать членом нашей платформы, Вас должен пригласить уже активный пользователь.
+                    </p>
+                    <ol class="private-ol">
+                        <li style="font-weight: 400;" class="private-text">Если у Вас уже есть код, нажмите на кнопку стать членом.</li>
+                        <li style="font-weight: 400;" class="private-text">Если кода нет, то напишите нам напрямую. Мы выдадим Вам код доступа в течение 2 часов.</li>
+                    </ol>
+                    
+                    <div class="button-submit mobile-not-flex name-to-hide">
+                        <button class="button button-240px" onclick="window.location.href='{% url 'user-enrollment' %}">
+                            <p class="button-p">Стать членом</p>
+                        </button>
+                        <a href="{% url 'tech-help' %}" class="a-account support-mobile">
+                            Написать разработчикам
+                        </a>
+                    </div>
+                    
+            </div>
+            <div class="private-buttons-mobile name-to-show">
+                <button style="max-width:100%;" class="button">
+                    <p class="button-p">Стать членом</p>
+                </button>
+                <button style="max-width:100%;" class="button">
+                    <p class="button-p">Написать разработчикам</p>
+                </button>
+            </div> 
+
+
+                <div class="grid">
+                    <div class="grid-sizer"></div>
+                    <div class="gutter-sizer"></div>
+
+{% for offer in offers %}
+
+                    <!-- <div class="company-card grid-item">
+                        <div class="company-card-top">
+                            <div class="company-card-logo" style="position: relative;">
+                                {% if offer.company.photo %}
+                                <img class="card__img" src="{{offer.company.photo.url}}">
+                                {% else %}
+                                <img class="card__img" src="/media/images/no_company_logo.png">
+                                {% endif %}
+                            </div>
+                            <span onclick="window.location.href = '{% url 'companies:company-page' offer.company.id %}'" class="company-card-name">{{offer.company.title}}</span>
+                        </div>
+                        <hr class="card-hr-solid">
+                        <div class="company-card-main"> 
+                            <div class="company-content-left">
+                                <div class="">
+                                    <p class="company-key">Ниша</p>
+                                    <p class="company-value nisha">{{offer.company.niche}}</p>
+                                    <hr class="mobile-card-dashed">
+                                    <p class="company-key type-service">Услуга</p>
+                                    <p class="company-value usluga no-bottom">{{offer.title}}</p>
+                                    <hr class="mobile-card-dashed">
+
+                                </div>
+                            </div>
+                            <div class="company-content-right">
+                                <div class="flex-content-no-gap mobile-flex-reverse">
+                                    <div class="">
+                                        <p class="company-key">Количество купонов</p>
+                                        <p class="company-value coupon-count">От {{offer.amount_min}} до {{offer.amount_max}}</p>
+                                        <hr class="mobile-card-dashed">
+
+                                    </div>
+                                    <div class="">
+                                        <p class="company-key">Розничная цена</p>
+                                        <p class="company-value no-bottom retail-price">{{offer.retail_price}} {{offer.currency}}</p>
+                                        <hr class="card-hr-solid hr-to-show">
+
+                                    </div>    
+                                </div>
+                            </div> 
+                        </div>
+    
+                        <hr class="card-hr-solid hr-to-hide">
+    
+                        <div class="company-card-main company-card-main-bottom"> 
+                            <div class="company-content-left">
+                                <div class=>
+                                    <p class="company-key">Цена купона</p>
+                                    <p class="company-value no-bottom coupon-price">{{offer.coupon_price}} {{offer.currency}}</p>
+                                    <hr class="card-hr-solid hr-to-show">
+
+                                </div>
+                            </div>
+                            <div class="company-content-right">
+                                <div class="flex-content-no-gap">
+                                    {% if offer.has_photo %}
+                                    <button id="{{offer.id}}" style="margin-top: -2px; max-width: 150px;" class="button check-pop-up button-to-hide">
+                                        <p class="button-p">Посмотреть вложения</p>
+                                    </button>
+                                    {% else %}
+                                     <button style="margin-top: -2px; max-width: 150px;" class="button button-ynp button-to-hide">
+                                    <p class="button-p">Посмотреть вложения</p>
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                        </div>
+    
+                        <hr class="card-hr-solid hr-to-hide">
+    
+                        <div class="company-card-main"> 
+                            <div class="company-content-left">
+                                <div class="">
+                                    <p class="contacts">Контакты</p>
+                                    <div class="contacts-flex">
+                                        <p class="contacts-mail">{{offer.company.owner.email}}</p>
+                                        {% if offer.company.owner.profile_set.all.0.phone_num_show %}
+                                        <p class="contacts-phone">{{offer.company.owner.profile_set.all.0.phone_num}}</p>
+                                        {% endif %}
+                                    </div>
+                                    <hr class="mobile-card-dashed">
+
+                                
+                                </div>
+                            </div>
+                            <div class="company-content-right">
+                                <div class="flex-content-no-gap">
+                                    <div class="">
+                                        <p class="contacts-name">{{offer.company.owner.first_name}} {{offer.company.owner.last_name}}</p>
+                                        <p class="contacts-proffesion">— ({{offer.company.role}})</p>
+                                    </div>   
+                                </div>
+                            </div> 
+                        </div>
+                        <hr style = "margin-bottom: 4px" class="hr-solid hr-to-hide">
+                        <hr class="card-hr-solid hr-to-show">
+                        {% if offer.has_photo %}
+                        <button id="{{offer.id}}" style="margin-top: 4px;" class="button check-pop-up button-to-show">
+                            <p class="button-p">Посмотреть вложения</p>
+                        </button>
+                        {% else %}
+                        <button style="margin-top: 4px;" class="button button-ynp button-to-show">
+                            <p class="button-p">Посмотреть вложения</p>
+                        </button>
+                        {% endif %}
+
+                    </div> -->
+
+                    <!-- catalog private !!!!!!!!!!!!! -->
+
+                    <div class="company-card grid-item">
+                        <div class="company-card-top">
+                            <div class="company-card-logo" style="position: relative;">
+
+                                <img class="card__img" src="/media/images/no_company_logo.png">
+
+                            </div>
+                            <span style="cursor:auto;" class="company-card-name">Компания скрыта</span>
+                        </div>
+                        <hr class="card-hr-solid">
+                        <div class="company-card-main"> 
+                            <div class="company-content-left">
+                                <div class="">
+                                    <p class="company-key">Ниша</p>
+                                    <p class="company-value nisha">{{offer.company.niche}}</p>
+                                    <hr class="mobile-card-dashed">
+                                    <p class="company-key type-service">Услуга</p>
+                                    <p class="company-value usluga no-bottom">{{offer.title}}</p>
+                                    <hr class="mobile-card-dashed">
+
+                                </div>
+                            </div>
+                            <!-- <div class="hr-solid-vertical"></div> -->
+                            <div class="company-content-right">
+                                <div class="flex-content-no-gap mobile-flex-reverse">
+                                    <div class="">
+                                        <p class="company-key">Количество купонов</p>
+                                        <p class="company-value coupon-count">От {{offer.amount_min}} до {{offer.amount_max}}</p>
+                                        <hr class="mobile-card-dashed">
+
+                                    </div>
+                                    <div class="">
+                                        <p class="company-key">Розничная цена</p>
+                                        <p class="company-value no-bottom retail-price">{{offer.retail_price}} {{offer.currency}}</p>
+                                        <hr class="card-hr-solid hr-to-show">
+
+                                    </div>    
+                                </div>
+                            </div> 
+                        </div>
+    
+                        <hr class="card-hr-solid hr-to-hide">
+    
+                        <div class="company-card-main company-card-main-bottom"> 
+                            <div class="company-content-left">
+                                <div class=>
+                                    <p class="company-key">Цена купона</p>
+                                    <p class="company-value no-bottom coupon-price">{{offer.coupon_price}} {{offer.currency}}</p>
+                                    <hr class="card-hr-solid hr-to-show">
+
+                                </div>
+                            </div>
+                            <!-- <div class="hr-solid-vertical"></div> -->
+                            <div class="company-content-right">
+                                <div class="flex-content-no-gap">
+                                     <button style="margin-top: -2px; max-width: 150px;" class="button button-ynp button-to-hide">
+                                    <p class="button-p">Вложения скрыты</p>
+                                    </button> 
+                                </div>
+                            </div>
+                            
+                        </div>
+    
+                        <hr class="card-hr-solid hr-to-hide">
+    
+                        <div class="company-card-main"> 
+                            <div class="company-content-left">
+                                <div class="">
+                                    <p style="margin-bottom: 0px;" class="contacts">Контакты скрыты</p>
+                                    
+                                    <hr class="mobile-card-dashed">
+
+                                
+                                </div>
+                            </div>
+                            <!-- <div class="hr-solid-vertical"></div> -->
+                            <div class="company-content-right">
+                                <div class="flex-content-no-gap">
+                                    <div class="">
+                                        <p class="contacts-name">ЛПР скрыт</p>
+                                    </div>   
+                                </div>
+                            </div> 
+                        </div>
+                        <hr style = "margin-bottom: 4px" class="hr-solid hr-to-hide">
+                        <hr class="card-hr-solid hr-to-show">
+                        <button style="margin-top: 4px;" class="button button-ynp button-to-show">
+                            <p class="button-p">Вложения скрыты</p>
+                        </button>
+                      
+
+                    </div>
+
+                    {% endfor %}
+
+
+            </div>
+
+            </div>
+
+            </div>
+        </div>
+        </main>
+
+        {% include "footer-mobile.html" %}
+
+
+
+        <div class="loading">
+            <div class="cont">
+            
+              <div class="h1Container">
+            
+                <div class="cube h1 w1 l1">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h1 w1 l2">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h1 w1 l3">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h1 w2 l1">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h1 w2 l2">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h1 w2 l3">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h1 w3 l1">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h1 w3 l2">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h1 w3 l3">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+              </div>
+              
+              <div class="h2Container">
+            
+                <div class="cube h2 w1 l1">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h2 w1 l2">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h2 w1 l3">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h2 w2 l1">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h2 w2 l2">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h2 w2 l3">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h2 w3 l1">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h2 w3 l2">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h2 w3 l3">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+              </div>
+              
+              <div class="h3Container">
+            
+                <div class="cube h3 w1 l1">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h3 w1 l2">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h3 w1 l3">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h3 w2 l1">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h3 w2 l2">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h3 w2 l3">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h3 w3 l1">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h3 w3 l2">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+            
+                <div class="cube h3 w3 l3">
+                  <div class="face top"></div>
+                  <div class="face left"></div>
+                  <div class="face right"></div>
+                </div>
+              </div>
+              
+            </div>
+            </div>
+
+{% include "footer.html" %}
+        <!-- <div class="bottom-margin"></div> -->
+        <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+        
+        <script src="{% static 'js/catalog.js' %}"></script>
+        <script>
+
+        if (document.URL.includes('catalog')) {
+     
+            document.querySelector('#CATALOG').classList.toggle('nav-menu__title__active')
+            document.querySelector('#CATALOG_MOBILE').classList.toggle('nav-menu__title__active')
+
+        }
+            
+        document.querySelector('.test-filter').addEventListener('click', () => {  
+            if (document.querySelector('.filters-container').style.visibility === 'visible') {
+            document.querySelector('.test-filter').style.visibility = 'visible';
+            document.querySelector('.test-filter').style.opacity = 1;
+
+            document.querySelector('.filters-container').style.transform = 'translateX(-320px)';
+            document.querySelector('.filters-container').style.visibility = 'hidden';
+            document.querySelector('.filters-container').style.opacity = 0;
+            document.querySelector('.exit-test').style.visibility = 'hidden';
+            document.querySelector('.exit-test').style.opacity = 0;
+            document.querySelector('.exit-test').style.transform = 'translateX(-320px)';
+            
+ 
+            } else {
+                document.querySelector('.test-filter').style.visibility = 'hidden';
+            document.querySelector('.test-filter').style.opacity = 0;
+            document.querySelector('.exit-test').style.transform = 'translateX(0px)';
+            document.querySelector('.filters-container').style.transform = 'translateX(0px)';
+            document.querySelector('.filters-container').style.visibility = 'visible';
+            document.querySelector('.filters-container').style.opacity = 1;
+            document.querySelector('.exit-test').style.visibility = 'visible';
+            document.querySelector('.exit-test').style.opacity = 1; 
+            }
+
+            
+
+        })
+
+        document.querySelector('.exit-test').addEventListener('click', () => { 
+            document.querySelector('.test-filter').style.visibility = 'visible';
+            document.querySelector('.test-filter').style.opacity = 1;
+
+        document.querySelector('.filters-container').style.transform = 'translateX(-320px)';
+           document.querySelector('.filters-container').style.visibility = 'hidden';
+           document.querySelector('.filters-container').style.opacity = 0;
+           document.querySelector('.exit-test').style.visibility = 'hidden';
+           document.querySelector('.exit-test').style.opacity = 0;
+           document.querySelector('.exit-test').style.transform = 'translateX(-320px)';
+
+       })
+
+        
+
+        document.querySelectorAll('.check-pop-up').forEach((el) => {
+            el.addEventListener('click', () => {
+                document.querySelector('body').style.overflow = 'hidden';
+                getImages(parseInt(el.id.replace(/[^\d]/g, '')), el);
+            })
+        })  
+
+        document.querySelector('.pop-up-exit').addEventListener('click', () => {
+            document.querySelector('.pop-up-images').classList.remove('pop-up-delete-active');
+            document.querySelector('body').style.overflow = 'auto';
+        })
+
+
+
+
+function getImages(id, el)
+{
+    document.querySelector('.loading').style.display = 'flex'
+
+    $.ajax(
+    {
+        url: '{% url "offers:get-images" %}',
+        data: {
+            'id': id,
+        },
+        dataType: 'json',
+        success: function(data) {
+            document.querySelector('.loading').style.display = 'none'
+                 const output = document.querySelector(".images-container")
+                 let images = "";
+
+                 for (let i = 0; i < data.images.length; i++) {
+                 const out = data.images[i]
+                 console.log(out);
+
+                    images += `
+                <img src="${out}" alt="image" class="pop-up-img">
+              `;
+                 }
+<!--                 images += ` <div style="margin-top: 32px" class=""></div> `-->
+                 console.log(images);
+                 output.innerHTML = images;
+                 setTimeout(() => {}, "500")
+                //  if(document.querySelector('header').style.display === 'none') {
+                if (window.getComputedStyle(document.querySelector('.header')).display === 'none') {
+                    document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.querySelector('.company-card-name').innerHTML
+                    document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.querySelector('.type-service').innerHTML
+                    document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.querySelector('.coupon-price').innerHTML
+                } else {
+                    document.querySelector('.pop-up-images-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[0].children[1].innerHTML
+                    document.querySelector('.pop-up-input-title').innerHTML = el.parentNode.parentNode.parentNode.parentNode.children[2].children[0].children[0].children[3].innerHTML
+                    document.querySelector('.pop-up-input-price').innerHTML = el.parentNode.parentNode.parentNode.children[0].children[0].children[1].innerHTML
+                }
+                
+                document.querySelector('.pop-up-images').classList.toggle('pop-up-delete-active');
+        },
+        type: "GET",
+
+    });
+
+}
+
+
+        </script>
+        
+    </body>
+{% endblock %}
+</html>
