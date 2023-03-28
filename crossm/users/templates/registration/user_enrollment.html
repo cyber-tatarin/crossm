@@ -40,7 +40,7 @@
                 <form action="" method="post">
                 <input type="text" class="input enrollment-input" placeholder="Введите код">
 				<div class="button-submit mobile-not-flex enrollment-button">
-					<button class="button button-240px" type="submit">
+					<button class="button button-240px" onclick="checkRefCode()" type="submit">
 						<p class="button-p">Отправить</p>
 					</button>
 
@@ -59,22 +59,24 @@
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script>
-      function checkRefCode(ref_code)
+      function checkRefCode()
 
-{
+{       let code =document.querySelector('.enrollment-input').value;
           $.ajax({
             url: '{% url "check-ref-code" %}',
             data: {
-              'ref_code': ref_code,
+              'ref_code': code,
 				'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             dataType: "json",
             success: function (data) {
 				if (data.success){
 					console.log('gogo');
+                    window.location.href = "{% url 'offers:catalog' %}";
 				}
 				else {
-					console.log('fuck');
+                    alert('Код неверный')
+					console.log('wrong');
 				}
             },
             type: "POST",
