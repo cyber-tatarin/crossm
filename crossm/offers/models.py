@@ -7,10 +7,10 @@ class Offers(models.Model):
     company = models.ForeignKey(Companies, on_delete=models.CASCADE)
     type = models.CharField(max_length=30)
     
-    coupon_price = models.DecimalField(decimal_places=2, max_digits=6)
+    coupon_price = models.DecimalField(decimal_places=2, max_digits=9)
     currency = models.CharField(max_length=6)
     
-    retail_price = models.DecimalField(decimal_places=2, max_digits=6)
+    retail_price = models.DecimalField(decimal_places=2, max_digits=10)
     title = models.CharField(max_length=80)
     amount_min = models.IntegerField(blank=False, null=True)
     amount_max = models.IntegerField(blank=False, null=True)
