@@ -90,12 +90,12 @@
                                 <div class="code-flex"> 
                                 <div class="ref-link">
                                     <p id="link" class="link-inside">pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}</p>
-                                    <input type="text" value="pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}" class="link-hidden">
+                                    <!-- <input type="text" value="pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}" class="link-hidden"> -->
                                     <div class="ref-link-copy copy-button"></div>
                                 </div>  
                                 <div class="ref-code">
                                     <p id="code" class="link-inside">{{ user.profile_set.all.0.code }}</p>
-                                    <input type="text" value="{{ user.profile_set.all.0.code }}" class="code-hidden">
+                                    <!-- <input type="text" value="{{ user.profile_set.all.0.code }}" class="code-hidden"> -->
                                     <div class="ref-code-copy copy-button"></div>
                                 </div>          
                                 </div>        
@@ -128,12 +128,12 @@
                     <div class="code-flex"> 
                         <div class="ref-code">
                             <p id="code" class="link-inside">{{ user.profile_set.all.0.code }}</p>
-                            <input type="text" value="{{ user.profile_set.all.0.code }}" class="code-hidden">
+                            <!-- <input type="text" value="{{ user.profile_set.all.0.code }}" class="code-hidden"> -->
                             <div class="ref-code-copy copy-button"></div>
                         </div> 
                         <div class="ref-link">
                             <p id="link" class="link-inside">pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}</p>
-                            <input type="text" value="pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}" class="link-hidden">
+                            <!-- <input type="text" value="pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}" class="link-hidden"> -->
                             <div class="ref-link-copy copy-button"></div>
                         </div>          
                     </div>        
@@ -456,25 +456,42 @@ const copies = document.querySelectorAll('.copy-button');
 copies.forEach((el) => {
     el.addEventListener('click', () => {
         
-    let copyText = el.previousSibling.previousSibling;
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);
-    // if (navigator.clipboard) {
-    //     navigator.clipboard.writeText(copyText.value);
-    // } else {
-    document.execCommand("copy");
-    // }
-    
+    let copyText = el.parentNode.children[0].innerHTML;
+    console.log(copyText)
+    copyToClipboard(copyText)
+
     el.style.animationName = 'code-copy';
     setTimeout(() => {
         el.style.animationName = 'none';
     }, 2000);
     
-    console.log(copyText.value)
-
-
 })
 })
+
+function copyToClipboard(text) {
+    if (window.clipboardData && window.clipboardData.setData) {
+        // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+        return window.clipboardData.setData("Text", text);
+    }
+    else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = text;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        textarea.setSelectionRange(0, 99999);
+        try {
+            return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+        }
+        catch (ex) {
+            console.log("Copy to clipboard failed.", ex);
+            // return prompt("Copy to clipboard: Ctrl+C, Enter", text);
+        }
+        finally {
+            document.body.removeChild(textarea);
+        }
+    }
+}
 
 let cardId;
 let masonry;
