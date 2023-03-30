@@ -125,16 +125,15 @@
 
                 <div style="padding:0px 13px;" class="codes name-to-show">
                     <p class="ref-code__title">Код для приглашения</p>       
-                    <div class="code-flex">
 
-						<div class="ref-code">
-                            <p id="code" class="link-inside">{{ user.profile_set.all.0.code }}</p>
+                    <div class="code-flex"> 
+                        <div class="ref-code">
+                            <p class="link-inside">{{ user.profile_set.all.0.code }}</p>
                             <input type="text" value="{{ user.profile_set.all.0.code }}" class="code-hidden">
                             <div class="ref-code-copy copy-button"></div>
                         </div>
-
                         <div class="ref-link">
-                            <p id="link" class="link-inside">pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}</p>
+                            <p class="link-inside">pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}</p>
                             <input type="text" value="pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}" class="link-hidden">
                             <div class="ref-link-copy copy-button"></div>
                         </div>  
@@ -462,8 +461,12 @@ copies.forEach((el) => {
     let copyText = el.previousSibling.previousSibling;
     copyText.select();
     copyText.setSelectionRange(0, 99999);
-
-    navigator.clipboard.writeText(copyText.value);
+     if (navigator.clipboard) {
+        navigator.clipboard.writeText(copyText.value);
+     } else {
+    document.execCommand("copy");
+     }
+    
     el.style.animationName = 'code-copy';
     setTimeout(() => {
         el.style.animationName = 'none';
