@@ -461,12 +461,15 @@ copies.forEach((el) => {
     let copyText = el.previousSibling.previousSibling;
     copyText.select();
     copyText.setSelectionRange(0, 99999);
+
      if (navigator.clipboard) {
         navigator.clipboard.writeText(copyText.value);
+        alert('gogo');
      } else {
+     alert('lokaloka');
     document.execCommand("copy");
      }
-    
+
     el.style.animationName = 'code-copy';
     setTimeout(() => {
         el.style.animationName = 'none';
