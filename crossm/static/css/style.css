@@ -2666,6 +2666,7 @@ p.ot {
 }
 
 .ref-link-copy, .ref-code-copy {
+  transition: 0.3s ease-out;
   cursor: pointer;
   box-shadow: 0px 0px 0px 0.8px #000000;
   position: absolute;
@@ -2680,7 +2681,25 @@ p.ot {
   animation: 2s ease-in;
 }
 
-@keyframes code-copy {
+.ref-link-complete, .ref-code-complete {
+  transition: 0.3s ease-out;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px 0.8px #000000;
+  position: absolute;
+  width: 50px;
+  height: 30px;
+  border-radius: 20px;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  overflow: hidden;
+  background-image: url(../../static/images/copy-complete.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: 2s ease-in;
+}
+
+/* @keyframes code-copy {
  from {
   background-image: url(../../static/images/copy-icon.svg);
  }
@@ -2693,7 +2712,7 @@ p.ot {
  to {
   background-image: url(../../static/images/copy-icon.svg);
  }
-}
+} */
 
 /* ############################################################## */
 

@@ -91,11 +91,13 @@
                                 <div class="ref-link">
                                     <p id="link" class="link-inside">pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}</p>
                                     <!-- <input type="text" value="pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}" class="link-hidden"> -->
+                                    <div class="ref-link-complete copy-button"></div>
                                     <div class="ref-link-copy copy-button"></div>
                                 </div>  
                                 <div class="ref-code">
                                     <p id="code" class="link-inside">{{ user.profile_set.all.0.code }}</p>
                                     <!-- <input type="text" value="{{ user.profile_set.all.0.code }}" class="code-hidden"> -->
+                                    <div class="ref-code-complete copy-button"></div>
                                     <div class="ref-code-copy copy-button"></div>
                                 </div>          
                                 </div>        
@@ -129,11 +131,13 @@
                         <div class="ref-code">
                             <p id="code" class="link-inside">{{ user.profile_set.all.0.code }}</p>
                             <!-- <input type="text" value="{{ user.profile_set.all.0.code }}" class="code-hidden"> -->
+                            <div class="ref-code-complete copy-button"></div>
                             <div class="ref-code-copy copy-button"></div>
                         </div> 
                         <div class="ref-link">
                             <p id="link" class="link-inside">pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}</p>
                             <!-- <input type="text" value="pmarket.pythonanywhere.com/users/register/{{ user.profile_set.all.0.code }}" class="link-hidden"> -->
+                            <div class="ref-link-complete copy-button"></div>
                             <div class="ref-link-copy copy-button"></div>
                         </div>          
                     </div>        
@@ -457,14 +461,19 @@ copies.forEach((el) => {
     el.addEventListener('click', () => {
         
     let copyText = el.parentNode.children[0].innerHTML;
+    el.style.opacity = '0';
+    el.style.overflow = 'hidden';
+    el.parentNode.children[1].style.opacity = '1';
+    el.parentNode.children[1].style.overflow = 'auto'
+    
+    setTimeout(() => {
+    el.style.opacity = '1';
+    el.style.overflow = 'auto';
+    el.parentNode.children[1].style.opacity = '0';
+    el.parentNode.children[1].style.overflow = 'hidden'
+}, 2000);
     console.log(copyText)
     copyToClipboard(copyText)
-
-    el.style.animationName = 'code-copy';
-    setTimeout(() => {
-        el.style.animationName = 'none';
-    }, 2000);
-    
 })
 })
 
